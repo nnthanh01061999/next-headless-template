@@ -3,11 +3,12 @@ import FormAsyncCombobox from "@/components/control/async-combobox/FormAsyncComb
 import FormCheckbox from "@/components/control/checkbox/FormCheckbox";
 import FormCheckboxGroup from "@/components/control/checkbox/FormCheckboxGroup";
 import FormCombobox from "@/components/control/combobox/FormCombobox";
+import FormDatePicker from "@/components/control/date-picker/FormDatePicker";
 import FormInput from "@/components/control/input/FormInput";
 import FormInputPassword from "@/components/control/input/FormInputPassword";
 import FormInputSearch from "@/components/control/input/FormInputSearch";
 import FormTextArea from "@/components/control/input/FormTextArea";
-import BaseRadioGroup from "@/components/ui/base-radio-group";
+import FormRadio from "@/components/control/radio/FormRadio";
 import { Button } from "@/components/ui/button";
 import { getBeURL } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -67,6 +68,8 @@ export default function Home() {
           .optional(),
         checkbox: z.boolean().optional(),
         checkboxGroup: z.array(z.string()).optional(),
+        radio: z.string().optional(),
+        date: z.date().optional(),
       })
     ),
   });
@@ -185,7 +188,8 @@ export default function Home() {
                     label: "option " + index,
                   }))}
               />
-              <BaseRadioGroup
+              <FormRadio
+                name="radio"
                 options={Array(5)
                   .fill(1)
                   .map((_, index) => ({
@@ -193,6 +197,7 @@ export default function Home() {
                     label: "option " + index,
                   }))}
               />
+              <FormDatePicker name="date" />
             </div>
             <Button className="w-fit" type="submit">
               Submit

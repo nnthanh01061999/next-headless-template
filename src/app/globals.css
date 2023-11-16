@@ -74,3 +74,17 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer base {
+  .sticky-col::before {
+    box-shadow: -40px 1px 26px -40px rgba(0, 0, 0, 0.09) inset;
+    -webkit-box-shadow: -40px 1px 26px -40px rgba(0, 0, 0, 0.09) inset;
+    -moz-box-shadow: -40px 1px 26px -40px rgba(0, 0, 0, 0.09) inset;
+  }
+
+  .sticky-col::after {
+    box-shadow: 40px 1px 26px -40px rgba(0, 0, 0, 0.09) inset;
+    -webkit-box-shadow: 40px 1px 26px -40px rgba(0, 0, 0, 0.09) inset;
+    -moz-box-shadow: 40px 1px 26px -40px rgba(0, 0, 0, 0.09) inset;
+  }
+}

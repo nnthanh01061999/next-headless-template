@@ -1,3 +1,4 @@
+import { Label } from "@/components/ui/label";
 import {
   RadioGroup,
   RadioGroupItem,
@@ -5,7 +6,6 @@ import {
 } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { IOption } from "@/types";
-import { Label } from "@radix-ui/react-label";
 import { useId } from "react";
 
 type TBaseRadioGroupProps = {
