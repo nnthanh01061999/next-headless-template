@@ -1,7 +1,7 @@
 "use client";
 
 import { getMultipleSelectionColumn } from "@/components/table/base-column";
-import { SortableTableHead } from "@/components/table/sortable-column";
+import { TableGroupHead, TableSortableHead } from "@/components/ui/table";
 import { ColumnDef } from "@tanstack/react-table";
 
 export type Note = {
@@ -21,39 +21,53 @@ export type Note = {
 export const columns: ColumnDef<Note>[] = [
   getMultipleSelectionColumn(),
   {
+    id: "id",
     accessorKey: "id",
     header: "Id",
     size: 50,
   },
   {
+    id: "name",
     accessorKey: "name",
     size: 200,
-    header: () => <SortableTableHead sortKey={"name"} title={"Name"} />,
+    header: () => <TableSortableHead sortKey="name" title="Name" />,
   },
   {
     id: "modified",
-    header: () => <div className="grid justify-items-center">Modified</div>,
+    header: () => <TableGroupHead title="Modified">Modified</TableGroupHead>,
     columns: [
       {
+        id: "created_at",
         accessorKey: "created_at",
         header: () => (
-          <SortableTableHead sortKey={"created_at"} title={"Created At"} />
+          <TableSortableHead sortKey="created_at" title="Created At" />
         ),
         size: 300,
       },
       {
-        accessorKey: "deleted_at",
-        header: "Deleted At",
-        size: 300,
-      },
-      {
-        accessorKey: "updated_at",
-        header: "Updated At",
-        size: 200,
+        id: "modified_children",
+        header: () => (
+          <TableGroupHead title="Children">Children</TableGroupHead>
+        ),
+        columns: [
+          {
+            id: "deleted_at",
+            accessorKey: "deleted_at",
+            header: "Deleted At",
+            size: 300,
+          },
+          {
+            id: "updated_at",
+            accessorKey: "updated_at",
+            header: "Updated At",
+            size: 300,
+          },
+        ],
       },
     ],
   },
   {
+    id: "description",
     accessorKey: "description",
     header: "Description",
     size: 200,

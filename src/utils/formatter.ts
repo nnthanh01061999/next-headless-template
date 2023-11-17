@@ -1,4 +1,4 @@
-import { cloneDeep, isNaN } from "lodash";
+import { cloneDeep, isArray, isNaN } from "lodash";
 
 export const stringFormat = (input: string, ...replacer: any[]) => {
   for (let i = 0; i < replacer.length; i++) {
@@ -348,3 +348,22 @@ export function compareIgnoreCaseVietnamese(
   if (!convertStr1 || !convertStr2) return false;
   return convertStr1.toLowerCase() === convertStr2.toLowerCase();
 }
+
+export const flatTreeArrayToArrayString = <T>(
+  data: T[],
+  childrenKey: keyof T,
+  valueKey: keyof T
+): string[] => {
+  return data.reduce((prev: string[], cur: T) => {
+    return [
+      ...prev,
+      ...((cur?.[childrenKey] as T[])?.length > 0
+        ? flatTreeArrayToArrayString(
+            cur?.[childrenKey] as T[],
+            childrenKey,
+            valueKey
+          )
+        : ([cur?.[valueKey]] as string[])),
+    ];
+  }, [] as string[]);
+};

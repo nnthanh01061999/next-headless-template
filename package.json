@@ -32,6 +32,8 @@
     "query-string": "^8.1.0",
     "react": "^18",
     "react-day-picker": "^8.9.1",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18",
     "react-hook-form": "^7.48.2",
     "tailwind-merge": "^1.14.0",

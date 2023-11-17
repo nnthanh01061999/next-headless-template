@@ -4,13 +4,17 @@ import { columns } from "@/app/table/component/columns";
 import { DataTable } from "@/components/table/base-table";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { flatTreeArrayToArrayString } from "@/utils/formatter";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { ColumnOrderState } from "@tanstack/react-table";
 import { useState } from "react";
 
 function Page() {
   const [page, setPage] = useState<number>(1);
   const [rowSelection, setRowSelection] = useState({});
-
+  const [columnOrder, setColumnOrder] = useState<ColumnOrderState>(
+    flatTreeArrayToArrayString(columns as any, "columns", "id")
+  );
   const { data, refetch, isPending, isFetching, isPlaceholderData } = useQuery({
     queryKey: ["note", page],
     queryFn: () =>
@@ -52,12 +56,19 @@ function Page() {
                     right: ["description"],
                   },
                   rowSelection,
+                  columnOrder,
                 },
+                columnResizeMode: "onChange",
                 onRowSelectionChange: setRowSelection,
+                onColumnOrderChange: setColumnOrder,
+                debugTable: true,
+                debugHeaders: true,
+                debugColumns: true,
               }}
               scrollProps={{
                 scrollbarProps: {
-                  className: "data-[orientation=vertical]:mt-24",
+                  className:
+                    "data-[orientation=vertical]:mt-36 data-[orientation=vertical]:pb-36",
                 },
               }}
             />

@@ -1,9 +1,26 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { useIntersectionObserver } from "@/utils/use-intersection-observer";
 import { Assign } from "@/types";
-import { Cell, Header } from "@tanstack/react-table";
+import { useIntersectionObserver } from "@/utils/use-intersection-observer";
+import { useQueryString } from "@/utils/use-query-string";
+import {
+  Cell,
+  Column,
+  ColumnOrderState,
+  Header,
+  Table,
+  type SortDirection,
+} from "@tanstack/react-table";
+import {
+  ArrowDown,
+  ArrowDownUp,
+  ArrowUp,
+  Grip,
+  LucideIcon,
+} from "lucide-react";
+import { useDrag, useDrop } from "react-dnd";
+import { z } from "zod";
 
 const Table = React.forwardRef<
   HTMLTableElement,
@@ -59,7 +76,7 @@ const TableRow = React.forwardRef<
   <tr
     ref={ref}
     className={cn(
-      "border-b transition-colors hover:bg-muted/50  data-[state=selected]:bg-muted ",
+      "border-b transition-colors data-[state=selected]:bg-muted ",
       "[&>td]:hover:bg-muted [&>td]:data-[state=selected]:bg-muted [&>td]:hover:data-[state=selected]:bg-muted",
       className
     )}
@@ -134,9 +151,11 @@ const TablePinnedHead = ({
       ref={ref}
       className={cn(
         "sticky bg-white z-[1000]",
-        pinned === "left" &&
+        entry?.isIntersecting &&
+          pinned === "left" &&
           'left-0 after:content-[""] after:absolute after:top-0 after:-right-10 after:bottom-0 after:w-10 after:duration-300',
-        pinned === "right" &&
+        entry?.isIntersecting &&
+          pinned === "right" &&
           'right-0 before:content-[""] before:absolute before:top-0 before:-left-10 before:bottom-0 before:w-10 before:duration-300',
         entry?.isIntersecting && "data-[last=true]:sticky-col",
         className
@@ -154,6 +173,152 @@ const TablePinnedHead = ({
     >
       {children}
     </TableHead>
+  );
+};
+
+const reorderColumn = (
+  draggedColumnId: string,
+  targetColumnId: string,
+  columnOrder: string[]
+): ColumnOrderState => {
+  columnOrder.splice(
+    columnOrder.indexOf(targetColumnId),
+    0,
+    columnOrder.splice(columnOrder.indexOf(draggedColumnId), 1)[0] as string
+  );
+  return [...columnOrder];
+};
+
+type TableDraggableHeadProps<TData> = Assign<
+  React.TdHTMLAttributes<HTMLTableCellElement>,
+  {
+    table: Table<TData>;
+    header: Header<TData, unknown>;
+  }
+>;
+
+const TableDraggableHead = <T,>({
+  children,
+  table,
+  header,
+  ...props
+}: TableDraggableHeadProps<T>) => {
+  const { getState, setColumnOrder } = table;
+  const { columnOrder } = getState();
+  const { column } = header;
+
+  const [, dropRef] = useDrop({
+    accept: "column",
+    drop: (draggedColumn: Column<T>) => {
+      const newColumnOrder = reorderColumn(
+        draggedColumn.id,
+        column.id,
+        columnOrder
+      );
+      setColumnOrder(newColumnOrder);
+    },
+  });
+
+  const [{ isDragging }, dragRef, previewRef] = useDrag({
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+    item: () => column,
+    type: "column",
+  });
+
+  return (
+    <TableHead
+      ref={dropRef}
+      colSpan={header.colSpan}
+      style={{ opacity: isDragging ? 0.5 : 1 }}
+      {...props}
+    >
+      <div ref={previewRef} className="group relative">
+        {children}
+        <button
+          ref={dragRef}
+          className="group-hover:opacity-100 text-muted-foreground opacity-0 absolute top-0 right-2 w-fit h-full cursor-pointer"
+        >
+          <Grip size={16} />
+        </button>
+      </div>
+    </TableHead>
+  );
+};
+
+export type SortValue = "desc" | undefined | "asc";
+
+const sortLookup: Record<
+  SortDirection | "",
+  { icon: LucideIcon; nextSortValue: SortValue }
+> = {
+  asc: {
+    icon: ArrowUp,
+    nextSortValue: "desc",
+  },
+  desc: {
+    icon: ArrowDown,
+    nextSortValue: undefined,
+  },
+  "": {
+    icon: ArrowDownUp,
+    nextSortValue: "asc",
+  },
+};
+
+function TableSortableHead({
+  sortKey: key,
+  title,
+}: {
+  sortKey: string;
+  title: string;
+}) {
+  const { filter, parse } = useQueryString();
+  const { sortKey, sortValue } = parse(
+    z.object({
+      sortKey: z.string().catch(""),
+      sortValue: z.enum(["asc", "desc", ""]).catch(""),
+    })
+  );
+
+  const SortIcon = sortLookup[key === sortKey ? sortValue : ""].icon;
+  const nextSortValue =
+    sortLookup[key === sortKey ? sortValue : ""].nextSortValue;
+
+  function handleSort() {
+    filter({
+      sortKey: nextSortValue === undefined ? null : key,
+      sortValue: nextSortValue,
+    });
+  }
+
+  return (
+    <div className="flex space-x-1 items-center">
+      <button
+        className={cn([
+          "select-none",
+          "grid grid-flow-col auto-cols-max items-center gap-1",
+          "focus-visible:outline-gray-600 focus-visible:outline-offset-2",
+          "relative before:transition-colors",
+          "before:absolute before:-z-[1] before:-inset-x-1 before:-inset-y-0.5 before:rounded-lg hover:before:bg-gray-200 [&>span]:hover:text-black",
+          "after:absolute after:-inset-x-1 after:-inset-y-0.5",
+        ])}
+        onClick={handleSort}
+      >
+        <span>{title}</span>
+        <SortIcon size={16} />
+      </button>
+    </div>
+  );
+}
+
+const TableGroupHead = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => {
+  return (
+    <div className={cn("grid justify-items-center", className)} {...props} />
   );
 };
 
@@ -257,15 +422,54 @@ const TableCaption = React.forwardRef<
 ));
 TableCaption.displayName = "TableCaption";
 
+type TTableResizeProps<TData> = Assign<
+  React.HTMLAttributes<HTMLDivElement>,
+  {
+    table: Table<TData>;
+    header: Header<TData, unknown>;
+  }
+>;
+
+const TableResize = React.forwardRef<HTMLDivElement, TTableResizeProps<any>>(
+  ({ table, header, className, children, ...props }, ref) => {
+    return (
+      <div ref={ref} className={cn(["group relative", className])} {...props}>
+        {children}
+        <div
+          {...{
+            onMouseDown: header.getResizeHandler(),
+            onTouchStart: header.getResizeHandler(),
+            className:
+              "group-hover:bg-muted focus:bg-muted absolute top-0 right-0 w-1 h-full cursor-pointer",
+            style: {
+              transform: header.column.getIsResizing()
+                ? `translateX(${
+                    table.getState().columnSizingInfo.deltaOffset
+                  }px)`
+                : "",
+            },
+          }}
+        />
+      </div>
+    );
+  }
+);
+
+TableResize.displayName = "TableResize";
+
 export {
   Table,
-  TableHeader,
   TableBody,
+  TableCaption,
+  TableCell,
   TableFooter,
   TableHead,
-  TablePinnedHead,
-  TableRow,
-  TableCell,
+  TableHeader,
   TablePinnedCell,
-  TableCaption,
+  TablePinnedHead,
+  TableDraggableHead,
+  TableSortableHead,
+  TableGroupHead,
+  TableResize,
+  TableRow,
 };
