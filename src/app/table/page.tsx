@@ -15,15 +15,16 @@ function Page() {
   const [columnOrder, setColumnOrder] = useState<ColumnOrderState>(
     flatTreeArrayToArrayString(columns as any, "columns", "id")
   );
-  const { data, refetch, isPending, isFetching, isPlaceholderData } = useQuery({
-    queryKey: ["note", page],
-    queryFn: () =>
-      noteApi.getNotes({
-        page,
-        size: 20,
-      }),
-    placeholderData: keepPreviousData,
-  });
+  const { data, refetch, isError, isLoading, isFetching, isPlaceholderData } =
+    useQuery({
+      queryKey: ["note", page],
+      queryFn: () =>
+        noteApi.getNotes({
+          page,
+          size: 20,
+        }),
+      placeholderData: keepPreviousData,
+    });
 
   return (
     <main className="overflow-hidden grid p-24 font-mono">
@@ -48,7 +49,7 @@ function Page() {
             <DataTable
               columns={columns}
               data={data?.data?.items}
-              loading={isPending || isFetching}
+              loading={!isError && (isLoading || isFetching)}
               tableOptions={{
                 state: {
                   columnPinning: {

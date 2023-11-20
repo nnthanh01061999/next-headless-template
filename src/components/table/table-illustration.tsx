@@ -44,8 +44,8 @@ export const TableEmpty = ({
   return (
     <div
       className={cn([
-        "absolute top-11 inset-x-0 pointer-events-none",
-        "p-8 grid justify-items-center gap-4 w-full",
+        "absolute top-10 h-full z-[1000] inset-x-0 pointer-events-none",
+        "grid items-center justify-items-center gap-4 w-full ",
         className,
       ])}
     >

@@ -40,6 +40,7 @@ interface DataTableProps<TData, TValue> {
   >;
   scrollProps?: ScrollAreaProps;
 }
+const emptyArray: any[] = [];
 
 export function DataTable<TData, TValue>({
   columns,
@@ -49,7 +50,7 @@ export function DataTable<TData, TValue>({
   scrollProps,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
-    data,
+    data: data.length ? data : emptyArray,
     columns,
     getCoreRowModel: getCoreRowModel(),
     ...tableOptions,
@@ -89,7 +90,7 @@ export function DataTable<TData, TValue>({
                     const isSelectionCol = header.id === "selection";
 
                     const DraggableWrapper =
-                      isSelectionCol || header.colSpan > 0
+                      isSelectionCol || header.colSpan > 1
                         ? TableHead
                         : TableDraggableHead;
 
