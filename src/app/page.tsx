@@ -1,8 +1,14 @@
 "use client";
 import noteApi from "@/apis/note";
+import { BaseAlertDialog } from "@/components/alert-dialog/BaseAlertDialog";
+import { BaseDialog } from "@/components/dialog/BaseDialog";
+import BaseSheet from "@/components/sheet/BaseSheet";
 import { Button } from "@/components/ui/button";
+import { useNotify } from "@/components/ui/use-notify";
+import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import dayjs from "dayjs";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -17,10 +23,50 @@ export default function Home() {
       }),
     placeholderData: keepPreviousData,
   });
+  const { toast } = useToast();
+  const { notify } = useNotify();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono space-y-2">
+        <div className={cn(["grid gap-2 grid-flow-col"])}>
+          <Button
+            onClick={() => {
+              toast({
+                title: "Scheduled: Catch up",
+                description: dayjs().toString(),
+                position: "top-right",
+              });
+            }}
+          >
+            Toast
+          </Button>
+          <Button
+            onClick={() => {
+              toast({
+                title: "Scheduled: Catch up",
+                description: dayjs().toString(),
+              });
+            }}
+          >
+            Toast
+          </Button>
+          <Button
+            onClick={() => {
+              notify({
+                title: "Notify",
+                description: dayjs().toString(),
+                onOk: () => console.log("ok"),
+                type: "error",
+              });
+            }}
+          >
+            Notify
+          </Button>
+          <BaseSheet />
+          <BaseDialog />
+          <BaseAlertDialog />
+        </div>
         <div className={cn(["grid gap-2 grid-flow-col"])}>
           <Button onClick={() => refetch()}>Refetch</Button>
           <Button
