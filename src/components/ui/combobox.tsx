@@ -21,7 +21,7 @@ import { ScrollArea, ScrollAreaProps } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { IOption } from "@/types";
 import { PopoverContentProps, PopoverProps } from "@radix-ui/react-popover";
-import { CommandLoading } from "cmdk";
+import { CommandInput, CommandLoading } from "cmdk";
 import { Check, ChevronsUpDown, Search } from "lucide-react";
 import {
   CSSProperties,
@@ -112,12 +112,6 @@ const Combobox = forwardRef<
   const [optionHeight, setOptionHeight] = useState<number>(0);
   const [search, setSearch] = useState<string>("");
 
-  const filterOptions = useMemo(() => {
-    return search && !onSearch
-      ? options.filter((option) => option.label?.toString().includes(search))
-      : options;
-  }, [onSearch, options, search]);
-
   const onSelect = (label: string) => (currentValue: string) => {
     const valueObj = {
       value: currentValue,
@@ -165,9 +159,8 @@ const Combobox = forwardRef<
     }
   };
 
-  const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearch(e.target.value);
+  const onChangeSearch = (value: string) => {
+    setSearch(value);
     onSearch?.(value);
   };
 
@@ -214,7 +207,6 @@ const Combobox = forwardRef<
             triggerPlaceholder
           )}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-          {/* <input ref={ref} /> */}
         </Button>
       </PopoverTrigger>
       <PopoverContent
@@ -226,15 +218,15 @@ const Combobox = forwardRef<
         }}
         className="p-0"
       >
-        <Command {...commandProps}>
+        <Command {...commandProps} shouldFilter={!onSearch}>
           <div className="flex items-center border-b px-3">
             <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
-            <input
+            <CommandInput
               className={cn(
                 "flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
               )}
               value={search}
-              onChange={onChangeSearch}
+              onValueChange={onChangeSearch}
               autoComplete="off"
               autoCorrect="off"
               spellCheck={false}
@@ -258,7 +250,7 @@ const Combobox = forwardRef<
               }
               className={cn([
                 "w-full",
-                filterOptions.length > maxItemScroll
+                options.length > maxItemScroll
                   ? "h-[var(--scroll-height)]"
                   : "h-fit",
               ])}
@@ -269,7 +261,7 @@ const Combobox = forwardRef<
                 setOptionHeight(option?.clientHeight || 32);
               }}
             >
-              {filterOptions.map((option) => (
+              {options.map((option) => (
                 <CommandItem
                   key={option.value}
                   value={option.value}
