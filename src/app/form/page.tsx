@@ -12,10 +12,17 @@ import FormRadio from "@/components/control/radio/FormRadio";
 import { Button } from "@/components/ui/button";
 import { getBeURL } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import NumberMask from "@/components/ui/number-mask";
+import PatternMask from "@/components/ui/pattern-mask";
+
 export default function Home() {
+  const [maskString, setMaskString] = useState<string>();
+  const [maskNumber, setMaskNumber] = useState<number>();
+
   const forms = useForm({
     defaultValues: {
       checkbox: false,
@@ -198,6 +205,23 @@ export default function Home() {
                   }))}
               />
               <FormDatePicker name="date" />
+              <PatternMask
+                value={maskString}
+                onChange={(e) => {
+                  setMaskString(e);
+                }}
+                format="#### ### ###"
+              />
+              <Button type="button" onClick={() => setMaskString("123456789")}>
+                Set value
+              </Button>
+              <NumberMask
+                value={maskNumber}
+                onChange={(value) => setMaskNumber(value)}
+              />
+              <Button type="button" onClick={() => setMaskNumber(123456789)}>
+                Set value
+              </Button>
             </div>
             <Button className="w-fit" type="submit">
               Submit

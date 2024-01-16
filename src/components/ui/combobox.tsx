@@ -241,60 +241,62 @@ const Combobox = forwardRef<
             <CommandEmpty {..._commandEmptyProps}>{emptyText}</CommandEmpty>
           )}
           <CommandGroup {...commandGroupProps}>
-            <ScrollArea
-              {...scrollProps}
-              style={
-                {
-                  "--scroll-height": `${optionHeight * maxItemScroll}px`,
-                } as MainContentStyleProps
-              }
-              className={cn([
-                "w-full",
-                options.length > maxItemScroll
-                  ? "h-[var(--scroll-height)]"
-                  : "h-fit",
-              ])}
-              ref={() => {
-                const option = document.querySelector(
-                  'div.relative[cmdk-item][data-value="option_0"]'
-                );
-                setOptionHeight(option?.clientHeight || 32);
-              }}
-            >
-              {options.map((option) => (
-                <CommandItem
-                  key={option.value}
-                  value={option.value}
-                  onSelect={onSelect(option.label)}
-                  {...commandItemProps}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      (
-                        props.mode === "single"
-                          ? props.valueMode === "string"
-                            ? props.value === option.value
-                            : props.value?.value === option.value
-                          : props.valueMode === "string"
-                          ? props.value?.includes(option.value)
-                          : props.value?.find(
-                              (v) => String(v.value) === option.value
-                            )
-                      )
-                        ? "opacity-100"
-                        : "opacity-0"
-                    )}
-                  />
-                  {option.label}
-                </CommandItem>
-              ))}
-              {loading && (
-                <div className="py-4 text-center text-sm">
-                  <CommandLoading>Loading...</CommandLoading>
-                </div>
-              )}
-            </ScrollArea>
+            <div className="grid">
+              <ScrollArea
+                {...scrollProps}
+                style={
+                  {
+                    "--scroll-height": `${optionHeight * maxItemScroll}px`,
+                  } as MainContentStyleProps
+                }
+                className={cn([
+                  "w-full",
+                  options.length > maxItemScroll
+                    ? "max-h-[var(--scroll-height)]"
+                    : "h-fit",
+                ])}
+                ref={() => {
+                  const option = document.querySelector(
+                    'div.relative[cmdk-item][data-value="option_0"]'
+                  );
+                  setOptionHeight(option?.clientHeight || 32);
+                }}
+              >
+                {options.map((option) => (
+                  <CommandItem
+                    key={option.value}
+                    value={option.value}
+                    onSelect={onSelect(option.label)}
+                    {...commandItemProps}
+                  >
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        (
+                          props.mode === "single"
+                            ? props.valueMode === "string"
+                              ? props.value === option.value
+                              : props.value?.value === option.value
+                            : props.valueMode === "string"
+                            ? props.value?.includes(option.value)
+                            : props.value?.find(
+                                (v) => String(v.value) === option.value
+                              )
+                        )
+                          ? "opacity-100"
+                          : "opacity-0"
+                      )}
+                    />
+                    {option.label}
+                  </CommandItem>
+                ))}
+                {loading && (
+                  <div className="py-4 text-center text-sm">
+                    <CommandLoading>Loading...</CommandLoading>
+                  </div>
+                )}
+              </ScrollArea>
+            </div>
           </CommandGroup>
         </Command>
       </PopoverContent>
