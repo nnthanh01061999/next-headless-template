@@ -90,7 +90,7 @@ const AsyncCombobox = forwardRef<
     searchKey,
     searchLocal,
     searchDebounce,
-  } = search || {};
+  } = search ?? {};
   const firstCall = useRef<any>(null);
   const [state, setState] = useState<IAsyncSelectState>(() => ({
     focus: false,
@@ -98,7 +98,7 @@ const AsyncCombobox = forwardRef<
     search: undefined,
   }));
 
-  const debounceSearch = useDebounceValue(state.search, searchDebounce || 500);
+  const debounceSearch = useDebounceValue(state.search, searchDebounce ?? 500);
 
   const { backToFirstPage, onChangeNextPage, getNextPage } = usePagination({
     page: "1",
@@ -115,11 +115,11 @@ const AsyncCombobox = forwardRef<
     return networkHandler
       .get(url, {
         params: {
-          [pageKey]: page || null,
+          [pageKey]: page ?? null,
           [sizeKey]: size,
           ...otherFilters,
           ...(searchKey
-            ? { [searchKey]: debounceSearch || undefined }
+            ? { [searchKey]: debounceSearch ?? undefined }
             : undefined),
         },
         ...axiosConfig,
@@ -143,7 +143,7 @@ const AsyncCombobox = forwardRef<
     initialPageParam: {
       page: DEFAULT_INDEX,
       size: DEFAULT_LIMIT,
-      search: debounceSearch || "",
+      search: debounceSearch ?? "",
     },
     getNextPageParam: (lastPage) => {
       const nextPage = getNextPage(get(lastPage, totalKey));
@@ -151,7 +151,7 @@ const AsyncCombobox = forwardRef<
         ? {
             page: nextPage,
             size: size,
-            search: debounceSearch || "",
+            search: debounceSearch ?? "",
           }
         : undefined;
     },
@@ -179,7 +179,7 @@ const AsyncCombobox = forwardRef<
   const onScroll = (e: any) => {
     const { scrollTop, scrollHeight, offsetHeight } = e.currentTarget;
     if (
-      !(isLoading || isFetchingNextPage) &&
+      !(isLoading ?? isFetchingNextPage) &&
       scrollTop + offsetHeight >= scrollHeight &&
       hasNextPage
     ) {
@@ -272,7 +272,7 @@ const AsyncCombobox = forwardRef<
     <Combobox
       {...comboboxProps}
       ref={ref}
-      loading={!isError && (isLoading || isFetchingNextPage)}
+      loading={!isError && (isLoading ?? isFetchingNextPage)}
       onSearch={!searchLocal ? onSearch : undefined}
       scrollProps={{
         onScroll,

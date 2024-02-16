@@ -18,6 +18,7 @@ import { z } from "zod";
 
 import NumberMask from "@/components/ui/number-mask";
 import PatternMask from "@/components/ui/pattern-mask";
+import BasePagination from "@/components/ui/base-pagination";
 
 export default function Home() {
   const [maskString, setMaskString] = useState<string>();
@@ -222,6 +223,7 @@ export default function Home() {
               <Button type="button" onClick={() => setMaskNumber(123456789)}>
                 Set value
               </Button>
+              <BasePagination total={100} />
             </div>
             <Button className="w-fit" type="submit">
               Submit

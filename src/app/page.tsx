@@ -67,7 +67,7 @@ export default function Home() {
           <BaseDialog />
           <BaseAlertDialog />
         </div>
-        <div className={cn(["grid gap-2 grid-flow-col"])}>
+        <div className={cn(["grid gap-2 grid-flow-col h-[200000px]"])}>
           <Button onClick={() => refetch()}>Refetch</Button>
           <Button
             disabled={page === 1}

@@ -23,15 +23,7 @@ import { IOption } from "@/types";
 import { PopoverContentProps, PopoverProps } from "@radix-ui/react-popover";
 import { CommandInput, CommandLoading } from "cmdk";
 import { Check, ChevronsUpDown, Search } from "lucide-react";
-import {
-  CSSProperties,
-  ChangeEvent,
-  forwardRef,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { CSSProperties, forwardRef, useRef, useState } from "react";
 
 type CustomProperties = {
   "--scroll-height": string;
@@ -103,9 +95,9 @@ const Combobox = forwardRef<
   const {
     placeholder: triggerPlaceholder = "Select option",
     ..._triggerProps
-  } = triggerProps || {};
+  } = triggerProps ?? {};
   const { text: emptyText = "No option found.", ..._commandEmptyProps } =
-    commandEmptyProps || {};
+    commandEmptyProps ?? {};
 
   const triggerRef = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
@@ -119,19 +111,23 @@ const Combobox = forwardRef<
     };
     if (props.mode === "multiple") {
       if (props.valueMode === "string") {
-        const value = props.value
-          ? props.value.includes(currentValue)
-            ? props.value.filter((item) => item !== currentValue)
-            : [...props.value, currentValue]
-          : [currentValue];
-        props.onChange(value);
+        if (!props.value) {
+          props.onChange([currentValue]);
+        } else if (props.value.includes(currentValue)) {
+          props.onChange(props.value.filter((item) => item !== currentValue));
+        } else {
+          props.onChange([...props.value, currentValue]);
+        }
+        return;
+      }
+      if (!props.value) {
+        props.onChange([valueObj]);
+      } else if (props.value.find((item) => item.value === currentValue)) {
+        props.onChange(
+          props.value.filter((item) => item.value !== currentValue)
+        );
       } else {
-        const value = props.value
-          ? props.value.find((item) => item.value === currentValue)
-            ? props.value.filter((item) => item.value !== currentValue)
-            : [...props.value, valueObj]
-          : [valueObj];
-        props.onChange(value);
+        props.onChange([...props.value, valueObj]);
       }
     } else if (props.mode === "single") {
       if (props.valueMode === "string") {
@@ -150,12 +146,10 @@ const Combobox = forwardRef<
       if (props.valueMode === "string") {
         if (props.value.includes(currentValue))
           props.onChange(props.value.filter((item) => item !== currentValue));
-      } else {
-        if (props.value.find((v) => v.value === currentValue))
-          props.onChange(
-            props.value.filter((item) => item.value !== currentValue)
-          );
-      }
+      } else if (props.value.find((v) => v.value === currentValue))
+        props.onChange(
+          props.value.filter((item) => item.value !== currentValue)
+        );
     }
   };
 
@@ -176,36 +170,52 @@ const Combobox = forwardRef<
       .sort((a, b) => valueMap[a.value] - valueMap[b.value]);
   };
 
+  const renderValueMultiple = () => {
+    return props.value?.length ? (
+      <BadgeEllipsis
+        options={getMultipleBadgeOptions()}
+        onChange={onRemoveTag}
+      />
+    ) : (
+      triggerPlaceholder
+    );
+  };
+
+  const renderValueSingle = () => {
+    const stringValue = options.find((option) => option.value == props.value);
+    const objectValue = options.find(
+      (option) => option.value == (props.value as IOption<string>)?.value
+    );
+    const value =
+      props.valueMode === "string" ? stringValue?.label : objectValue?.label;
+
+    return props.value ? value : triggerPlaceholder;
+  };
+
+  const checkOptionIsSelected = (option: IOption<string>): boolean => {
+    if (props.mode === "single" && props.valueMode === "string")
+      return props.value === option.value;
+    else if (props.mode === "single" && props.valueMode === "object")
+      return props.value?.value === option.value;
+    else if (props.mode === "multiple" && props.valueMode === "string")
+      return props.value?.includes(option.value);
+    return !!props.value?.find((v) => String(v.value) === option.value);
+  };
+
   return (
     <Popover {...popOverProps} open={open} onOpenChange={setOpen}>
       <PopoverTrigger ref={ref} asChild>
         <Button
           variant="outline"
-          role="combobox"
           aria-expanded={open}
           className="w-full justify-between"
           {..._triggerProps}
           ref={triggerRef}
           onBlur={onBlur}
         >
-          {props.mode === "multiple" ? (
-            props.value?.length ? (
-              <BadgeEllipsis
-                options={getMultipleBadgeOptions()}
-                onChange={onRemoveTag}
-              />
-            ) : (
-              triggerPlaceholder
-            )
-          ) : props.value ? (
-            props.valueMode === "string" ? (
-              options.find((option) => option.value == props.value)?.label
-            ) : (
-              options.find((option) => option.value == props.value.value)?.label
-            )
-          ) : (
-            triggerPlaceholder
-          )}
+          {props.mode === "multiple"
+            ? renderValueMultiple()
+            : renderValueSingle()}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -237,8 +247,10 @@ const Combobox = forwardRef<
             <div className="py-6 text-center text-sm" {..._commandEmptyProps}>
               {emptyText}
             </div>
-          ) : !!onSearch ? null : (
-            <CommandEmpty {..._commandEmptyProps}>{emptyText}</CommandEmpty>
+          ) : (
+            !onSearch && (
+              <CommandEmpty {..._commandEmptyProps}>{emptyText}</CommandEmpty>
+            )
           )}
           <CommandGroup {...commandGroupProps}>
             <div className="grid">
@@ -259,37 +271,28 @@ const Combobox = forwardRef<
                   const option = document.querySelector(
                     'div.relative[cmdk-item][data-value="option_0"]'
                   );
-                  setOptionHeight(option?.clientHeight || 32);
+                  setOptionHeight(option?.clientHeight ?? 32);
                 }}
               >
-                {options.map((option) => (
-                  <CommandItem
-                    key={option.value}
-                    value={option.value}
-                    onSelect={onSelect(option.label)}
-                    {...commandItemProps}
-                  >
-                    <Check
-                      className={cn(
-                        "mr-2 h-4 w-4",
-                        (
-                          props.mode === "single"
-                            ? props.valueMode === "string"
-                              ? props.value === option.value
-                              : props.value?.value === option.value
-                            : props.valueMode === "string"
-                            ? props.value?.includes(option.value)
-                            : props.value?.find(
-                                (v) => String(v.value) === option.value
-                              )
-                        )
-                          ? "opacity-100"
-                          : "opacity-0"
-                      )}
-                    />
-                    {option.label}
-                  </CommandItem>
-                ))}
+                {options.map((option) => {
+                  const isChecked = checkOptionIsSelected(option);
+                  return (
+                    <CommandItem
+                      key={option.value}
+                      value={option.value}
+                      onSelect={onSelect(option.label)}
+                      {...commandItemProps}
+                    >
+                      <Check
+                        className={cn(
+                          "mr-2 h-4 w-4",
+                          isChecked ? "opacity-100" : "opacity-0"
+                        )}
+                      />
+                      {option.label}
+                    </CommandItem>
+                  );
+                })}
                 {loading && (
                   <div className="py-4 text-center text-sm">
                     <CommandLoading>Loading...</CommandLoading>

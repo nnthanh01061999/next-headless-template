@@ -1,3 +1,4 @@
+import Home from "@/app/form/page";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,7 +19,7 @@ function BaseSheet() {
       <SheetTrigger asChild>
         <Button>Open Sheet</Button>
       </SheetTrigger>
-      <SheetContent side={"left"}>
+      <SheetContent side={"left"} className="w-screen max-w-none">
         <SheetHeader>
           <SheetTitle>Edit profile</SheetTitle>
           <SheetDescription>
@@ -39,6 +40,7 @@ function BaseSheet() {
             <Input id="username" className="col-span-3" />
           </div>
         </div>
+        <Home />
         <SheetFooter>
           <SheetClose asChild>
             <Button type="submit">Save changes</Button>
