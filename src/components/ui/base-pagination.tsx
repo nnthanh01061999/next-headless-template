@@ -1,25 +1,27 @@
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
+  PaginationPrevious,
+  PaginationEllipsis,
   PaginationLink,
   PaginationNext,
-  PaginationPrevious,
 } from "@/components/ui/pagination";
-import { PaginationParams, usePagination } from "@/utils/use-pagination-matine";
+import { usePagination } from "@/utils/use-pagination-mantine";
 
-type TBasePaginationProps = PaginationParams;
+type TBasePaginationProps = {
+  pagination: ReturnType<typeof usePagination>;
+};
 function BasePagination(props: TBasePaginationProps) {
-  const pagination = usePagination(props);
+  const { pagination } = props;
   return (
     <Pagination>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious onClick={pagination.previous} />
         </PaginationItem>
-        {pagination.range.map((item) => (
-          <PaginationItem key={item}>
+        {pagination.range.map((item, index) => (
+          <PaginationItem key={String(item) + String(index)}>
             {item === "dots" ? (
               <PaginationEllipsis />
             ) : (
