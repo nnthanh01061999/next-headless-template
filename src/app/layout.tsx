@@ -4,6 +4,8 @@ import { getActions } from "@/store/auth-store";
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
+import "./tree.css";
+
 import { Toaster } from "@/components/ui/toaster";
 import Notify from "@/components/ui/notify";
 

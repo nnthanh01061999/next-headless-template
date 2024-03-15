@@ -19,6 +19,7 @@ import { z } from "zod";
 import NumberMask from "@/components/ui/number-mask";
 import PatternMask from "@/components/ui/pattern-mask";
 import BasePagination from "@/components/ui/base-pagination";
+import Tree from "rc-tree";
 
 export default function Home() {
   const [maskString, setMaskString] = useState<string>();
@@ -85,6 +86,15 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono space-y-2">
+        <Tree
+          prefixCls="rc-tree"
+          icon
+          checkable
+          selectable={false}
+          multiple
+          virtual
+          treeData={getTreeData()}
+        />
         <FormProvider {...forms}>
           <form
             onSubmit={forms.handleSubmit((e) => console.log(e))}
@@ -223,7 +233,7 @@ export default function Home() {
               <Button type="button" onClick={() => setMaskNumber(123456789)}>
                 Set value
               </Button>
-              <BasePagination total={100} />
+              {/* <BasePagination total={100} /> */}
             </div>
             <Button className="w-fit" type="submit">
               Submit
@@ -233,4 +243,84 @@ export default function Home() {
       </div>
     </main>
   );
+}
+
+function getTreeData() {
+  // big-data: generateData(1000, 3, 2)
+  return [
+    {
+      key: "0",
+      title: "node 0",
+      children: [
+        { key: "0-0", title: "node 0-0" },
+        { key: "0-1", title: "node 0-1" },
+        {
+          key: "0-2",
+          title: "node 0-2",
+          children: [
+            { key: "0-2-0", title: "node 0-2-0" },
+            { key: "0-2-1", title: "node 0-2-1" },
+            { key: "0-2-2", title: "node 0-2-2" },
+          ],
+        },
+        { key: "0-3", title: "node 0-3" },
+        { key: "0-4", title: "node 0-4" },
+        { key: "0-5", title: "node 0-5" },
+        { key: "0-6", title: "node 0-6" },
+        { key: "0-7", title: "node 0-7" },
+        { key: "0-8", title: "node 0-8" },
+        {
+          key: "0-9",
+          title: "node 0-9",
+          children: [
+            { key: "0-9-0", title: "node 0-9-0" },
+            {
+              key: "0-9-1",
+              title: "node 0-9-1",
+              children: [
+                { key: "0-9-1-0", title: "node 0-9-1-0" },
+                { key: "0-9-1-1", title: "node 0-9-1-1" },
+                { key: "0-9-1-2", title: "node 0-9-1-2" },
+                { key: "0-9-1-3", title: "node 0-9-1-3" },
+                { key: "0-9-1-4", title: "node 0-9-1-4" },
+              ],
+            },
+            {
+              key: "0-9-2",
+              title: "node 0-9-2",
+              children: [
+                { key: "0-9-2-0", title: "node 0-9-2-0" },
+                { key: "0-9-2-1", title: "node 0-9-2-1" },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      key: "1",
+      title: "node 1",
+      // children: new Array(1000)
+      //   .fill(null)
+      //   .map((_, index) => ({ title: `auto ${index}`, key: `auto-${index}` })),
+      children: [
+        {
+          key: "1-0",
+          title: "node 1-0",
+          children: [
+            { key: "1-0-0", title: "node 1-0-0" },
+            {
+              key: "1-0-1",
+              title: "node 1-0-1",
+              children: [
+                { key: "1-0-1-0", title: "node 1-0-1-0" },
+                { key: "1-0-1-1", title: "node 1-0-1-1" },
+              ],
+            },
+            { key: "1-0-2", title: "node 1-0-2" },
+          ],
+        },
+      ],
+    },
+  ];
 }
