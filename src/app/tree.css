@@ -41,7 +41,7 @@
 .rc-tree .rc-tree-treenode.drop-target ~ .rc-tree-treenode {
   border-left: none;
 }
-.rc-tree .rc-tree-treenode.filter-node > .rc-tree-node-content-wrapper {g
+.rc-tree .rc-tree-treenode.filter-node > .rc-tree-node-content-wrapper {
   color: #a60000 !important;
   font-weight: bold !important;
 }

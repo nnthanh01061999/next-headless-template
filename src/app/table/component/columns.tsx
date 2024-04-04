@@ -1,6 +1,9 @@
 "use client";
 
-import { getMultipleSelectionColumn } from "@/components/table/base-column";
+import {
+  getExpandColumn,
+  getMultipleSelectionColumn,
+} from "@/components/table/base-column";
 import { TableGroupHead, TableSortableHead } from "@/components/ui/table";
 import { ColumnDef } from "@tanstack/react-table";
 
@@ -16,10 +19,12 @@ export type Note = {
   user_id: number;
   book: any;
   tag: any[];
+  children?: Note[];
 };
 
 export const columns: ColumnDef<Note>[] = [
   getMultipleSelectionColumn(),
+  getExpandColumn(),
   {
     id: "id",
     accessorKey: "id",
