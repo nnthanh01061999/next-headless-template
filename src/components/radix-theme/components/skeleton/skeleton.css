@@ -1,0 +1,33 @@
+.rt-Skeleton {
+  @apply animate-pulse rounded-md bg-muted text-transparent cursor-default select-none outline-none box-decoration-clone shadow-none border-none;
+}
+
+/*
+ * Take font differences out of equation for inline Skeletons that just wrap text.
+ * This makes the dimensions consistent between the following non-Skeleton and Skeleton text:
+ * ```
+ * <Text>Example text</Text>
+ *
+ * <Text>
+ *   <Skeleton>Example text</Skeleton>
+ * </Text>
+ * ```
+ *
+ * Will NOT collapse Skeletons as the browsers use line-height on inline elements just for alignment.
+ */
+.rt-Skeleton:where([data-inline-skeleton]) {
+  line-height: 0;
+  /* Font metrics on Arial yield much nicer height for the text background bounding box */
+  font-family: Arial, sans-serif !important;
+}
+
+:where(.rt-Skeleton:empty) {
+  display: block;
+  height: var(--space-3);
+}
+
+.rt-Skeleton > *,
+.rt-Skeleton::after,
+.rt-Skeleton::before {
+  visibility: hidden !important;
+}

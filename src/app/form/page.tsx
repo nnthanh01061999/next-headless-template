@@ -16,10 +16,11 @@ import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { Spinner } from "@/components/radix-theme/components/spinner/spinner";
 import NumberMask from "@/components/ui/number-mask";
 import PatternMask from "@/components/ui/pattern-mask";
-import BasePagination from "@/components/ui/base-pagination";
 import Tree from "rc-tree";
+import { Skeleton } from "@/components/radix-theme/components/skeleton/skeleton";
 
 export default function Home() {
   const [maskString, setMaskString] = useState<string>();
@@ -119,6 +120,7 @@ export default function Home() {
                 description="This is description"
                 required
               />
+
               <FormInputSearch
                 name="search"
                 label="search"
@@ -226,18 +228,22 @@ export default function Home() {
               <Button type="button" onClick={() => setMaskString("123456789")}>
                 Set value
               </Button>
-              <NumberMask
-                value={maskNumber}
-                onChange={(value) => setMaskNumber(value)}
-              />
+              <Skeleton loading>
+                <NumberMask
+                  value={maskNumber}
+                  onChange={(value) => setMaskNumber(value)}
+                />
+              </Skeleton>
               <Button type="button" onClick={() => setMaskNumber(123456789)}>
                 Set value
               </Button>
               {/* <BasePagination total={100} /> */}
             </div>
-            <Button className="w-fit" type="submit">
-              Submit
-            </Button>
+            <Spinner loading={true}>
+              <Button className="w-fit" type="submit">
+                Submit
+              </Button>
+            </Spinner>
           </form>
         </FormProvider>
       </div>
