@@ -1,7 +1,4 @@
-import {
-  PaginationParams,
-  usePagination,
-} from "@/utils/use-pagination-mantine";
+import { PaginationParams, usePagination } from "@/hooks/use-pagination-mantine";
 
 type TUsePaginationClientProps<T> = {
   pagination?: Omit<PaginationParams, "total">;
@@ -15,10 +12,7 @@ function usePaginationClient<T>(props: TUsePaginationClientProps<T>) {
   const _pagination = usePagination({ ...pagination, total });
   return {
     pagination: _pagination,
-    data: data.slice(
-      (_pagination.active - 1) * size,
-      _pagination.active * size
-    ),
+    data: data.slice((_pagination.active - 1) * size, _pagination.active * size),
   };
 }
 

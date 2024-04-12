@@ -8,33 +8,19 @@ export const qsParse = (searchParams: ReadonlyURLSearchParams) => {
   return qs.parse(searchParams.toString());
 };
 
-export const qsParseString = (
-  param: TParam,
-  defaultValue: string | undefined = undefined
-): string | undefined => {
+export const qsParseString = (param: TParam, defaultValue: string | undefined = undefined): string | undefined => {
   return param && typeof param === "string" ? param : defaultValue;
 };
 
-export const qsParseNumber = (
-  param: TParam,
-  defaultValue: number | undefined = 0
-): number => {
+export const qsParseNumber = (param: TParam, defaultValue: number | undefined = 0): number => {
   return isNumberic(param) ? getNumber(param) : defaultValue;
 };
 
-export const qsParseBoolean = (
-  param: TParam,
-  defaultValue: boolean | undefined = true
-): boolean => {
+export const qsParseBoolean = (param: TParam, defaultValue: boolean | undefined = true): boolean => {
   return isBoolean(param) ? getBoolean(param) : defaultValue;
 };
 
-export const qsParseObject = (
-  valueParam: TParam,
-  labelParam: TParam,
-  defaultValue: any = undefined,
-  numberic = false
-): IOption<number> | undefined => {
+export const qsParseObject = (valueParam: TParam, labelParam: TParam, defaultValue: any = undefined, numberic = false): IOption<number> | undefined => {
   if (numberic) {
     return valueParam && isNumberic(valueParam) && labelParam
       ? {
@@ -51,10 +37,7 @@ export const qsParseObject = (
     : defaultValue;
 };
 
-export const qsStringify = (
-  object: Record<string, any>,
-  options?: StringifyOptions
-): string => {
+export const qsStringify = (object: Record<string, any>, options?: StringifyOptions): string => {
   return qs.stringify(object, {
     sort: false,
     arrayFormat: "comma",

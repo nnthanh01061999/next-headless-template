@@ -69,16 +69,10 @@ export default function Home() {
         </div>
         <div className={cn(["grid gap-2 grid-flow-col h-[200000px]"])}>
           <Button onClick={() => refetch()}>Refetch</Button>
-          <Button
-            disabled={page === 1}
-            onClick={() => setPage((prev) => prev - 1)}
-          >
+          <Button disabled={page === 1} onClick={() => setPage((prev) => prev - 1)}>
             Prev page
           </Button>
-          <Button
-            disabled={page * 5 >= data?.data?.total || isPlaceholderData}
-            onClick={() => setPage((prev) => prev + 1)}
-          >
+          <Button disabled={page * 5 >= data?.data?.total || isPlaceholderData} onClick={() => setPage((prev) => prev + 1)}>
             Next page
           </Button>
           <Button asChild>

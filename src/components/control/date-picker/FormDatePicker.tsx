@@ -1,11 +1,4 @@
-import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import DatePicker from "@/components/ui/date-picker";
 import { cn } from "@/lib/utils";
 import { TFormProps } from "@/types/form";
@@ -16,9 +9,7 @@ export type TFormDatePickerProps = {
   childProps?: Omit<DatePickerProps, "value" | "onChange">;
 } & TFormProps;
 
-const afterClass = cn([
-  "relative after:absolute after:left-full after:top-0 after:content-['*'] after:text-red-500",
-]);
+const afterClass = cn(["relative after:absolute after:left-full after:top-0 after:content-['*'] after:text-red-500"]);
 
 function FormDatePicker(props: TFormDatePickerProps) {
   const { name, label, description, required, styles, childProps } = props;
@@ -32,26 +23,11 @@ function FormDatePicker(props: TFormDatePickerProps) {
         const { value, onChange, onBlur } = field;
         return (
           <FormItem className={styles?.itemClass}>
-            {label ? (
-              <FormLabel
-                className={cn(required ? afterClass : "", [styles?.labelClass])}
-              >
-                {label}
-              </FormLabel>
-            ) : null}
+            {label ? <FormLabel className={cn(required ? afterClass : "", [styles?.labelClass])}>{label}</FormLabel> : null}
             <FormControl>
-              <DatePicker
-                {...childProps}
-                ref={field.ref}
-                value={value}
-                onChange={onChange}
-              />
+              <DatePicker {...childProps} ref={field.ref} value={value} onChange={onChange} />
             </FormControl>
-            {description ? (
-              <FormDescription className={styles?.descriptionClass}>
-                {description}
-              </FormDescription>
-            ) : null}
+            {description ? <FormDescription className={styles?.descriptionClass}>{description}</FormDescription> : null}
             <FormMessage className={styles?.errorMessageClass} />
           </FormItem>
         );

@@ -15,9 +15,7 @@ function getSpacingUtilities(input: any) {
 
 function checkForValidSpacingInput(input: any) {
   if (typeof input === "number") return;
-  throw new Error(
-    "The Spacing Plugin expects a `spacing` option passed to it, which is a number."
-  );
+  throw new Error("The Spacing Plugin expects a `spacing` option passed to it, which is a number.");
 }
 
 module.exports = plugin.withOptions(
@@ -30,5 +28,5 @@ module.exports = plugin.withOptions(
         spacing: getSpacingUtilities(spacing),
       },
     };
-  }
+  },
 );

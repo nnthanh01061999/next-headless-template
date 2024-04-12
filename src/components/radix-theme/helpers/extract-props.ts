@@ -1,20 +1,18 @@
 import type * as React from "react";
 import classNames from "classnames";
-import {
-  getResponsiveClassNames,
-  getResponsiveStyles,
-} from "./get-responsive-styles";
+import { getResponsiveClassNames, getResponsiveStyles } from "./get-responsive-styles";
 import { isResponsiveObject } from "./is-responsive-object";
 import { mergeStyles } from "./merge-styles";
 import type { PropDef } from "../props/prop-def";
 
-type PropDefsWithClassName<T> = T extends Record<string, PropDef>
-  ? { [K in keyof T]: T[K] extends { className: string } ? K : never }[keyof T]
-  : never;
+type PropDefsWithClassName<T> =
+  T extends Record<string, PropDef>
+    ? {
+        [K in keyof T]: T[K] extends { className: string } ? K : never;
+      }[keyof T]
+    : never;
 
-function mergePropDefs<T extends Record<string, PropDef>[]>(
-  ...args: T
-): Record<string, PropDef> {
+function mergePropDefs<T extends Record<string, PropDef>[]>(...args: T): Record<string, PropDef> {
   return Object.assign({}, ...args);
 }
 
@@ -30,14 +28,8 @@ function extractProps<
     style?: React.CSSProperties;
     [key: string]: any;
   },
-  T extends Record<string, PropDef>[]
->(
-  props: P,
-  ...propDefs: T
-): Omit<
-  P & { className?: string; style?: React.CSSProperties },
-  PropDefsWithClassName<T[number]>
-> {
+  T extends Record<string, PropDef>[],
+>(props: P, ...propDefs: T): Omit<P & { className?: string; style?: React.CSSProperties }, PropDefsWithClassName<T[number]>> {
   let className: string | undefined;
   let style: ReturnType<typeof mergeStyles>;
   const extractedProps = { ...props };

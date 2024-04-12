@@ -15,11 +15,9 @@ function ClientProvider({ children }: PropsWithChildren) {
             retry: false,
           },
         },
-      })
+      }),
   );
-  return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
+  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 }
 
 export default ClientProvider;

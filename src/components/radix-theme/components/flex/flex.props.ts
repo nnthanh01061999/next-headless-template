@@ -3,12 +3,7 @@ import type { GetPropDefTypes, PropDef } from "../../props";
 
 const as = ["div", "span"] as const;
 const displayValues = ["none", "inline-flex", "flex"] as const;
-const directionValues = [
-  "row",
-  "column",
-  "row-reverse",
-  "column-reverse",
-] as const;
+const directionValues = ["row", "column", "row-reverse", "column-reverse"] as const;
 const alignValues = ["start", "center", "end", "baseline", "stretch"] as const;
 const justifyValues = ["start", "center", "end", "between"] as const;
 const wrapValues = ["nowrap", "wrap", "wrap-reverse"] as const;
@@ -124,9 +119,7 @@ function parseJustifyValue(value: string) {
 }
 
 // Use all of the imported prop defs to ensure that JSDoc works
-type FlexOwnProps = GetPropDefTypes<
-  typeof flexPropDefs & typeof gapPropDefs & typeof asChildPropDef
->;
+type FlexOwnProps = GetPropDefTypes<typeof flexPropDefs & typeof gapPropDefs & typeof asChildPropDef>;
 
 export { flexPropDefs };
 export type { FlexOwnProps };

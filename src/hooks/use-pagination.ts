@@ -1,20 +1,10 @@
 "use client";
-import {
-  DEFAULT_INDEX,
-  DEFAULT_LIMIT,
-  DEFAULT_REFRESH,
-  DEFAULT_TOTAL,
-} from "@/data";
+import { DEFAULT_INDEX, DEFAULT_LIMIT, DEFAULT_REFRESH, DEFAULT_TOTAL } from "@/data";
 import { IPaginationProps, IPaginationStates } from "@/types";
 import { qsParseNumber, qsParseBoolean } from "@/utils/query-string";
 import { useState } from "react";
 
-export const usePagination = ({
-  index,
-  limit,
-  total,
-  refresh,
-}: IPaginationProps) => {
+export const usePagination = ({ index, limit, total, refresh }: IPaginationProps) => {
   const [pagination, setPagination] = useState<IPaginationStates>(() => ({
     index: qsParseNumber(index, DEFAULT_INDEX),
     limit: qsParseNumber(limit, DEFAULT_LIMIT),

@@ -4,13 +4,7 @@ import { heightPropDefs } from "./height.props";
 import { widthPropDefs } from "./width.props";
 
 const overflowValues = ["visible", "hidden", "clip", "scroll", "auto"] as const;
-const positionValues = [
-  "static",
-  "relative",
-  "absolute",
-  "fixed",
-  "sticky",
-] as const;
+const positionValues = ["static", "relative", "absolute", "fixed", "sticky"] as const;
 // prettier-ignore
 const positionEdgeValues = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-1', '-2', '-3', '-4', '-5', '-6', '-7', '-8', '-9'] as const;
 const flexShrinkValues = ["0", "1"] as const;
@@ -369,12 +363,7 @@ const layoutPropDefs = {
 };
 
 // Use all of the imported prop defs to ensure that JSDoc works
-type LayoutProps = GetPropDefTypes<
-  typeof paddingPropDefs &
-    typeof widthPropDefs &
-    typeof heightPropDefs &
-    typeof layoutPropDefs
->;
+type LayoutProps = GetPropDefTypes<typeof paddingPropDefs & typeof widthPropDefs & typeof heightPropDefs & typeof layoutPropDefs>;
 
 export { layoutPropDefs };
 export type { LayoutProps };

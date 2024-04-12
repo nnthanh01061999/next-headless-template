@@ -59,25 +59,14 @@ export const viewport = {
   themeColor: "#FFFFFF",
 };
 
-export default function RootLayout({
-  children,
-  modal,
-}: {
-  children: React.ReactNode;
-  modal: React.ReactNode;
-}) {
+export default function RootLayout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
   const { init } = getActions();
 
   init();
 
   return (
     <html lang="en">
-      <body
-        className={cn(
-          "grid h-screen bg-background font-sans antialiased",
-          fontSans.variable
-        )}
-      >
+      <body className={cn("grid h-screen bg-background font-sans antialiased", fontSans.variable)}>
         <ClientProvider>
           {children}
           {modal}

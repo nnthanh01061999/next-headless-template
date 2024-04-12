@@ -1,10 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { NumericFormat, NumericFormatProps } from "react-number-format";
 
-type TNumberMaskProps = Omit<
-  NumericFormatProps,
-  "onValueChange" | "onChange"
-> & {
+type TNumberMaskProps = Omit<NumericFormatProps, "onValueChange" | "onChange"> & {
   value?: number;
   onChange: (value?: number) => void;
 };

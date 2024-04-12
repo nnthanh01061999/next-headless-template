@@ -3,12 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import {
-  BLOCK_ARRAY,
-  TBlock,
-  generateExpect,
-  pushBlock,
-} from "@/utils/circle-stack";
+import { BLOCK_ARRAY, TBlock, generateExpect, pushBlock } from "@/utils/circle-stack";
 import { useEffect, useState } from "react";
 
 const defaultDifficult = 1;

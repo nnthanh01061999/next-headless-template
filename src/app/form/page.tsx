@@ -47,10 +47,7 @@ export default function Home() {
     },
     resolver: zodResolver(
       z.object({
-        test: z
-          .string({ required_error: "Required" })
-          .trim()
-          .min(1, "Required"),
+        test: z.string({ required_error: "Required" }).trim().min(1, "Required"),
         password: z.string().optional(),
         area: z.string().optional(),
         search: z.string().optional(),
@@ -58,9 +55,7 @@ export default function Home() {
         combobox: z.array(z.string()).min(1).optional(),
         asyncComboboxSingle: z
           .object({
-            value: z
-              .string()
-              .transform((v) => (!isNaN(Number(v)) ? Number(v) : undefined)),
+            value: z.string().transform((v) => (!isNaN(Number(v)) ? Number(v) : undefined)),
             label: z.string(),
           })
           .optional(),
@@ -68,11 +63,9 @@ export default function Home() {
         asyncCombobox: z
           .array(
             z.object({
-              value: z.coerce
-                .number()
-                .transform((v) => (!isNaN(Number(v)) ? Number(v) : undefined)),
+              value: z.coerce.number().transform((v) => (!isNaN(Number(v)) ? Number(v) : undefined)),
               label: z.string(),
-            })
+            }),
           )
           .min(1)
           .optional(),
@@ -80,53 +73,22 @@ export default function Home() {
         checkboxGroup: z.array(z.string()).optional(),
         radio: z.string().optional(),
         date: z.date().optional(),
-      })
+      }),
     ),
   });
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono space-y-2">
-        <Tree
-          prefixCls="rc-tree"
-          icon
-          checkable
-          selectable={false}
-          multiple
-          virtual
-          treeData={getTreeData()}
-        />
+        <Tree prefixCls="rc-tree" icon checkable selectable={false} multiple virtual treeData={getTreeData()} />
         <FormProvider {...forms}>
-          <form
-            onSubmit={forms.handleSubmit((e) => console.log(e))}
-            className="grid gap-4"
-          >
+          <form onSubmit={forms.handleSubmit((e) => console.log(e))} className="grid gap-4">
             <div className="grid gap-2 grid-cols-2">
-              <FormInput
-                name="test"
-                label="test"
-                description="This is description"
-                required
-              />
-              <FormInputPassword
-                name="password"
-                label="password"
-                description="This is description"
-                required
-              />
-              <FormTextArea
-                name="area"
-                label="area"
-                description="This is description"
-                required
-              />
+              <FormInput name="test" label="test" description="This is description" required />
+              <FormInputPassword name="password" label="password" description="This is description" required />
+              <FormTextArea name="area" label="area" description="This is description" required />
 
-              <FormInputSearch
-                name="search"
-                label="search"
-                description="This is description"
-                required
-              />
+              <FormInputSearch name="search" label="search" description="This is description" required />
               <FormCombobox
                 name="comboboxSingle"
                 label="combo single"
@@ -194,10 +156,7 @@ export default function Home() {
                   },
                 }}
               />
-              <FormCheckbox
-                name="checkbox"
-                childProps={{ label: "this is checkbox" }}
-              />
+              <FormCheckbox name="checkbox" childProps={{ label: "this is checkbox" }} />
               <FormCheckboxGroup
                 name="checkboxGroup"
                 childProps={{ label: "this is checkbox" }}
@@ -229,10 +188,7 @@ export default function Home() {
                 Set value
               </Button>
               <Skeleton loading>
-                <NumberMask
-                  value={maskNumber}
-                  onChange={(value) => setMaskNumber(value)}
-                />
+                <NumberMask value={maskNumber} onChange={(value) => setMaskNumber(value)} />
               </Skeleton>
               <Button type="button" onClick={() => setMaskNumber(123456789)}>
                 Set value

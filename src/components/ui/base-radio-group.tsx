@@ -1,9 +1,5 @@
 import { Label } from "@/components/ui/label";
-import {
-  RadioGroup,
-  RadioGroupItem,
-  RadioGroupProps,
-} from "@/components/ui/radio-group";
+import { RadioGroup, RadioGroupItem, RadioGroupProps } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { IOption } from "@/types";
 import { useId } from "react";
@@ -21,11 +17,7 @@ function BaseRadioGroup(props: TBaseRadioGroupProps) {
   return (
     <RadioGroup {..._props}>
       {options.map((option) => (
-        <BaseRadioGroupItem
-          key={option.value}
-          option={option}
-          className={styles?.containerClass}
-        />
+        <BaseRadioGroupItem key={option.value} option={option} className={styles?.containerClass} />
       ))}
     </RadioGroup>
   );
@@ -41,10 +33,7 @@ type BaseRadioGroupItemProps = {
 const BaseRadioGroupItem = ({ option, className }: BaseRadioGroupItemProps) => {
   const id = useId();
   return (
-    <div
-      key={option.value}
-      className={cn(["flex items-center space-x-2", className])}
-    >
+    <div key={option.value} className={cn(["flex items-center space-x-2", className])}>
       <RadioGroupItem value={option.value} id={id} />
       <Label htmlFor={id}>{option.label}</Label>
     </div>

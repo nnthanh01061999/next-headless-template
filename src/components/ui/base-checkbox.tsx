@@ -11,27 +11,17 @@ export type TBaseCheckboxProps = {
     labelClass?: string;
   };
 };
-const BaseCheckbox = forwardRef<CheckboxRef, TBaseCheckboxProps>(
-  ({ id, label, styles, checkboxProps }, ref) => {
-    const _id = useId();
-    return (
-      <div
-        className={cn(["flex items-center space-x-2", styles?.containerClass])}
-      >
-        <Checkbox {...checkboxProps} ref={ref} id={id || _id} />
-        <label
-          htmlFor={id || _id}
-          className={cn([
-            "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
-            styles?.labelClass,
-          ])}
-        >
-          {label}
-        </label>
-      </div>
-    );
-  }
-);
+const BaseCheckbox = forwardRef<CheckboxRef, TBaseCheckboxProps>(({ id, label, styles, checkboxProps }, ref) => {
+  const _id = useId();
+  return (
+    <div className={cn(["flex items-center space-x-2", styles?.containerClass])}>
+      <Checkbox {...checkboxProps} ref={ref} id={id || _id} />
+      <label htmlFor={id || _id} className={cn(["text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70", styles?.labelClass])}>
+        {label}
+      </label>
+    </div>
+  );
+});
 
 BaseCheckbox.displayName = "BaseCheckbox";
 

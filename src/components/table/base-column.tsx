@@ -3,9 +3,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import { Minus, Plus } from "lucide-react";
 
-export const getSingleSelectionColumn = <T,>(
-  props?: ColumnDef<T>
-): ColumnDef<T> => {
+export const getSingleSelectionColumn = <T,>(props?: ColumnDef<T>): ColumnDef<T> => {
   return {
     ...props,
     id: "selection",
@@ -26,26 +24,12 @@ export const getSingleSelectionColumn = <T,>(
   };
 };
 
-export const getMultipleSelectionColumn = <T,>(
-  props?: ColumnDef<T>
-): ColumnDef<T> => {
+export const getMultipleSelectionColumn = <T,>(props?: ColumnDef<T>): ColumnDef<T> => {
   return {
     ...props,
     id: "selection",
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
+    header: ({ table }) => <Checkbox checked={table.getIsAllPageRowsSelected()} onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)} aria-label="Select all" />,
+    cell: ({ row }) => <Checkbox checked={row.getIsSelected()} onCheckedChange={(value) => row.toggleSelected(!!value)} aria-label="Select row" />,
     enableSorting: false,
     enableHiding: false,
     size: 50,
@@ -60,25 +44,13 @@ export const getExpandColumn = <T,>(props?: ColumnDef<T>): ColumnDef<T> => {
     enableHiding: false,
     size: 50,
     header: ({ table }) => (
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={table.getToggleAllRowsExpandedHandler()}
-      >
-        {table.getIsAllRowsExpanded() ? (
-          <Minus size={16} />
-        ) : (
-          <Plus size={16} />
-        )}
+      <Button variant="ghost" size="icon" onClick={table.getToggleAllRowsExpandedHandler()}>
+        {table.getIsAllRowsExpanded() ? <Minus size={16} /> : <Plus size={16} />}
       </Button>
     ),
     cell: ({ row }) =>
       row.getCanExpand() ? (
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={row.getToggleExpandedHandler()}
-        >
+        <Button variant="ghost" size="icon" onClick={row.getToggleExpandedHandler()}>
           {row.getIsExpanded() ? <Minus size={16} /> : <Plus size={16} />}
         </Button>
       ) : null,

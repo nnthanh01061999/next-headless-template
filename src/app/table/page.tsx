@@ -4,11 +4,7 @@ import { DataTable } from "@/components/table/base-table";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { flatTreeArrayToArrayString } from "@/utils/formatter";
-import {
-  ColumnOrderState,
-  ExpandedState,
-  getExpandedRowModel,
-} from "@tanstack/react-table";
+import { ColumnOrderState, ExpandedState, getExpandedRowModel } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import { useState } from "react";
 
@@ -16,9 +12,7 @@ function Page() {
   const [page, setPage] = useState<number>(1);
   const [rowSelection, setRowSelection] = useState({});
   const [expanded, setExpanded] = useState<ExpandedState>({});
-  const [columnOrder, setColumnOrder] = useState<ColumnOrderState>(
-    flatTreeArrayToArrayString(columns as any, "columns", "id")
-  );
+  const [columnOrder, setColumnOrder] = useState<ColumnOrderState>(flatTreeArrayToArrayString(columns as any, "columns", "id"));
 
   const fakeData: Note[] = Array(100)
     .fill(1)
@@ -56,15 +50,10 @@ function Page() {
       <div className={cn(["overflow-hidden"])}>
         <div className="h-full grid grid-rows-[auto,minmax(0,1fr)] gap-2">
           <div className={cn(["grid gap-2 grid-flow-col "])}>
-            <Button
-              disabled={page === 1}
-              onClick={() => setPage((prev) => prev - 1)}
-            >
+            <Button disabled={page === 1} onClick={() => setPage((prev) => prev - 1)}>
               Prev page
             </Button>
-            <Button onClick={() => setPage((prev) => prev + 1)}>
-              Next page
-            </Button>
+            <Button onClick={() => setPage((prev) => prev + 1)}>Next page</Button>
           </div>
           <div className={cn(["grid "])}>
             <DataTable
@@ -89,8 +78,7 @@ function Page() {
               }}
               scrollProps={{
                 scrollbarProps: {
-                  className:
-                    "data-[orientation=vertical]:mt-36 data-[orientation=vertical]:pb-36",
+                  className: "data-[orientation=vertical]:mt-36 data-[orientation=vertical]:pb-36",
                 },
               }}
             />

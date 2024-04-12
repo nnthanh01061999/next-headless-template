@@ -56,23 +56,7 @@ export function getMarginStyles(props: MarginProps) {
   });
 
   return [
-    classNames(
-      mClassNames,
-      mxClassNames,
-      myClassNames,
-      mtClassNames,
-      mrClassNames,
-      mbClassNames,
-      mlClassNames
-    ),
-    mergeStyles(
-      mCustomProperties,
-      mxCustomProperties,
-      myCustomProperties,
-      mtCustomProperties,
-      mrCustomProperties,
-      mbCustomProperties,
-      mlCustomProperties
-    ),
+    classNames(mClassNames, mxClassNames, myClassNames, mtClassNames, mrClassNames, mbClassNames, mlClassNames),
+    mergeStyles(mCustomProperties, mxCustomProperties, myCustomProperties, mtCustomProperties, mrCustomProperties, mbCustomProperties, mlCustomProperties),
   ] as const;
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import BasePagination from "@/components/ui/base-pagination";
-import usePaginationClient from "@/utils/use-pagination-client";
+import usePaginationClient from "@/hooks/use-pagination-client";
 
 function Page() {
   const { pagination, data } = usePaginationClient({

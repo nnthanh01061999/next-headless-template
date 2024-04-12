@@ -57,7 +57,7 @@ export const axiosRefreshToken = (token: string) => {
     },
     function (error) {
       return Promise.reject(error);
-    }
+    },
   );
 };
 
@@ -114,5 +114,5 @@ networkHandler.interceptors.response.use(
       return Promise.reject(response.data);
     }
     return Promise.reject(error);
-  }
+  },
 );

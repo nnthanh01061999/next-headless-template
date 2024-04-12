@@ -1,13 +1,5 @@
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationPrevious,
-  PaginationEllipsis,
-  PaginationLink,
-  PaginationNext,
-} from "@/components/ui/pagination";
-import { usePagination } from "@/utils/use-pagination-mantine";
+import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationEllipsis, PaginationLink, PaginationNext } from "@/components/ui/pagination";
+import { usePagination } from "@/hooks/use-pagination-mantine";
 
 type TBasePaginationProps = {
   pagination: ReturnType<typeof usePagination>;
@@ -25,10 +17,7 @@ function BasePagination(props: TBasePaginationProps) {
             {item === "dots" ? (
               <PaginationEllipsis />
             ) : (
-              <PaginationLink
-                isActive={pagination.active === item}
-                onClick={() => pagination.setPage(item)}
-              >
+              <PaginationLink isActive={pagination.active === item} onClick={() => pagination.setPage(item)}>
                 {item}
               </PaginationLink>
             )}

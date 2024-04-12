@@ -1,10 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { PatternFormat, PatternFormatProps } from "react-number-format";
 
-type TPatternMaskProps = Omit<
-  PatternFormatProps,
-  "onValueChange" | "onChange"
-> & {
+type TPatternMaskProps = Omit<PatternFormatProps, "onValueChange" | "onChange"> & {
   value?: string;
   onChange: (value?: string) => void;
 };

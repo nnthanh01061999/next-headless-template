@@ -112,21 +112,15 @@
 .rc-tree .rc-tree-treenode span.rc-tree-checkbox-disabled {
   background-position: 0 -56px;
 }
-.rc-tree
-  .rc-tree-treenode
-  span.rc-tree-checkbox.rc-tree-checkbox-checked.rc-tree-checkbox-disabled {
+.rc-tree .rc-tree-treenode span.rc-tree-checkbox.rc-tree-checkbox-checked.rc-tree-checkbox-disabled {
   background-position: -14px -56px;
 }
-.rc-tree
-  .rc-tree-treenode
-  span.rc-tree-checkbox.rc-tree-checkbox-indeterminate.rc-tree-checkbox-disabled {
+.rc-tree .rc-tree-treenode span.rc-tree-checkbox.rc-tree-checkbox-indeterminate.rc-tree-checkbox-disabled {
   position: relative;
   background: #ccc;
   border-radius: 3px;
 }
-.rc-tree
-  .rc-tree-treenode
-  span.rc-tree-checkbox.rc-tree-checkbox-indeterminate.rc-tree-checkbox-disabled::after {
+.rc-tree .rc-tree-treenode span.rc-tree-checkbox.rc-tree-checkbox-indeterminate.rc-tree-checkbox-disabled::after {
   position: absolute;
   top: 5px;
   left: 3px;
@@ -143,17 +137,12 @@
   background: none;
 }
 .rc-tree.rc-tree-show-line .rc-tree-treenode:not(:last-child) > ul {
-  background: url("data:image/gif;base64,R0lGODlhCQACAIAAAMzMzP///yH5BAEAAAEALAAAAAAJAAIAAAIEjI9pUAA7")
-    0 0 repeat-y;
+  background: url("data:image/gif;base64,R0lGODlhCQACAIAAAMzMzP///yH5BAEAAAEALAAAAAAJAAIAAAIEjI9pUAA7") 0 0 repeat-y;
 }
-.rc-tree.rc-tree-show-line
-  .rc-tree-treenode:not(:last-child)
-  > .rc-tree-switcher-noop {
+.rc-tree.rc-tree-show-line .rc-tree-treenode:not(:last-child) > .rc-tree-switcher-noop {
   background-position: -56px -18px;
 }
-.rc-tree.rc-tree-show-line
-  .rc-tree-treenode:last-child
-  > .rc-tree-switcher-noop {
+.rc-tree.rc-tree-show-line .rc-tree-treenode:last-child > .rc-tree-switcher-noop {
   background-position: -56px -36px;
 }
 .rc-tree-child-tree {

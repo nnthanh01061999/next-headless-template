@@ -2,101 +2,44 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 import { Assign } from "@/types";
-import { useIntersectionObserver } from "@/utils/use-intersection-observer";
-import { useQueryString } from "@/utils/use-query-string";
-import {
-  Cell,
-  Column,
-  ColumnOrderState,
-  Header,
-  Table,
-  type SortDirection,
-} from "@tanstack/react-table";
-import {
-  ArrowDown,
-  ArrowDownUp,
-  ArrowUp,
-  Grip,
-  LucideIcon,
-} from "lucide-react";
+import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
+import { useQueryString } from "@/hooks/use-query-string";
+import { Cell, Column, ColumnOrderState, Header, Table, type SortDirection } from "@tanstack/react-table";
+import { ArrowDown, ArrowDownUp, ArrowUp, Grip, LucideIcon } from "lucide-react";
 import { useDrag, useDrop } from "react-dnd";
 import { z } from "zod";
 
-const Table = React.forwardRef<
-  HTMLTableElement,
-  React.HTMLAttributes<HTMLTableElement>
->(({ className, ...props }, ref) => (
-  <table
-    ref={ref}
-    className={cn("w-full caption-bottom text-sm", className)}
-    {...props}
-  />
+const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(({ className, ...props }, ref) => (
+  <table ref={ref} className={cn("w-full caption-bottom text-sm", className)} {...props} />
 ));
 Table.displayName = "Table";
 
-const TableHeader = React.forwardRef<
-  HTMLTableSectionElement,
-  React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
+const TableHeader = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(({ className, ...props }, ref) => (
   <thead ref={ref} className={cn("[&_tr]:border-b", className)} {...props} />
 ));
 TableHeader.displayName = "TableHeader";
 
-const TableBody = React.forwardRef<
-  HTMLTableSectionElement,
-  React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
-  <tbody
-    ref={ref}
-    className={cn("[&_tr:last-child]:border-0", className)}
-    {...props}
-  />
+const TableBody = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(({ className, ...props }, ref) => (
+  <tbody ref={ref} className={cn("[&_tr:last-child]:border-0", className)} {...props} />
 ));
 TableBody.displayName = "TableBody";
 
-const TableFooter = React.forwardRef<
-  HTMLTableSectionElement,
-  React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
-  <tfoot
-    ref={ref}
-    className={cn(
-      "border-t bg-muted/50 font-medium [&>tr]:last:border-b-0",
-      className
-    )}
-    {...props}
-  />
+const TableFooter = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(({ className, ...props }, ref) => (
+  <tfoot ref={ref} className={cn("border-t bg-muted/50 font-medium [&>tr]:last:border-b-0", className)} {...props} />
 ));
 TableFooter.displayName = "TableFooter";
 
-const TableRow = React.forwardRef<
-  HTMLTableRowElement,
-  React.HTMLAttributes<HTMLTableRowElement>
->(({ className, ...props }, ref) => (
+const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTMLTableRowElement>>(({ className, ...props }, ref) => (
   <tr
     ref={ref}
-    className={cn(
-      "border-b transition-colors data-[state=selected]:bg-muted ",
-      "[&>td]:hover:bg-muted [&>td]:data-[state=selected]:bg-muted [&>td]:hover:data-[state=selected]:bg-muted",
-      className
-    )}
+    className={cn("border-b transition-colors data-[state=selected]:bg-muted ", "[&>td]:hover:bg-muted [&>td]:data-[state=selected]:bg-muted [&>td]:hover:data-[state=selected]:bg-muted", className)}
     {...props}
   />
 ));
 TableRow.displayName = "TableRow";
 
-const TableHead = React.forwardRef<
-  HTMLTableCellElement,
-  React.ThHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
-  <th
-    ref={ref}
-    className={cn(
-      "h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0",
-      className
-    )}
-    {...props}
-  />
+const TableHead = React.forwardRef<HTMLTableCellElement, React.ThHTMLAttributes<HTMLTableCellElement>>(({ className, ...props }, ref) => (
+  <th ref={ref} className={cn("h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0", className)} {...props} />
 ));
 TableHead.displayName = "TableHead";
 
@@ -110,39 +53,17 @@ type TablePinnedHeadProps = Assign<
   }
 >;
 
-const TablePinnedHead = ({
-  pinned,
-  className,
-  children,
-  header,
-  lefts,
-  rights,
-  style,
-  ...props
-}: TablePinnedHeadProps) => {
+const TablePinnedHead = ({ pinned, className, children, header, lefts, rights, style, ...props }: TablePinnedHeadProps) => {
   const ref = React.useRef<HTMLTableCellElement>(null);
   const pinnedIndex = header.column.getPinnedIndex();
 
-  const positionLeft =
-    pinnedIndex > 0
-      ? lefts
-          .slice(0, pinnedIndex)
-          .reduce((prev, header) => prev + header.getSize(), 0)
-      : 0;
+  const positionLeft = pinnedIndex > 0 ? lefts.slice(0, pinnedIndex).reduce((prev, header) => prev + header.getSize(), 0) : 0;
 
-  const positionRight =
-    pinnedIndex < rights.length - 1
-      ? rights
-          .slice(pinnedIndex + 1)
-          .reduce((prev, header) => prev + header.getSize(), 0)
-      : 0;
+  const positionRight = pinnedIndex < rights.length - 1 ? rights.slice(pinnedIndex + 1).reduce((prev, header) => prev + header.getSize(), 0) : 0;
 
   const entry = useIntersectionObserver(ref, {
     root: ref.current?.closest("table"),
-    rootMargin:
-      pinned === "right"
-        ? `0px ${-positionRight - 1}px 0px 0px`
-        : `0px 0px 0px ${-positionLeft - 1}px`,
+    rootMargin: pinned === "right" ? `0px ${-positionRight - 1}px 0px 0px` : `0px 0px 0px ${-positionLeft - 1}px`,
     threshold: 1,
   });
 
@@ -151,23 +72,15 @@ const TablePinnedHead = ({
       ref={ref}
       className={cn(
         "sticky bg-white z-[1000]",
-        entry?.isIntersecting &&
-          pinned === "left" &&
-          'left-0 after:content-[""] after:absolute after:top-0 after:-right-10 after:bottom-0 after:w-10 after:duration-300',
-        entry?.isIntersecting &&
-          pinned === "right" &&
-          'right-0 before:content-[""] before:absolute before:top-0 before:-left-10 before:bottom-0 before:w-10 before:duration-300',
+        entry?.isIntersecting && pinned === "left" && 'left-0 after:content-[""] after:absolute after:top-0 after:-right-10 after:bottom-0 after:w-10 after:duration-300',
+        entry?.isIntersecting && pinned === "right" && 'right-0 before:content-[""] before:absolute before:top-0 before:-left-10 before:bottom-0 before:w-10 before:duration-300',
         entry?.isIntersecting && "data-[last=true]:sticky-col",
-        className
+        className,
       )}
-      data-last={
-        pinned === "left" ? pinnedIndex === lefts.length - 1 : pinnedIndex === 0
-      }
+      data-last={pinned === "left" ? pinnedIndex === lefts.length - 1 : pinnedIndex === 0}
       style={{
         ...style,
-        ...(pinned === "left"
-          ? { left: `${positionLeft}px` }
-          : { right: `${positionRight}px` }),
+        ...(pinned === "left" ? { left: `${positionLeft}px` } : { right: `${positionRight}px` }),
       }}
       {...props}
     >
@@ -176,16 +89,8 @@ const TablePinnedHead = ({
   );
 };
 
-const reorderColumn = (
-  draggedColumnId: string,
-  targetColumnId: string,
-  columnOrder: string[]
-): ColumnOrderState => {
-  columnOrder.splice(
-    columnOrder.indexOf(targetColumnId),
-    0,
-    columnOrder.splice(columnOrder.indexOf(draggedColumnId), 1)[0] as string
-  );
+const reorderColumn = (draggedColumnId: string, targetColumnId: string, columnOrder: string[]): ColumnOrderState => {
+  columnOrder.splice(columnOrder.indexOf(targetColumnId), 0, columnOrder.splice(columnOrder.indexOf(draggedColumnId), 1)[0] as string);
   return [...columnOrder];
 };
 
@@ -197,12 +102,7 @@ type TableDraggableHeadProps<TData> = Assign<
   }
 >;
 
-const TableDraggableHead = <T,>({
-  children,
-  table,
-  header,
-  ...props
-}: TableDraggableHeadProps<T>) => {
+const TableDraggableHead = <T,>({ children, table, header, ...props }: TableDraggableHeadProps<T>) => {
   const { getState, setColumnOrder } = table;
   const { columnOrder } = getState();
   const { column } = header;
@@ -210,11 +110,7 @@ const TableDraggableHead = <T,>({
   const [, dropRef] = useDrop({
     accept: "column",
     drop: (draggedColumn: Column<T>) => {
-      const newColumnOrder = reorderColumn(
-        draggedColumn.id,
-        column.id,
-        columnOrder
-      );
+      const newColumnOrder = reorderColumn(draggedColumn.id, column.id, columnOrder);
       setColumnOrder(newColumnOrder);
     },
   });
@@ -228,18 +124,10 @@ const TableDraggableHead = <T,>({
   });
 
   return (
-    <TableHead
-      ref={dropRef}
-      colSpan={header.colSpan}
-      style={{ opacity: isDragging ? 0.5 : 1 }}
-      {...props}
-    >
+    <TableHead ref={dropRef} colSpan={header.colSpan} style={{ opacity: isDragging ? 0.5 : 1 }} {...props}>
       <div ref={previewRef} className="group relative">
         {children}
-        <button
-          ref={dragRef}
-          className="group-hover:opacity-100 text-muted-foreground opacity-0 absolute top-0 right-2 w-fit h-full cursor-pointer"
-        >
+        <button ref={dragRef} className="group-hover:opacity-100 text-muted-foreground opacity-0 absolute top-0 right-2 w-fit h-full cursor-pointer">
           <Grip size={16} />
         </button>
       </div>
@@ -249,10 +137,7 @@ const TableDraggableHead = <T,>({
 
 export type SortValue = "desc" | undefined | "asc";
 
-const sortLookup: Record<
-  SortDirection | "",
-  { icon: LucideIcon; nextSortValue: SortValue }
-> = {
+const sortLookup: Record<SortDirection | "", { icon: LucideIcon; nextSortValue: SortValue }> = {
   asc: {
     icon: ArrowUp,
     nextSortValue: "desc",
@@ -267,24 +152,17 @@ const sortLookup: Record<
   },
 };
 
-function TableSortableHead({
-  sortKey: key,
-  title,
-}: {
-  sortKey: string;
-  title: string;
-}) {
+function TableSortableHead({ sortKey: key, title }: { sortKey: string; title: string }) {
   const { filter, parse } = useQueryString();
   const { sortKey, sortValue } = parse(
     z.object({
       sortKey: z.string().catch(""),
       sortValue: z.enum(["asc", "desc", ""]).catch(""),
-    })
+    }),
   );
 
   const SortIcon = sortLookup[key === sortKey ? sortValue : ""].icon;
-  const nextSortValue =
-    sortLookup[key === sortKey ? sortValue : ""].nextSortValue;
+  const nextSortValue = sortLookup[key === sortKey ? sortValue : ""].nextSortValue;
 
   function handleSort() {
     filter({
@@ -313,24 +191,12 @@ function TableSortableHead({
   );
 }
 
-const TableGroupHead = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => {
-  return (
-    <div className={cn("grid justify-items-center", className)} {...props} />
-  );
+const TableGroupHead = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
+  return <div className={cn("grid justify-items-center", className)} {...props} />;
 };
 
-const TableCell = React.forwardRef<
-  HTMLTableCellElement,
-  React.TdHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
-  <td
-    ref={ref}
-    className={cn("p-4 align-middle [&:has([role=checkbox])]:pr-0", className)}
-    {...props}
-  />
+const TableCell = React.forwardRef<HTMLTableCellElement, React.TdHTMLAttributes<HTMLTableCellElement>>(({ className, ...props }, ref) => (
+  <td ref={ref} className={cn("p-4 align-middle [&:has([role=checkbox])]:pr-0", className)} {...props} />
 ));
 TableCell.displayName = "TableCell";
 
@@ -344,39 +210,17 @@ type TablePinnedCellProps = Assign<
   }
 >;
 
-const TablePinnedCell = ({
-  pinned,
-  className,
-  children,
-  style,
-  cell,
-  lefts,
-  rights,
-  ...props
-}: TablePinnedCellProps) => {
+const TablePinnedCell = ({ pinned, className, children, style, cell, lefts, rights, ...props }: TablePinnedCellProps) => {
   const ref = React.useRef<HTMLTableCellElement>(null);
   const pinnedIndex = cell.column.getPinnedIndex();
 
-  const positionLeft =
-    pinnedIndex > 0
-      ? lefts
-          .slice(0, pinnedIndex)
-          .reduce((prev, cell) => prev + cell.column.getSize(), 0)
-      : 0;
+  const positionLeft = pinnedIndex > 0 ? lefts.slice(0, pinnedIndex).reduce((prev, cell) => prev + cell.column.getSize(), 0) : 0;
 
-  const positionRight =
-    pinnedIndex < rights.length - 1
-      ? rights
-          .slice(pinnedIndex + 1)
-          .reduce((prev, cell) => prev + cell.column.getSize(), 0)
-      : 0;
+  const positionRight = pinnedIndex < rights.length - 1 ? rights.slice(pinnedIndex + 1).reduce((prev, cell) => prev + cell.column.getSize(), 0) : 0;
 
   const entry = useIntersectionObserver(ref, {
     root: ref.current?.closest("table"),
-    rootMargin:
-      pinned === "right"
-        ? `0px ${-positionRight - 1}px 0px 0px`
-        : `0px 0px 0px ${-positionLeft - 1}px`,
+    rootMargin: pinned === "right" ? `0px ${-positionRight - 1}px 0px 0px` : `0px 0px 0px ${-positionLeft - 1}px`,
     threshold: 1,
   });
 
@@ -385,23 +229,15 @@ const TablePinnedCell = ({
       ref={ref}
       className={cn(
         "sticky bg-white z-[999]",
-        entry?.isIntersecting &&
-          pinned === "left" &&
-          'left-0 after:content-[""] after:absolute after:top-0 after:-right-10 after:bottom-0 after:w-10 after:duration-300',
-        entry?.isIntersecting &&
-          pinned === "right" &&
-          'right-0 before:content-[""] before:absolute before:top-0 before:-left-10 before:bottom-0 before:w-10 before:duration-300',
+        entry?.isIntersecting && pinned === "left" && 'left-0 after:content-[""] after:absolute after:top-0 after:-right-10 after:bottom-0 after:w-10 after:duration-300',
+        entry?.isIntersecting && pinned === "right" && 'right-0 before:content-[""] before:absolute before:top-0 before:-left-10 before:bottom-0 before:w-10 before:duration-300',
         entry?.isIntersecting && "data-[last=true]:sticky-col",
-        className
+        className,
       )}
-      data-last={
-        pinned === "left" ? pinnedIndex === lefts.length - 1 : pinnedIndex === 0
-      }
+      data-last={pinned === "left" ? pinnedIndex === lefts.length - 1 : pinnedIndex === 0}
       style={{
         ...style,
-        ...(pinned === "left"
-          ? { left: `${positionLeft}px` }
-          : { right: `${positionRight}px` }),
+        ...(pinned === "left" ? { left: `${positionLeft}px` } : { right: `${positionRight}px` }),
       }}
       {...props}
     >
@@ -410,15 +246,8 @@ const TablePinnedCell = ({
   );
 };
 
-const TableCaption = React.forwardRef<
-  HTMLTableCaptionElement,
-  React.HTMLAttributes<HTMLTableCaptionElement>
->(({ className, ...props }, ref) => (
-  <caption
-    ref={ref}
-    className={cn("mt-4 text-sm text-muted-foreground", className)}
-    {...props}
-  />
+const TableCaption = React.forwardRef<HTMLTableCaptionElement, React.HTMLAttributes<HTMLTableCaptionElement>>(({ className, ...props }, ref) => (
+  <caption ref={ref} className={cn("mt-4 text-sm text-muted-foreground", className)} {...props} />
 ));
 TableCaption.displayName = "TableCaption";
 
@@ -430,30 +259,23 @@ type TTableResizeProps<TData> = Assign<
   }
 >;
 
-const TableResize = React.forwardRef<HTMLDivElement, TTableResizeProps<any>>(
-  ({ table, header, className, children, ...props }, ref) => {
-    return (
-      <div ref={ref} className={cn(["group relative", className])} {...props}>
-        {children}
-        <div
-          {...{
-            onMouseDown: header.getResizeHandler(),
-            onTouchStart: header.getResizeHandler(),
-            className:
-              "group-hover:bg-muted focus:bg-muted absolute top-0 right-0 w-1 h-full cursor-pointer",
-            style: {
-              transform: header.column.getIsResizing()
-                ? `translateX(${
-                    table.getState().columnSizingInfo.deltaOffset
-                  }px)`
-                : "",
-            },
-          }}
-        />
-      </div>
-    );
-  }
-);
+const TableResize = React.forwardRef<HTMLDivElement, TTableResizeProps<any>>(({ table, header, className, children, ...props }, ref) => {
+  return (
+    <div ref={ref} className={cn(["group relative", className])} {...props}>
+      {children}
+      <div
+        {...{
+          onMouseDown: header.getResizeHandler(),
+          onTouchStart: header.getResizeHandler(),
+          className: "group-hover:bg-muted focus:bg-muted absolute top-0 right-0 w-1 h-full cursor-pointer",
+          style: {
+            transform: header.column.getIsResizing() ? `translateX(${table.getState().columnSizingInfo.deltaOffset}px)` : "",
+          },
+        }}
+      />
+    </div>
+  );
+});
 
 TableResize.displayName = "TableResize";
 

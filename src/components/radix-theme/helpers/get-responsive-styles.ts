@@ -11,11 +11,7 @@ interface GetResponsiveStylesOptions {
   parseValue?: (value: string) => string | undefined;
 }
 
-function getResponsiveStyles({
-  className,
-  customProperties,
-  ...args
-}: GetResponsiveStylesOptions) {
+function getResponsiveStyles({ className, customProperties, ...args }: GetResponsiveStylesOptions) {
   const responsiveClassNames = getResponsiveClassNames({
     allowArbitraryValues: true,
     className,
@@ -37,13 +33,7 @@ interface GetResponsiveClassNamesOptions {
   parseValue?: (value: string) => string | undefined;
 }
 
-function getResponsiveClassNames({
-  allowArbitraryValues,
-  value,
-  className,
-  propValues,
-  parseValue = (value) => value,
-}: GetResponsiveClassNamesOptions): string | undefined {
+function getResponsiveClassNames({ allowArbitraryValues, value, className, propValues, parseValue = (value) => value }: GetResponsiveClassNamesOptions): string | undefined {
   const classNames: string[] = [];
 
   if (!value) {
@@ -68,12 +58,10 @@ function getResponsiveClassNames({
       if (value !== undefined) {
         if (propValues.includes(value)) {
           const baseClassName = getBaseClassName(className, value, parseValue);
-          const bpClassName =
-            bp === "initial" ? baseClassName : `${bp}:${baseClassName}`;
+          const bpClassName = bp === "initial" ? baseClassName : `${bp}:${baseClassName}`;
           classNames.push(bpClassName);
         } else if (allowArbitraryValues) {
-          const bpClassName =
-            bp === "initial" ? className : `${bp}:${className}`;
+          const bpClassName = bp === "initial" ? className : `${bp}:${className}`;
           classNames.push(bpClassName);
         }
       }
@@ -87,11 +75,7 @@ function getResponsiveClassNames({
   }
 }
 
-function getBaseClassName(
-  className: string,
-  value: string,
-  parseValue: (value: string) => string | undefined
-): string {
+function getBaseClassName(className: string, value: string, parseValue: (value: string) => string | undefined): string {
   const delimiter = className ? "-" : "";
   const matchedValue = parseValue(value);
   const isNegative = matchedValue?.startsWith("-");
@@ -107,12 +91,7 @@ interface GetResponsiveCustomPropertiesOptions {
   parseValue?: (value: string) => string | undefined;
 }
 
-function getResponsiveCustomProperties({
-  customProperties,
-  value,
-  propValues,
-  parseValue = (value) => value,
-}: GetResponsiveCustomPropertiesOptions) {
+function getResponsiveCustomProperties({ customProperties, value, propValues, parseValue = (value) => value }: GetResponsiveCustomPropertiesOptions) {
   let styles: Record<string, string | undefined> = {};
 
   // Don't generate custom properties if the value is not arbitrary
@@ -141,8 +120,7 @@ function getResponsiveCustomProperties({
       }
 
       for (const customProperty of customProperties) {
-        const bpProperty =
-          bp === "initial" ? customProperty : `${customProperty}-${bp}`;
+        const bpProperty = bp === "initial" ? customProperty : `${customProperty}-${bp}`;
 
         styles = {
           [bpProperty]: value,
@@ -162,8 +140,4 @@ function getResponsiveCustomProperties({
   return styles;
 }
 
-export {
-  getResponsiveStyles,
-  getResponsiveCustomProperties,
-  getResponsiveClassNames,
-};
+export { getResponsiveStyles, getResponsiveCustomProperties, getResponsiveClassNames };

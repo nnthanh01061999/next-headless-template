@@ -3,9 +3,7 @@ import { getBeURL, networkHandler } from "@/utils";
 import { serverNetworkHandler, setServerToken } from "@/utils/network-server";
 
 function getNotes(params: IPaginationParams) {
-  return networkHandler
-    .get(getBeURL("/note"), { params })
-    .then((rp) => rp.data);
+  return networkHandler.get(getBeURL("/note"), { params }).then((rp) => rp.data);
 }
 
 interface IToken {
@@ -30,16 +28,12 @@ function getNoteByID(id: number | string) {
 }
 
 function createNote(payload: any) {
-  return networkHandler
-    .post(getBeURL("/note"), { ...payload })
-    .then((rp) => rp.data);
+  return networkHandler.post(getBeURL("/note"), { ...payload }).then((rp) => rp.data);
 }
 
 function updateNote(payload: IMainUpdatePayload<any>) {
   const { id, payload: payload_ } = payload;
-  return networkHandler
-    .patch(getBeURL(`/note/${id}`), { ...payload_ })
-    .then((rp) => rp.data);
+  return networkHandler.patch(getBeURL(`/note/${id}`), { ...payload_ }).then((rp) => rp.data);
 }
 
 function deleteNote(id: number | string) {

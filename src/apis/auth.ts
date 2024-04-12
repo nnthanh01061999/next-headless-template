@@ -3,12 +3,7 @@ import { getBeURL, getLocalRefreshToken, networkHandler } from "@/utils";
 import axios, { AxiosResponse } from "axios";
 
 function login(payload: ILoginPayload) {
-  return networkHandler
-    .post<unknown, AxiosResponse<ILoginResponse>, unknown>(
-      getBeURL("/auth/sign-in"),
-      { ...payload }
-    )
-    ?.then((rp) => rp.data);
+  return networkHandler.post<unknown, AxiosResponse<ILoginResponse>, unknown>(getBeURL("/auth/sign-in"), { ...payload })?.then((rp) => rp.data);
 }
 
 function refreshToken() {
@@ -24,9 +19,7 @@ function refreshTokenServer(token: string) {
 }
 
 function getUserByToken() {
-  return networkHandler
-    .get(getBeURL("/user/general-user/find-me"))
-    .then((rp) => rp.data);
+  return networkHandler.get(getBeURL("/user/general-user/find-me")).then((rp) => rp.data);
 }
 
 const api = { login, refreshToken, getUserByToken, refreshTokenServer };

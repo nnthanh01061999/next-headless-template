@@ -1,22 +1,13 @@
-import Combobox, {
-  ComboboxProps,
-  TMode,
-  TValueMode,
-} from "@/components/ui/combobox";
+import Combobox, { ComboboxProps, TMode, TValueMode } from "@/components/ui/combobox";
 import { DEFAULT_INDEX, DEFAULT_LIMIT } from "@/data";
+import { useDebounceValue } from "@/hooks/use-debounce-value";
+import { usePagination } from "@/hooks/use-pagination";
 import { IOption } from "@/types";
-import { networkHandler, useDebounceValue, usePagination } from "@/utils";
+import { networkHandler } from "@/utils";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { AxiosRequestConfig } from "axios";
 import { get } from "lodash";
-import {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 export type IAsyncSelectParams = {
   page: number;
@@ -62,10 +53,7 @@ export interface AsyncComboboxProps extends ComboboxProps<TMode, TValueMode> {
   axiosConfig?: AxiosRequestConfig<any>;
 }
 
-const AsyncCombobox = forwardRef<
-  React.ElementRef<typeof Combobox>,
-  Omit<AsyncComboboxProps, "options">
->((props, ref) => {
+const AsyncCombobox = forwardRef<React.ElementRef<typeof Combobox>, Omit<AsyncComboboxProps, "options">>((props, ref) => {
   const { config, axiosConfig, ...comboboxProps } = props;
   const {
     name,
@@ -85,12 +73,7 @@ const AsyncCombobox = forwardRef<
     renderLabel,
   } = config;
 
-  const {
-    searchThreshold = 0,
-    searchKey,
-    searchLocal,
-    searchDebounce,
-  } = search ?? {};
+  const { searchThreshold = 0, searchKey, searchLocal, searchDebounce } = search ?? {};
   const firstCall = useRef<any>(null);
   const [state, setState] = useState<IAsyncSelectState>(() => ({
     focus: false,
@@ -105,11 +88,7 @@ const AsyncCombobox = forwardRef<
     size: size + "",
   });
 
-  const handleFetch = (data: {
-    page: number;
-    size: number;
-    search: string;
-  }) => {
+  const handleFetch = (data: { page: number; size: number; search: string }) => {
     const { page, size } = data;
 
     return networkHandler
@@ -118,9 +97,7 @@ const AsyncCombobox = forwardRef<
           [pageKey]: page ?? null,
           [sizeKey]: size,
           ...otherFilters,
-          ...(searchKey
-            ? { [searchKey]: debounceSearch ?? undefined }
-            : undefined),
+          ...(searchKey ? { [searchKey]: debounceSearch ?? undefined } : undefined),
         },
         ...axiosConfig,
       })
@@ -129,14 +106,7 @@ const AsyncCombobox = forwardRef<
       });
   };
 
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isLoading,
-    isError,
-  } = useInfiniteQuery({
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } = useInfiniteQuery({
     queryKey: [`async-select-${name}`, debounceSearch],
     queryFn: ({ pageParam }) => handleFetch(pageParam),
     retry: false,
@@ -155,9 +125,7 @@ const AsyncCombobox = forwardRef<
           }
         : undefined;
     },
-    enabled:
-      !!state.focus &&
-      (state.search ? state.search?.length >= searchThreshold : true),
+    enabled: !!state.focus && (state.search ? state.search?.length >= searchThreshold : true),
     staleTime: 0,
   });
 
@@ -178,11 +146,7 @@ const AsyncCombobox = forwardRef<
 
   const onScroll = (e: any) => {
     const { scrollTop, scrollHeight, offsetHeight } = e.currentTarget;
-    if (
-      !(isLoading ?? isFetchingNextPage) &&
-      scrollTop + offsetHeight >= scrollHeight &&
-      hasNextPage
-    ) {
+    if (!(isLoading ?? isFetchingNextPage) && scrollTop + offsetHeight >= scrollHeight && hasNextPage) {
       onLoadMore();
     }
   };
@@ -202,12 +166,7 @@ const AsyncCombobox = forwardRef<
     return additionalOptions
       ? additionalOptions?.map((item) => {
           let label = item?.label;
-          label =
-            label &&
-            typeof label === "string" &&
-            renderLabel instanceof Function
-              ? renderLabel(label)
-              : label;
+          label = label && typeof label === "string" && renderLabel instanceof Function ? renderLabel(label) : label;
           const value = getValueFromKey(item, valueField);
           return {
             value: String(value),
@@ -220,17 +179,14 @@ const AsyncCombobox = forwardRef<
   const allOptionsFormat = useMemo(() => {
     return data?.pages
       ? data?.pages?.reduce((prev, page) => {
-          const pageData = responseKey
-            ? get(page, responseKey, undefined)
-            : page;
+          const pageData = responseKey ? get(page, responseKey, undefined) : page;
           const options = pageData?.map((item: any) => {
             let label = "";
             const value = getValueFromKey(item, valueField);
 
             if (typeof labelField === "string") {
               label = item?.[labelField];
-              label =
-                renderLabel instanceof Function ? renderLabel(label) : label;
+              label = renderLabel instanceof Function ? renderLabel(label) : label;
             } else {
               label = getValueFromKey(item, labelField);
             }

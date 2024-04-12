@@ -1,14 +1,5 @@
-import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import BaseCheckbox, {
-  TBaseCheckboxProps,
-} from "@/components/ui/base-checkbox";
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import BaseCheckbox, { TBaseCheckboxProps } from "@/components/ui/base-checkbox";
 import { cn } from "@/lib/utils";
 import { TFormProps } from "@/types/form";
 import { useFormContext } from "react-hook-form";
@@ -20,13 +11,10 @@ type TFormCheckboxProps = {
   childProps?: TBaseCheckboxProps;
 } & TFormProps;
 
-const afterClass = cn([
-  "relative after:absolute after:left-full after:top-0 after:content-['*'] after:text-red-500",
-]);
+const afterClass = cn(["relative after:absolute after:left-full after:top-0 after:content-['*'] after:text-red-500"]);
 
 function FormCheckbox(props: TFormCheckboxProps) {
-  const { name, label, description, required, styles, childProps, options } =
-    props;
+  const { name, label, description, required, styles, childProps, options } = props;
   const { control } = useFormContext();
 
   return (
@@ -36,26 +24,11 @@ function FormCheckbox(props: TFormCheckboxProps) {
       render={() => {
         return (
           <FormItem>
-            {label ? (
-              <FormLabel
-                className={cn(required ? afterClass : "", [styles?.labelClass])}
-              >
-                {label}
-              </FormLabel>
-            ) : null}
+            {label ? <FormLabel className={cn(required ? afterClass : "", [styles?.labelClass])}>{label}</FormLabel> : null}
             {options.map((option) => (
-              <CheckboxItem
-                key={option.value}
-                option={option}
-                name={name}
-                childProps={childProps}
-              />
+              <CheckboxItem key={option.value} option={option} name={name} childProps={childProps} />
             ))}
-            {description ? (
-              <FormDescription className={styles?.descriptionClass}>
-                {description}
-              </FormDescription>
-            ) : null}
+            {description ? <FormDescription className={styles?.descriptionClass}>{description}</FormDescription> : null}
             <FormMessage className={styles?.errorMessageClass} />
           </FormItem>
         );
@@ -84,10 +57,7 @@ const CheckboxItem = (props: TCheckboxItemProps) => {
       name={name}
       render={({ field }) => {
         return (
-          <FormItem
-            key={option.value}
-            className="flex flex-row items-start space-x-3 space-y-0"
-          >
+          <FormItem key={option.value} className="flex flex-row items-start space-x-3 space-y-0">
             <FormControl>
               <BaseCheckbox
                 {...childProps}
@@ -98,13 +68,7 @@ const CheckboxItem = (props: TCheckboxItemProps) => {
                   ...childProps?.checkboxProps,
                   checked: field.value?.includes(option.value),
                   onCheckedChange: (checked) => {
-                    return checked
-                      ? field.onChange([...(field?.value || []), option.value])
-                      : field.onChange(
-                          field.value?.filter(
-                            (value: any) => value !== option.value
-                          )
-                        );
+                    return checked ? field.onChange([...(field?.value || []), option.value]) : field.onChange(field.value?.filter((value: any) => value !== option.value));
                   },
                 }}
               />

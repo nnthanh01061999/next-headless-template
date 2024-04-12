@@ -120,14 +120,11 @@ export type ExtractState<S> = S extends {
 type Params<U> = Parameters<typeof useStore<typeof authStore, U>>;
 
 // Selectors
-const accessTokenSelector = (state: ExtractState<typeof authStore>) =>
-  state.accessToken;
-const refreshTokenSelector = (state: ExtractState<typeof authStore>) =>
-  state.refreshToken;
+const accessTokenSelector = (state: ExtractState<typeof authStore>) => state.accessToken;
+const refreshTokenSelector = (state: ExtractState<typeof authStore>) => state.refreshToken;
 const loggedSelector = (state: ExtractState<typeof authStore>) => state.logged;
 
-const actionsSelector = (state: ExtractState<typeof authStore>) =>
-  state.actions;
+const actionsSelector = (state: ExtractState<typeof authStore>) => state.actions;
 
 // getters
 export const getAccessToken = () => accessTokenSelector(authStore.getState());

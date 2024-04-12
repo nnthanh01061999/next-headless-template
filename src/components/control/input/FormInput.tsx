@@ -1,11 +1,4 @@
-import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input, InputProps } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { TFormProps } from "@/types/form";
@@ -15,9 +8,7 @@ type TFormInputProps = {
   childProps?: InputProps;
 } & TFormProps;
 
-const afterClass = cn([
-  "relative after:absolute after:left-full after:top-0 after:content-['*'] after:text-red-500",
-]);
+const afterClass = cn(["relative after:absolute after:left-full after:top-0 after:content-['*'] after:text-red-500"]);
 
 function FormInput(props: TFormInputProps) {
   const { name, label, description, required, styles, childProps } = props;
@@ -31,21 +22,11 @@ function FormInput(props: TFormInputProps) {
         const { value = "", ..._field } = field;
         return (
           <FormItem className={styles?.itemClass}>
-            {label ? (
-              <FormLabel
-                className={cn(required ? afterClass : "", [styles?.labelClass])}
-              >
-                {label}
-              </FormLabel>
-            ) : null}
+            {label ? <FormLabel className={cn(required ? afterClass : "", [styles?.labelClass])}>{label}</FormLabel> : null}
             <FormControl>
               <Input {...childProps} value={value} {..._field} />
             </FormControl>
-            {description ? (
-              <FormDescription className={styles?.descriptionClass}>
-                {description}
-              </FormDescription>
-            ) : null}
+            {description ? <FormDescription className={styles?.descriptionClass}>{description}</FormDescription> : null}
             <FormMessage className={styles?.errorMessageClass} />
           </FormItem>
         );

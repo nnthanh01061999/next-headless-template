@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  getExpandColumn,
-  getMultipleSelectionColumn,
-} from "@/components/table/base-column";
+import { getExpandColumn, getMultipleSelectionColumn } from "@/components/table/base-column";
 import { TableGroupHead, TableSortableHead } from "@/components/ui/table";
 import { ColumnDef } from "@tanstack/react-table";
 
@@ -44,16 +41,12 @@ export const columns: ColumnDef<Note>[] = [
       {
         id: "created_at",
         accessorKey: "created_at",
-        header: () => (
-          <TableSortableHead sortKey="created_at" title="Created At" />
-        ),
+        header: () => <TableSortableHead sortKey="created_at" title="Created At" />,
         size: 300,
       },
       {
         id: "modified_children",
-        header: () => (
-          <TableGroupHead title="Children">Children</TableGroupHead>
-        ),
+        header: () => <TableGroupHead title="Children">Children</TableGroupHead>,
         columns: [
           {
             id: "deleted_at",

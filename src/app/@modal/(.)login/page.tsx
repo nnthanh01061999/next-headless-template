@@ -1,15 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetDescription,
-  SheetFooter,
-  SheetClose,
-  Sheet,
-} from "@/components/ui/sheet";
+import { SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter, SheetClose, Sheet } from "@/components/ui/sheet";
 import { Label } from "@radix-ui/react-label";
 import { useRouter } from "next/navigation";
 
@@ -20,9 +12,7 @@ function LoginModal() {
       <SheetContent side={"left"} className="w-screen max-w-none">
         <SheetHeader>
           <SheetTitle>Edit profile</SheetTitle>
-          <SheetDescription>
-            Make changes to your profile here. Click save when you`re done.
-          </SheetDescription>
+          <SheetDescription>Make changes to your profile here. Click save when you`re done.</SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">

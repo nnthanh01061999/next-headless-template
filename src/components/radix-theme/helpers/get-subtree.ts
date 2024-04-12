@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 /**
  * This is a helper function that is used when a component supports `asChild`
@@ -7,15 +7,12 @@ import * as React from 'react';
  * Using it ensures if a consumer uses the `asChild` prop, the elements are in
  * correct order in the DOM, adopting the intended consumer `children`.
  */
-export function getSubtree(
-  options: { asChild: boolean | undefined; children: React.ReactNode },
-  content: React.ReactNode | ((children: React.ReactNode) => React.ReactNode)
-) {
+export function getSubtree(options: { asChild: boolean | undefined; children: React.ReactNode }, content: React.ReactNode | ((children: React.ReactNode) => React.ReactNode)) {
   const { asChild, children } = options;
-  if (!asChild) return typeof content === 'function' ? content(children) : content;
+  if (!asChild) return typeof content === "function" ? content(children) : content;
 
   const firstChild = React.Children.only(children) as React.ReactElement;
   return React.cloneElement(firstChild, {
-    children: typeof content === 'function' ? content(firstChild.props.children) : content,
+    children: typeof content === "function" ? content(firstChild.props.children) : content,
   });
 }

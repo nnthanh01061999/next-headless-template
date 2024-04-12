@@ -16,10 +16,7 @@ function Layout({ children }: PropsWithChildren) {
 
       var foundTarget = target;
 
-      if (
-        target.tagName.toLowerCase() !== "a" &&
-        target.tagName.toLowerCase() !== "button"
-      ) {
+      if (target.tagName.toLowerCase() !== "a" && target.tagName.toLowerCase() !== "button") {
         const closestAnchor = target.closest("a");
         if (closestAnchor) {
           foundTarget = closestAnchor;

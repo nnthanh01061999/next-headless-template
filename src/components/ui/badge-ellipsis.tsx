@@ -67,22 +67,9 @@ function BadgeEllipsis({
 
   return (
     <>
-      <div
-        ref={showRef}
-        className={cn(
-          "w-full grid grid-flow-col gap-1 justify-start items-center overflow-hidden",
-          className
-        )}
-        {...props}
-      >
+      <div ref={showRef} className={cn("w-full grid grid-flow-col gap-1 justify-start items-center overflow-hidden", className)} {...props}>
         {content.map((item) => (
-          <Badge
-            key={item.value}
-            variant="secondary"
-            onClose={item.value === EllipsisTag ? undefined : onClose}
-            value={item.value}
-            {...badgeProps}
-          >
+          <Badge key={item.value} variant="secondary" onClose={item.value === EllipsisTag ? undefined : onClose} value={item.value} {...badgeProps}>
             {item.label}
           </Badge>
         ))}
@@ -90,23 +77,14 @@ function BadgeEllipsis({
 
       <div
         ref={hideRef}
-        className={cn(
-          "absolute top-0 left-0 -z-10 opacity-0 w-full grid grid-flow-col gap-1 justify-start items-center px-2 overflow-hidden",
-          className
-        )}
+        className={cn("absolute top-0 left-0 -z-10 opacity-0 w-full grid grid-flow-col gap-1 justify-start items-center px-2 overflow-hidden", className)}
         {...props}
         style={{
           width: showRef.current?.clientWidth + "px",
         }}
       >
         {options.map((item) => (
-          <Badge
-            key={item.value}
-            variant="secondary"
-            onClose={onClose}
-            value={item.value}
-            {...badgeProps}
-          >
+          <Badge key={item.value} variant="secondary" onClose={onClose} value={item.value} {...badgeProps}>
             {item.label}
           </Badge>
         ))}

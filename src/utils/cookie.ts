@@ -1,7 +1,4 @@
-import {
-  setCookie as setCookieLib,
-  getCookie as getCookieLib,
-} from "cookies-next";
+import { setCookie as setCookieLib, getCookie as getCookieLib } from "cookies-next";
 import { OptionsType } from "cookies-next/lib/types";
 
 export const getCookie = (key: string, options?: OptionsType) =>

@@ -26,10 +26,8 @@ export type ExtractState<S> = S extends {
 type Params<U> = Parameters<typeof useStore<typeof routingStore, U>>;
 
 // Selectors
-const loadingSelector = (state: ExtractState<typeof routingStore>) =>
-  state.loading;
-const actionsSelector = (state: ExtractState<typeof routingStore>) =>
-  state.actions;
+const loadingSelector = (state: ExtractState<typeof routingStore>) => state.loading;
+const actionsSelector = (state: ExtractState<typeof routingStore>) => state.actions;
 
 // getters
 export const getActions = () => actionsSelector(routingStore.getState());

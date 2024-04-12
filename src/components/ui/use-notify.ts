@@ -1,14 +1,7 @@
 // Inspired by react-hot-notify library
 import * as React from "react";
 
-import {
-  AlertDialogActionProps,
-  AlertDialogCancelProps,
-  AlertDialogContentProps,
-  AlertDialogDescriptionProps,
-  AlertDialogProps,
-  AlertDialogTitleProps,
-} from "@radix-ui/react-alert-dialog";
+import { AlertDialogActionProps, AlertDialogCancelProps, AlertDialogContentProps, AlertDialogDescriptionProps, AlertDialogProps, AlertDialogTitleProps } from "@radix-ui/react-alert-dialog";
 import { NotifyType } from "@/components/ui/notify";
 
 const NOTIFY_LIMIT = 1;
@@ -74,9 +67,7 @@ export const reducer = (state: State, action: Action): State => {
     case "UPDATE_NOTIFY":
       return {
         ...state,
-        notifies: state.notifies.map((t) =>
-          t.id === action.notify.id ? { ...t, ...action.notify } : t
-        ),
+        notifies: state.notifies.map((t) => (t.id === action.notify.id ? { ...t, ...action.notify } : t)),
       };
 
     case "REMOVE_NOTIFY":
@@ -152,8 +143,7 @@ function useNotify() {
   return {
     ...state,
     notify,
-    remove: (notifyId?: string) =>
-      dispatch({ type: "REMOVE_NOTIFY", notifyId }),
+    remove: (notifyId?: string) => dispatch({ type: "REMOVE_NOTIFY", notifyId }),
   };
 }
 

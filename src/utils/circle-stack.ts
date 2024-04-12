@@ -27,10 +27,7 @@ export const consumeRules = {
   }
 >;
 
-export const check2BlockNearest = (
-  array: (string | number)[],
-  newBlock: string | number
-) => {
+export const check2BlockNearest = (array: (string | number)[], newBlock: string | number) => {
   if (array[array.length - 1] === newBlock) return false;
   return true;
 };
@@ -39,8 +36,7 @@ export const consumeArray = (array: TBlock[]) => {
   let newStack: TBlock[] = [];
   array.forEach((block) => {
     const consume = consumeRules[block].consume;
-    if (newStack.includes(consume))
-      newStack = newStack.filter((block) => block !== consume);
+    if (newStack.includes(consume)) newStack = newStack.filter((block) => block !== consume);
     newStack.push(block);
   });
   return newStack;

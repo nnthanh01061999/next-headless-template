@@ -22,10 +22,7 @@ export const isNumberic = (value: any) => {
 };
 
 export const isBoolean = (value: any) => {
-  return (value && typeof value === "string" && value === "true") ||
-    value === "false"
-    ? true
-    : false;
+  return (value && typeof value === "string" && value === "true") || value === "false" ? true : false;
 };
 
 export const getBoolean = (value: any) => {
@@ -37,9 +34,7 @@ export const getNumber = (value: any) => {
 };
 
 export const numberFormat = (value: number) => {
-  return new Intl.NumberFormat(undefined, { maximumFractionDigits: 3 }).format(
-    value
-  );
+  return new Intl.NumberFormat(undefined, { maximumFractionDigits: 3 }).format(value);
 };
 
 export const arrayUnique = (arr: (string | number)[]) => {
@@ -58,12 +53,7 @@ export const getUniqueObjectByKey = <T>(arr: T[], key: keyof T): T[] => {
   }, []);
 };
 
-export const arrayToTree = (
-  array: any[],
-  id = "id",
-  parentId = "pid",
-  children = "children"
-) => {
+export const arrayToTree = (array: any[], id = "id", parentId = "pid", children = "children") => {
   const result: any = [];
   const hash: any = {};
   const data = cloneDeep(array);
@@ -87,12 +77,7 @@ export const arrayToTree = (
   return result;
 };
 
-export function queryAncestors(
-  array: any,
-  current: any,
-  parentId: string,
-  id = "id"
-) {
+export function queryAncestors(array: any, current: any, parentId: string, id = "id") {
   const result = [current];
   const hashMap = new Map();
   array.forEach((item: any) => hashMap.set(item[id], item));
@@ -109,12 +94,7 @@ export function queryAncestors(
   return result;
 }
 
-export const getAllChildrenById = <T>(
-  nodes: T[],
-  key: any,
-  id: keyof T,
-  parent_id: keyof T
-): T[] => {
+export const getAllChildrenById = <T>(nodes: T[], key: any, id: keyof T, parent_id: keyof T): T[] => {
   const results: T[] = [];
 
   const node = nodes.find((n) => n?.[id] === key);
@@ -123,12 +103,7 @@ export const getAllChildrenById = <T>(
     const children = nodes.filter((n) => n?.[parent_id] === node?.[id]);
     for (let child of children) {
       results.push(child);
-      const childResults = getAllChildrenById(
-        nodes,
-        child?.[id],
-        id,
-        parent_id
-      );
+      const childResults = getAllChildrenById(nodes, child?.[id], id, parent_id);
       results.push(...childResults);
     }
   }
@@ -146,13 +121,7 @@ export function getValueBooleanSelect(value: string) {
   return undefined;
 }
 
-export function findAllBranches<T>(
-  node: T,
-  nodes: T[],
-  id: keyof T,
-  parent_id: keyof T,
-  branch: any[] = []
-): any[][] {
+export function findAllBranches<T>(node: T, nodes: T[], id: keyof T, parent_id: keyof T, branch: any[] = []): any[][] {
   branch.push(node?.[id]); // add current node to branch path
   const children = nodes.filter((n) => n?.[parent_id] === node?.[id]); // find children of current node
   if (children.length === 0) {
@@ -160,9 +129,7 @@ export function findAllBranches<T>(
   }
   const branches: number[][] = [];
   for (const child of children) {
-    const childBranches = findAllBranches(child, nodes, id, parent_id, [
-      ...branch,
-    ]); // recursively find child branches
+    const childBranches = findAllBranches(child, nodes, id, parent_id, [...branch]); // recursively find child branches
     branches.push(...childBranches); // add child branches to result
   }
   return branches;
@@ -206,12 +173,7 @@ export function formatBytes(bytes: number, decimals = 2) {
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
 }
 
-export function findAllLeafNodes<T>(
-  treeData: T[],
-  id: keyof T,
-  parent_id: keyof T,
-  children = "children"
-) {
+export function findAllLeafNodes<T>(treeData: T[], id: keyof T, parent_id: keyof T, children = "children") {
   const leafNodes: T[] = [];
 
   function traverseNode(node: T) {
@@ -234,12 +196,7 @@ export function findAllLeafNodes<T>(
   return leafNodes;
 }
 
-export function formatNumber(
-  number: number,
-  format: string,
-  decimalSeparator = ".",
-  groupSeparator = " "
-): string {
+export function formatNumber(number: number, format: string, decimalSeparator = ".", groupSeparator = " "): string {
   let valueOf = Number(number);
   if (format === "") {
     if (Number.isNaN(valueOf)) return "";
@@ -260,10 +217,7 @@ export function formatNumber(
   let left = Math.floor(number).toString();
   for (let i = formatLeft.length - 1, j = 0; i >= 0; i--, j++) {
     if (formatLeft[i] === groupSeparator && j < left.length) {
-      left =
-        left.slice(0, left.length - j) +
-        groupSeparator +
-        left.slice(left.length - j);
+      left = left.slice(0, left.length - j) + groupSeparator + left.slice(left.length - j);
     }
   }
 
@@ -273,22 +227,16 @@ export function formatNumber(
   let rightNumber = Number.parseFloat(stringNumber.split(decimalSeparator)[1]);
 
   let right = formatNumber(rightNumber, rightFormat);
-  if (right.length > formatArray[1].length)
-    right = right.slice(0, formatArray[1].length);
+  if (right.length > formatArray[1].length) right = right.slice(0, formatArray[1].length);
   else if (right.length < formatArray[1].length) {
-    for (let i = right.length; i < formatArray[1].length; i++)
-      right += formatArray[1][i];
+    for (let i = right.length; i < formatArray[1].length; i++) right += formatArray[1][i];
   }
 
   return `${left}${decimalSeparator}${right}`;
 }
 
 export function removeVietnameseAccents(sentence: string = ""): string {
-  if (
-    typeof sentence !== "string" ||
-    sentence === null ||
-    sentence === undefined
-  ) {
+  if (typeof sentence !== "string" || sentence === null || sentence === undefined) {
     return sentence;
   }
   const accents = [
@@ -308,22 +256,7 @@ export function removeVietnameseAccents(sentence: string = ""): string {
     /[\347]/g, // C, c
   ];
 
-  const letters = [
-    "A",
-    "a",
-    "E",
-    "e",
-    "I",
-    "i",
-    "O",
-    "o",
-    "U",
-    "u",
-    "N",
-    "n",
-    "C",
-    "c",
-  ];
+  const letters = ["A", "a", "E", "e", "I", "i", "O", "o", "U", "u", "N", "n", "C", "c"];
 
   let result = sentence;
 
@@ -338,10 +271,7 @@ export function compareIgnoreCase(str1: string, str2: string): boolean {
   return str1.toLowerCase() === str2.toLowerCase();
 }
 
-export function compareIgnoreCaseVietnamese(
-  str1: string = "",
-  str2: string = ""
-): boolean {
+export function compareIgnoreCaseVietnamese(str1: string = "", str2: string = ""): boolean {
   if (!str1 || !str2) return false;
   const convertStr1 = removeVietnameseAccents(str1) ?? "";
   const convertStr2 = removeVietnameseAccents(str2) ?? "";
@@ -349,21 +279,8 @@ export function compareIgnoreCaseVietnamese(
   return convertStr1.toLowerCase() === convertStr2.toLowerCase();
 }
 
-export const flatTreeArrayToArrayString = <T>(
-  data: T[],
-  childrenKey: keyof T,
-  valueKey: keyof T
-): string[] => {
+export const flatTreeArrayToArrayString = <T>(data: T[], childrenKey: keyof T, valueKey: keyof T): string[] => {
   return data.reduce((prev: string[], cur: T) => {
-    return [
-      ...prev,
-      ...((cur?.[childrenKey] as T[])?.length > 0
-        ? flatTreeArrayToArrayString(
-            cur?.[childrenKey] as T[],
-            childrenKey,
-            valueKey
-          )
-        : ([cur?.[valueKey]] as string[])),
-    ];
+    return [...prev, ...((cur?.[childrenKey] as T[])?.length > 0 ? flatTreeArrayToArrayString(cur?.[childrenKey] as T[], childrenKey, valueKey) : ([cur?.[valueKey]] as string[]))];
   }, [] as string[]);
 };

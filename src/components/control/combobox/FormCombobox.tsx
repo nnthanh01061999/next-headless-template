@@ -1,11 +1,4 @@
-import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import Combobox, { ComboboxProps, TMode } from "@/components/ui/combobox";
 import { cn } from "@/lib/utils";
 import { TFormProps } from "@/types/form";
@@ -19,9 +12,7 @@ export type TFormComboboxProps = {
     | Omit<ComboboxProps<"multiple", "object">, "value" | "onChange">;
 } & TFormProps;
 
-const afterClass = cn([
-  "relative after:absolute after:left-full after:top-0 after:content-['*'] after:text-red-500",
-]);
+const afterClass = cn(["relative after:absolute after:left-full after:top-0 after:content-['*'] after:text-red-500"]);
 
 function FormCombobox(props: TFormComboboxProps) {
   const { name, label, description, required, styles, childProps } = props;
@@ -35,27 +26,11 @@ function FormCombobox(props: TFormComboboxProps) {
         const { value, onChange, onBlur } = field;
         return (
           <FormItem className={styles?.itemClass}>
-            {label ? (
-              <FormLabel
-                className={cn(required ? afterClass : "", [styles?.labelClass])}
-              >
-                {label}
-              </FormLabel>
-            ) : null}
+            {label ? <FormLabel className={cn(required ? afterClass : "", [styles?.labelClass])}>{label}</FormLabel> : null}
             <FormControl>
-              <Combobox
-                {...childProps}
-                ref={field.ref}
-                value={value}
-                onChange={onChange}
-                onBlur={onBlur}
-              />
+              <Combobox {...childProps} ref={field.ref} value={value} onChange={onChange} onBlur={onBlur} />
             </FormControl>
-            {description ? (
-              <FormDescription className={styles?.descriptionClass}>
-                {description}
-              </FormDescription>
-            ) : null}
+            {description ? <FormDescription className={styles?.descriptionClass}>{description}</FormDescription> : null}
             <FormMessage className={styles?.errorMessageClass} />
           </FormItem>
         );

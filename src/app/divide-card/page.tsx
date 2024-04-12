@@ -17,36 +17,16 @@ function Page({ searchParams: { total } }: any) {
             "min-[767px]:[&>div:nth-child(3n+2)>div]:border-l min-[767px]:[&>div:nth-child(3n+3)>div]:border-l",
             "[&>div:last-child]:border-b-0",
             list.length % 2 === 0
-              ? cn([
-                  "min-[640px]:[&>div:nth-last-child(2)]:border-b-0",
-                  "min-[768px]:[&>div:nth-last-child(2)]:border-b",
-                  "min-[640px]:[&>div:last-child]:border-b-0",
-                ])
+              ? cn(["min-[640px]:[&>div:nth-last-child(2)]:border-b-0", "min-[768px]:[&>div:nth-last-child(2)]:border-b", "min-[640px]:[&>div:last-child]:border-b-0"])
               : "min-[640px]:[&>div:last-child]:border-b-0 max-[767px]:[&>div:last-child]:border-b-0",
-            list.length % 3 === 2
-              ? cn(["min-[768px]:[&>div:nth-last-child(2)]:border-b-0"])
-              : "",
-            list.length % 3 === 0
-              ? cn([
-                  "min-[768px]:[&>div:nth-last-child(2)]:border-b-0",
-                  "min-[768px]:[&>div:nth-last-child(3)]:border-b-0",
-                ])
-              : "",
+            list.length % 3 === 2 ? cn(["min-[768px]:[&>div:nth-last-child(2)]:border-b-0"]) : "",
+            list.length % 3 === 0 ? cn(["min-[768px]:[&>div:nth-last-child(2)]:border-b-0", "min-[768px]:[&>div:nth-last-child(3)]:border-b-0"]) : "",
           ])}
         >
           {list.map((_, index) => (
-            <div
-              key={index}
-              className="flex py-2 first:last:justify-center items-center border-black border-solid"
-            >
+            <div key={index} className="flex py-2 first:last:justify-center items-center border-black border-solid">
               <div className={cn([" w-full p-2 border-black border-solid"])}>
-                <div
-                  className={cn([
-                    "bg-blue-300 h-20 w-full border-black border-solid",
-                  ])}
-                >
-                  Card
-                </div>
+                <div className={cn(["bg-blue-300 h-20 w-full border-black border-solid"])}>Card</div>
               </div>
             </div>
           ))}

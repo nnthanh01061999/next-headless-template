@@ -1,30 +1,10 @@
 "use client";
 
-import {
-  ColumnDef,
-  TableOptions,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { ColumnDef, TableOptions, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 
-import {
-  TableEmpty,
-  TableLoading,
-} from "@/components/table/table-illustration";
+import { TableEmpty, TableLoading } from "@/components/table/table-illustration";
 import { ScrollArea, ScrollAreaProps } from "@/components/ui/scroll-area";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableDraggableHead,
-  TableHead,
-  TableHeader,
-  TablePinnedCell,
-  TablePinnedHead,
-  TableResize,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableDraggableHead, TableHead, TableHeader, TablePinnedCell, TablePinnedHead, TableResize, TableRow } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 import { Fragment } from "react";
 import { DndProvider } from "react-dnd";
@@ -34,21 +14,12 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   loading?: boolean;
-  tableOptions?: Omit<
-    TableOptions<TData>,
-    "data" | "columns" | "getCoreRowModel"
-  >;
+  tableOptions?: Omit<TableOptions<TData>, "data" | "columns" | "getCoreRowModel">;
   scrollProps?: ScrollAreaProps;
 }
 const emptyArray: any[] = [];
 
-export function DataTable<TData, TValue>({
-  columns,
-  data = [],
-  loading = false,
-  tableOptions,
-  scrollProps,
-}: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data = [], loading = false, tableOptions, scrollProps }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data: data.length ? data : emptyArray,
     columns,
@@ -70,12 +41,8 @@ export function DataTable<TData, TValue>({
         <Table className="w-full">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup, index) => {
-              const pinnedLeftHeader = headerGroup.headers.filter(
-                (header) => header.column.getIsPinned() === "left"
-              );
-              const pinnedRightHeader = headerGroup.headers.filter(
-                (header) => header.column.getIsPinned() === "right"
-              );
+              const pinnedLeftHeader = headerGroup.headers.filter((header) => header.column.getIsPinned() === "left");
+              const pinnedRightHeader = headerGroup.headers.filter((header) => header.column.getIsPinned() === "right");
 
               return (
                 <TableRow
@@ -89,10 +56,7 @@ export function DataTable<TData, TValue>({
                     const pinned = header.column.getIsPinned();
                     const isSelectionCol = header.id === "selection";
 
-                    const DraggableWrapper =
-                      isSelectionCol || header.colSpan > 1
-                        ? TableHead
-                        : TableDraggableHead;
+                    const DraggableWrapper = isSelectionCol || header.colSpan > 1 ? TableHead : TableDraggableHead;
 
                     return pinned ? (
                       <TablePinnedHead
@@ -107,12 +71,7 @@ export function DataTable<TData, TValue>({
                         colSpan={header.colSpan || 1}
                       >
                         <ResizeWrapper table={table} header={header}>
-                          {header.isPlaceholder
-                            ? null
-                            : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                          {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                         </ResizeWrapper>
                       </TablePinnedHead>
                     ) : (
@@ -126,12 +85,7 @@ export function DataTable<TData, TValue>({
                         header={header}
                       >
                         <ResizeWrapper table={table} header={header}>
-                          {header.isPlaceholder
-                            ? null
-                            : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                          {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                         </ResizeWrapper>
                       </DraggableWrapper>
                     );
@@ -143,40 +97,19 @@ export function DataTable<TData, TValue>({
           <TableBody>
             {table.getRowModel().rows?.length
               ? table.getRowModel().rows.map((row) => {
-                  const pinnedLeftCell = row
-                    .getVisibleCells()
-                    .filter((cell) => cell.column.getIsPinned() === "left");
-                  const pinnedRightCell = row
-                    .getVisibleCells()
-                    .filter((cell) => cell.column.getIsPinned() === "right");
+                  const pinnedLeftCell = row.getVisibleCells().filter((cell) => cell.column.getIsPinned() === "left");
+                  const pinnedRightCell = row.getVisibleCells().filter((cell) => cell.column.getIsPinned() === "right");
                   return (
-                    <TableRow
-                      key={row.id}
-                      data-state={row.getIsSelected() && "selected"}
-                    >
+                    <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                       {row.getVisibleCells().map((cell) => {
                         const pinned = cell.column.getIsPinned();
 
                         return pinned ? (
-                          <TablePinnedCell
-                            key={cell.id}
-                            pinned={pinned}
-                            cell={cell}
-                            lefts={pinnedLeftCell}
-                            rights={pinnedRightCell}
-                          >
-                            {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext()
-                            )}
+                          <TablePinnedCell key={cell.id} pinned={pinned} cell={cell} lefts={pinnedLeftCell} rights={pinnedRightCell}>
+                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
                           </TablePinnedCell>
                         ) : (
-                          <TableCell key={cell.id}>
-                            {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext()
-                            )}
-                          </TableCell>
+                          <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                         );
                       })}
                     </TableRow>
@@ -184,20 +117,14 @@ export function DataTable<TData, TValue>({
                 })
               : !loading && (
                   <TableRow>
-                    <TableCell
-                      colSpan={columns.length}
-                      className="h-24 text-center"
-                    >
+                    <TableCell colSpan={columns.length} className="h-24 text-center">
                       <TableEmpty />
                     </TableCell>
                   </TableRow>
                 )}
             {loading && table.getRowModel().rows?.length === 0 ? (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-40 text-center"
-                />
+                <TableCell colSpan={columns.length} className="h-40 text-center" />
               </TableRow>
             ) : null}
           </TableBody>
