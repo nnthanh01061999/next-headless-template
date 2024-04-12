@@ -61,8 +61,10 @@ export const viewport = {
 
 export default function RootLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   const { init } = getActions();
 
@@ -76,7 +78,10 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <ClientProvider>{children}</ClientProvider>
+        <ClientProvider>
+          {children}
+          {modal}
+        </ClientProvider>
         <Toaster />
         <Notify />
       </body>
