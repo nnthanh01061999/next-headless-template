@@ -1,12 +1,12 @@
 "use client";
-import { useActions, useLoading } from "@/store/routing-store";
+import { useRoutingActions, useLoading } from "@/store/routing-store";
 import { usePathname, useRouter } from "next/navigation";
 import { PropsWithChildren, useEffect } from "react";
 
 function Layout({ children }: PropsWithChildren) {
   const router = useRouter();
   const path = usePathname();
-  const { setLoading: setLoadingStore } = useActions();
+  const { setLoading: setLoadingStore } = useRoutingActions();
   const loadingStore = useLoading();
 
   useEffect(() => {
@@ -14,7 +14,7 @@ function Layout({ children }: PropsWithChildren) {
     const onClick = (e: any) => {
       const target = e.target as HTMLElement;
 
-      var foundTarget = target;
+      let foundTarget = target;
 
       if (target.tagName.toLowerCase() !== "a" && target.tagName.toLowerCase() !== "button") {
         const closestAnchor = target.closest("a");

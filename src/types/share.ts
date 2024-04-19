@@ -1,17 +1,4 @@
-export interface IPaginationParams {
-  page: number;
-  size: number;
-}
-
-export interface IMainUpdatePayload<T> {
-  id: number;
-  payload: T;
-}
-
-export type TParam = string | string[] | null | undefined;
-export type TRecord<K extends keyof any, T> = {
-  [P in K]: T;
-};
+import { TParam } from "@/types";
 
 export interface IPaginationProps {
   page?: TParam;
@@ -31,3 +18,5 @@ export interface IPaginationStates {
 }
 
 export type Assign<T1 = object, T2 = object> = Omit<T1, keyof T2> & T2;
+
+export type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;

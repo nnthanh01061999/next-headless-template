@@ -1,3 +1,4 @@
+import { ExtractState } from "@/types/store";
 import { createStore, useStore } from "zustand";
 
 type RoutingStore = {
@@ -17,12 +18,6 @@ const routingStore = createStore<RoutingStore>()((set, get) => ({
   },
 }));
 
-export type ExtractState<S> = S extends {
-  getState: () => infer T;
-}
-  ? T
-  : never;
-
 type Params<U> = Parameters<typeof useStore<typeof routingStore, U>>;
 
 // Selectors
@@ -30,13 +25,13 @@ const loadingSelector = (state: ExtractState<typeof routingStore>) => state.load
 const actionsSelector = (state: ExtractState<typeof routingStore>) => state.actions;
 
 // getters
-export const getActions = () => actionsSelector(routingStore.getState());
 export const getLoading = () => loadingSelector(routingStore.getState());
+export const getRoutingActions = () => actionsSelector(routingStore.getState());
 
 function useRoutingStore<U>(selector: Params<U>[1]) {
   return useStore(routingStore, selector);
 }
 
 // Hooks
-export const useActions = () => useRoutingStore(actionsSelector);
 export const useLoading = () => useRoutingStore(loadingSelector);
+export const useRoutingActions = () => useRoutingStore(actionsSelector);

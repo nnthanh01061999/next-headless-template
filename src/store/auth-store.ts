@@ -2,21 +2,23 @@ import { createStore } from "zustand/vanilla";
 import { useStore } from "zustand";
 import { AUTH, STATE } from "@/data";
 import { getCookieJson, setCookieJson } from "@/utils/cookie";
+import { ExtractState } from "@/types/store";
 
 export type AuthData = {
   logged: boolean;
-  accessToken: string | undefined;
-  refreshToken: string | undefined;
+  accessToken?: string;
+  refreshToken?: string;
+  tokenType?: string;
 };
 
 type AuthStore = {
   actions: {
     init: () => void;
-    clearTokens: () => void;
-    setToken: (data: { accessToken: string; refreshToken: string }) => void;
-    setAccessToken: (data: { accessToken: string }) => void;
-    login: (data: { accessToken: string; refreshToken: string }) => void;
+    login: (data: { tokenType: string; accessToken: string; refreshToken: string }) => void;
     logout: () => void;
+    clearTokens: () => void;
+    setToken: (data: { tokenType: string; accessToken: string; refreshToken: string }) => void;
+    setAccessToken: (data: { accessToken: string }) => void;
   };
 } & AuthData;
 
@@ -26,20 +28,11 @@ const setAuthCookies = (data: AuthData) => {
   });
 };
 
-const defaultEmployee = {
-  user_id: "",
-  employee_id: "",
-  name: "",
-  phone: "",
-  email: "",
-  image_url: "",
-};
-
 const authStore = createStore<AuthStore>()((set, get) => ({
   logged: false,
   accessToken: undefined,
   refreshToken: undefined,
-  employee: defaultEmployee,
+  tokenType: "Bearer",
   actions: {
     init: () => {
       const state = getCookieJson(STATE);
@@ -49,16 +42,18 @@ const authStore = createStore<AuthStore>()((set, get) => ({
         ...value,
       });
     },
-    login: ({ accessToken, refreshToken }) => {
+    login: ({ accessToken, refreshToken, tokenType }) => {
       set({
         logged: true,
         accessToken,
         refreshToken,
+        tokenType,
       });
       setAuthCookies({
         logged: true,
         accessToken,
         refreshToken,
+        tokenType,
       });
     },
     logout: () => {
@@ -66,23 +61,27 @@ const authStore = createStore<AuthStore>()((set, get) => ({
         logged: false,
         accessToken: undefined,
         refreshToken: undefined,
+        tokenType: "Bearer",
       });
       setAuthCookies({
         logged: false,
         accessToken: undefined,
         refreshToken: undefined,
+        tokenType: "Bearer",
       });
     },
 
-    setToken: ({ accessToken, refreshToken }) => {
+    setToken: ({ accessToken, refreshToken, tokenType }) => {
       set({
         refreshToken,
         accessToken,
+        tokenType,
       });
       setAuthCookies({
         logged: get().logged,
         refreshToken,
         accessToken,
+        tokenType,
       });
     },
 
@@ -111,26 +110,21 @@ const authStore = createStore<AuthStore>()((set, get) => ({
   },
 }));
 
-export type ExtractState<S> = S extends {
-  getState: () => infer T;
-}
-  ? T
-  : never;
-
 type Params<U> = Parameters<typeof useStore<typeof authStore, U>>;
 
 // Selectors
 const accessTokenSelector = (state: ExtractState<typeof authStore>) => state.accessToken;
 const refreshTokenSelector = (state: ExtractState<typeof authStore>) => state.refreshToken;
+const tokenTypeSelector = (state: ExtractState<typeof authStore>) => state.tokenType;
 const loggedSelector = (state: ExtractState<typeof authStore>) => state.logged;
-
 const actionsSelector = (state: ExtractState<typeof authStore>) => state.actions;
 
 // getters
 export const getAccessToken = () => accessTokenSelector(authStore.getState());
 export const getRefreshToken = () => refreshTokenSelector(authStore.getState());
+export const getTokenType = () => tokenTypeSelector(authStore.getState());
 export const getLogged = () => loggedSelector(authStore.getState());
-export const getActions = () => actionsSelector(authStore.getState());
+export const getAuthActions = () => actionsSelector(authStore.getState());
 
 function useAuthStore<U>(selector: Params<U>[1]) {
   return useStore(authStore, selector);
@@ -139,5 +133,6 @@ function useAuthStore<U>(selector: Params<U>[1]) {
 // Hooks
 export const useAccessToken = () => useAuthStore(accessTokenSelector);
 export const useRefreshToken = () => useAuthStore(refreshTokenSelector);
+export const useTokenType = () => useAuthStore(tokenTypeSelector);
 export const useLogged = () => useAuthStore(loggedSelector);
-export const useActions = () => useAuthStore(actionsSelector);
+export const useAuthActions = () => useAuthStore(actionsSelector);

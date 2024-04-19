@@ -1,11 +1,11 @@
 "use client";
-import { useActions } from "@/store/routing-store";
+import { useRoutingActions } from "@/store/routing-store";
 import { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useRouter } from "next/navigation";
 
 const useMyRouter = () => {
   const router = useRouter();
-  const { setLoading } = useActions();
+  const { setLoading } = useRoutingActions();
 
   const push = (href: string, options?: NavigateOptions) => {
     setLoading(true);

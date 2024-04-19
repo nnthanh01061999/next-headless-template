@@ -1,20 +1,20 @@
 import authApi from "@/apis/auth";
 import { AUTH, ERROR_CODE_EXPIRED_TOKEN, STATE } from "@/data";
-import { getActions } from "@/store/auth-store";
-import { getCookieJson } from "@/utils/cookie";
+import { getAuthActions } from "@/store/auth-store";
 import axios from "axios";
+import { getCookieJson } from ".";
 
 export const NETWORK_TIMEOUT = 30000;
 export const NETWORK_MESSAGE = "Timeout. Something went wrong!";
 
 export const getLocalAccessToken = () => {
   const data = getCookieJson(STATE);
-  return "Bearer " + (data?.[AUTH]?.accessToken ?? "");
+  return (data?.[AUTH].tokenType ?? "") + " " + (data?.[AUTH]?.accessToken ?? "");
 };
 
 export const getLocalRefreshToken = () => {
   const data = getCookieJson(STATE);
-  return "Bearer " + data?.[AUTH]?.refreshToken ?? "";
+  return data?.[AUTH]?.refreshToken ?? "";
 };
 
 export const networkHandler = axios.create({
@@ -46,7 +46,7 @@ const processQueue = (error: any, token: string | null = null) => {
 
 let interceptor: number | null = null;
 
-export const axiosRefreshToken = (token: string) => {
+export const axiosSetToken = (token: string) => {
   if (interceptor !== null) {
     networkHandler.interceptors.request.eject(interceptor);
   }
@@ -61,32 +61,53 @@ export const axiosRefreshToken = (token: string) => {
   );
 };
 
+export const updateHeadersForLocale = (locale: string) => {
+  // Remove any existing locale interceptor
+  if (interceptor !== null) {
+    networkHandler.interceptors.request.eject(interceptor);
+  }
+
+  // Add the new locale interceptor
+  interceptor = networkHandler.interceptors.request.use(
+    function (config) {
+      config.headers["Accept-Language"] = locale;
+      config.headers.Authorization = getLocalAccessToken();
+      return config;
+    },
+    function (error) {
+      return Promise.reject(error);
+    },
+  );
+};
+
 networkHandler.interceptors.response.use(
-  (response: any) => {
+  (response) => {
     return response;
   },
-  (error: any) => {
+  (error) => {
     const { config, response } = error;
     const status = response?.status;
-    const { setAccessToken, logout } = getActions();
+    const { setToken, logout } = getAuthActions();
 
     const originalRequest = config;
 
     if (status === 401) {
-      const code = response?.data?.statusCode;
-      if (code === ERROR_CODE_EXPIRED_TOKEN && !isRefreshing) {
+      const code = response?.data?.code;
+      if (code === ERROR_CODE_EXPIRED_TOKEN && isRefreshing === false) {
         if (!isRefreshing) {
           isRefreshing = true;
           return authApi
             .refreshToken()
             .then((rs) => {
-              const token = rs.data.data;
+              const token = rs.data;
               isRefreshing = false;
-              setAccessToken({
+              setToken({
+                tokenType: token.token_type,
                 accessToken: token.access_token,
+                refreshToken: token.refresh_token,
               });
-              const tokenFormat = `Bearer ${token.access_token}`;
-              axiosRefreshToken(tokenFormat);
+              const tokenFormat = `${token.token_type} ${token.access_token}`;
+              axiosSetToken(tokenFormat);
               processQueue(null, tokenFormat);
               originalRequest.headers["Authorization"] = tokenFormat;
               return networkHandler(originalRequest);
@@ -102,7 +123,7 @@ networkHandler.interceptors.response.use(
           failedQueue.push({ resolve, reject });
         })
           .then((token) => {
-            originalRequest.headers.Authorization = `Bearer ${token}`;
+            originalRequest.headers.Authorization = token;
             return networkHandler(originalRequest);
           })
           .catch((err) => {

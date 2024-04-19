@@ -128,7 +128,7 @@ export default function Home() {
                   mode: "single",
                   config: {
                     name: "note",
-                    url: getBeURL("/note"),
+                    url: getBeURL("noteIndex"),
                     valueField: "id",
                     labelField: "name",
                     responseKey: "data.items",
@@ -146,7 +146,7 @@ export default function Home() {
                   mode: "multiple",
                   config: {
                     name: "note",
-                    url: getBeURL("/note"),
+                    url: getBeURL("noteIndex"),
                     valueField: "id",
                     labelField: "name",
                     responseKey: "data.items",

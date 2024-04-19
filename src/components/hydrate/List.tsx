@@ -1,7 +1,9 @@
 "use client";
-import noteApi from "@/apis/note";
+import noteFetchApi from "@/apis/note-fetch";
 import { Button } from "@/components/ui/button";
+import { API_KEY } from "@/data";
 import { cn } from "@/lib/utils";
+
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useState } from "react";
@@ -9,11 +11,13 @@ import { useState } from "react";
 export default function List() {
   const [page, setPage] = useState<number>(1);
   const { data, refetch, isPending, isPlaceholderData } = useQuery({
-    queryKey: ["note", page],
+    queryKey: [API_KEY.noteIndex, page],
     queryFn: () =>
-      noteApi.getNotes({
-        page,
-        size: 20,
+      noteFetchApi.getNotes({
+        params: {
+          page,
+          size: 20,
+        },
       }),
     placeholderData: keepPreviousData,
   });
@@ -26,14 +30,17 @@ export default function List() {
           <Button disabled={page === 1} onClick={() => setPage((prev) => prev - 1)}>
             Prev page
           </Button>
-          <Button disabled={page * 5 >= data?.data?.total || isPlaceholderData} onClick={() => setPage((prev) => prev + 1)}>
+          <Button disabled={page * 5 >= (data?.responseData?.data?.total || 0) || isPlaceholderData} onClick={() => setPage((prev) => prev + 1)}>
             Next page
+          </Button>
+          <Button asChild>
+            <Link href={"/login"}>Login</Link>
           </Button>
           <Button asChild>
             <Link href={"/"}>Client render</Link>
           </Button>
         </div>
-        {isPending ? <div>Loading...</div> : <div>{data?.data?.items?.map((item: any) => <p key={item.id}>{item.name}</p>)}</div>}
+        {isPending ? <div>Loading...</div> : <div>{data?.responseData?.data?.items?.map((item: any) => <p key={item.id}>{item.name}</p>)}</div>}
       </div>
     </main>
   );

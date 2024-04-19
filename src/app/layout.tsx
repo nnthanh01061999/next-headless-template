@@ -1,6 +1,6 @@
 import ClientProvider from "@/contexts/ClientProvider";
 import { cn } from "@/lib/utils";
-import { getActions } from "@/store/auth-store";
+import { getAuthActions } from "@/store/auth-store";
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
@@ -60,7 +60,7 @@ export const viewport = {
 };
 
 export default function RootLayout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
-  const { init } = getActions();
+  const { init } = getAuthActions();
 
   init();
 
