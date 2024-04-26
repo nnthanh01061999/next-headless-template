@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { Assign } from "@/types";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { useQueryString } from "@/hooks/use-query-string";
-import { Cell, Column, ColumnOrderState, Header, Table, type SortDirection } from "@tanstack/react-table";
+import { Cell, Column, ColumnOrderState, Header, Table as RCTable, type SortDirection } from "@tanstack/react-table";
 import { ArrowDown, ArrowDownUp, ArrowUp, Grip, LucideIcon } from "lucide-react";
 import { useDrag, useDrop } from "react-dnd";
 import { z } from "zod";
@@ -97,7 +97,7 @@ const reorderColumn = (draggedColumnId: string, targetColumnId: string, columnOr
 type TableDraggableHeadProps<TData> = Assign<
   React.TdHTMLAttributes<HTMLTableCellElement>,
   {
-    table: Table<TData>;
+    table: RCTable<TData>;
     header: Header<TData, unknown>;
   }
 >;
@@ -254,7 +254,7 @@ TableCaption.displayName = "TableCaption";
 type TTableResizeProps<TData> = Assign<
   React.HTMLAttributes<HTMLDivElement>,
   {
-    table: Table<TData>;
+    table: RCTable<TData>;
     header: Header<TData, unknown>;
   }
 >;

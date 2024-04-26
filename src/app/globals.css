@@ -88,3 +88,55 @@
     -moz-box-shadow: 40px 1px 26px -40px rgba(0, 0, 0, 0.09) inset;
   }
 }
+
+h1 {
+  @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
+}
+
+h2 {
+  @apply scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0;
+}
+
+h3 {
+  @apply scroll-m-20 text-2xl font-semibold tracking-tight;
+}
+
+h4 {
+  @apply scroll-m-20 text-xl font-semibold tracking-tight;
+}
+
+h5 {
+  @apply scroll-m-20 text-lg font-semibold tracking-tight;
+}
+
+h6 {
+  @apply scroll-m-20 text-base font-semibold tracking-tight;
+}
+
+p {
+  @apply leading-7 [&:not(:first-child)]:mt-6;
+}
+
+blockquote {
+  @apply mt-6 border-l-2 pl-6 italic;
+}
+
+code {
+  @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
+}
+
+ul {
+  @apply my-6 ml-6 list-disc [&>li]:mt-2 [&>li]:flex [&>li>div]:pl-2 [&>li>div]:min-w-4 [&>li>div]:h-full [&>li>label]:mt-1;
+}
+
+ol {
+  @apply my-6 ml-8 list-decimal [&>li]:mt-2 [&>li]:flex [&>li>div]:pl-2 [&>li>div]:min-w-4 [&>li>div]:h-full [&>li>label]:mt-1;
+}
+
+.tiptap {
+  @apply outline-none;
+}
+
+a {
+  @apply font-medium text-primary underline underline-offset-4 cursor-pointer;
+}

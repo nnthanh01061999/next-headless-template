@@ -8,6 +8,8 @@ import "./tree.css";
 
 import Notify from "@/components/ui/notify";
 import { Toaster } from "@/components/ui/toaster";
+import HydrationProvider from "@/contexts/HydrationProvider";
+import { headers } from "next/headers";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -62,15 +64,20 @@ export const viewport = {
 export default function RootLayout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
   const { init } = getAuthActions();
 
+  const headersList = headers();
+  const userAgent = headersList.get("user-agent") || "";
+
   init();
 
   return (
     <html lang="en">
       <body className={cn("grid h-screen bg-background font-sans antialiased", fontSans.variable)}>
-        <ClientProvider>
-          {children}
-          {modal}
-        </ClientProvider>
+        <HydrationProvider userAgent={userAgent}>
+          <ClientProvider>
+            {children}
+            {modal}
+          </ClientProvider>
+        </HydrationProvider>
         <Toaster />
         <Notify />
       </body>

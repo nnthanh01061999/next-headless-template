@@ -20,3 +20,7 @@ export interface IPaginationStates {
 export type Assign<T1 = object, T2 = object> = Omit<T1, keyof T2> & T2;
 
 export type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+
+export type UniqueArray<T> = T extends readonly [infer X, ...infer Rest] ? (InArray<Rest, X> extends true ? ["Encountered value with duplicates:", X] : readonly [X, ...UniqueArray<Rest>]) : T;
+
+export type InArray<T, X> = T extends readonly [X, ...infer _Rest] ? true : T extends readonly [X] ? true : T extends readonly [infer _, ...infer Rest] ? InArray<Rest, X> : false;
