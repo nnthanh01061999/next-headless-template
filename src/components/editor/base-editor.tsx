@@ -14,7 +14,7 @@ import { EditorProvider, EditorProviderProps } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useMemo, useState } from "react";
 
-type TBaseEditorProps = EditorProviderProps;
+type TBaseEditorProps = Omit<EditorProviderProps, "children">;
 
 function BaseEditor(props: TBaseEditorProps) {
   const [content, setContent] = useState<string>("");

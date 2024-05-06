@@ -4,7 +4,7 @@ function Page({ searchParams: { total } }: any) {
   const list = Array(total || 11).fill(1);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-6 md:p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono space-y-2">
+      <div className="z-10 w-full max-w-5xl items-center justify-between space-y-2 font-mono">
         <div
           className={cn([
             "grid",
@@ -24,7 +24,7 @@ function Page({ searchParams: { total } }: any) {
           ])}
         >
           {list.map((_, index) => (
-            <div key={index} className="flex py-2 first:last:justify-center items-center border-black border-solid">
+            <div key={index} className="flex items-center border-solid border-black py-2 first:last:justify-center">
               <div className={cn([" w-full p-2 border-black border-solid"])}>
                 <div className={cn(["bg-blue-300 h-20 w-full border-black border-solid"])}>Card</div>
               </div>

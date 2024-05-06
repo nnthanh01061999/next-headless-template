@@ -19,7 +19,7 @@ function Notify() {
     <AlertDialog key={index} {...props}>
       <AlertDialogContent {...contentProps}>
         <AlertDialogHeader {...headerProps}>
-          <div className="grid gap-2 grid-flow-col justify-start items-center">
+          <div className="grid grid-flow-col items-center justify-start gap-2">
             {icons[type || "confirm"]}
             <AlertDialogTitle {...titleProps}>{title}</AlertDialogTitle>
           </div>

@@ -19,9 +19,9 @@ const InputPassword = forwardRef<HTMLInputElement, InputPasswordProps>(({ classN
         type={show ? "text" : "password"}
       />
       {!show ? (
-        <EyeOff onClick={() => setShow(true)} className="w-5 h-5 absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer" />
+        <EyeOff onClick={() => setShow(true)} className="absolute right-2 top-1/2 size-5 -translate-y-1/2 cursor-pointer" />
       ) : (
-        <Eye onClick={() => setShow(false)} className="w-5 h-5 absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer" />
+        <Eye onClick={() => setShow(false)} className="absolute right-2 top-1/2 size-5 -translate-y-1/2 cursor-pointer" />
       )}
     </div>
   );

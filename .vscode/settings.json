@@ -1,3 +1,6 @@
 {
-  "cSpell.words": ["tiptap"]
+  "cSpell.words": ["tiptap"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  }
 }

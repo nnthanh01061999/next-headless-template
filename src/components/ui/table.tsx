@@ -127,7 +127,7 @@ const TableDraggableHead = <T,>({ children, table, header, ...props }: TableDrag
     <TableHead ref={dropRef} colSpan={header.colSpan} style={{ opacity: isDragging ? 0.5 : 1 }} {...props}>
       <div ref={previewRef} className="group relative">
         {children}
-        <button ref={dragRef} className="group-hover:opacity-100 text-muted-foreground opacity-0 absolute top-0 right-2 w-fit h-full cursor-pointer">
+        <button ref={dragRef} className="absolute right-2 top-0 h-full w-fit cursor-pointer text-muted-foreground opacity-0 group-hover:opacity-100">
           <Grip size={16} />
         </button>
       </div>
@@ -172,7 +172,7 @@ function TableSortableHead({ sortKey: key, title }: { sortKey: string; title: st
   }
 
   return (
-    <div className="flex space-x-1 items-center">
+    <div className="flex items-center space-x-1">
       <button
         className={cn([
           "select-none",

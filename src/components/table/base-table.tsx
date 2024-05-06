@@ -31,7 +31,7 @@ export function DataTable<TData, TValue>({ columns, data = [], loading = false, 
   return (
     <DndProvider backend={HTML5Backend}>
       <ScrollArea
-        className="rounded-md border w-full"
+        className="w-full rounded-md border"
         {...scrollProps}
         scrollbarProps={{
           ...scrollProps?.scrollbarProps,
@@ -47,7 +47,7 @@ export function DataTable<TData, TValue>({ columns, data = [], loading = false, 
               return (
                 <TableRow
                   key={headerGroup.id}
-                  className="sticky z-[9999] inset-x-0 bg-white shadow-sm"
+                  className="sticky inset-x-0 z-[9999] bg-white shadow-sm"
                   style={{
                     top: `${index * 48}px`,
                   }}

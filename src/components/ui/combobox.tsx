@@ -155,7 +155,7 @@ const Combobox = forwardRef<
       <PopoverTrigger ref={ref} asChild>
         <Button variant="outline" aria-expanded={open} className="w-full justify-between" {..._triggerProps} ref={triggerRef} onBlur={onBlur}>
           {props.mode === "multiple" ? renderValueMultiple() : renderValueSingle()}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent
@@ -169,7 +169,7 @@ const Combobox = forwardRef<
       >
         <Command {...commandProps} shouldFilter={!onSearch}>
           <div className="flex items-center border-b px-3">
-            <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+            <Search className="mr-2 size-4 shrink-0 opacity-50" />
             <CommandInput
               className={cn("flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50")}
               value={search}

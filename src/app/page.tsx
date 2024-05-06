@@ -28,7 +28,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono space-y-2">
+      <div className="z-10 w-full max-w-5xl items-center justify-between space-y-2 font-mono">
         <div className={cn(["grid gap-2 grid-flow-col"])}>
           <Button
             onClick={() => {

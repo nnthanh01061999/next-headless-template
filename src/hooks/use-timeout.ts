@@ -12,6 +12,7 @@ export function useTimeout(callback: (...callbackParams: any[]) => void, delay: 
         }, delay);
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [delay],
   );
 

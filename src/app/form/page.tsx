@@ -79,11 +79,11 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono space-y-2">
+      <div className="z-10 w-full max-w-5xl items-center justify-between space-y-2 font-mono">
         <Tree prefixCls="rc-tree" icon checkable selectable={false} multiple virtual treeData={getTreeData()} />
         <FormProvider {...forms}>
           <form onSubmit={forms.handleSubmit((e) => console.log(e))} className="grid gap-4">
-            <div className="grid gap-2 grid-cols-2">
+            <div className="grid grid-cols-2 gap-2">
               <FormInput name="test" label="test" description="This is description" required />
               <FormInputPassword name="password" label="password" description="This is description" required />
               <FormTextArea name="area" label="area" description="This is description" required />

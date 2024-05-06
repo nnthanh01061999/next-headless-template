@@ -270,7 +270,9 @@ function HeadingGroup({ levels = [1, 2, 3, 4, 5, 6], h1, h2, h3, h4, h5, h6 }: H
           .run();
       }}
     >
-      {levels?.map((item) => <HeadingItem key={item} {...(propsMap[`h${item}`] || {})} value={`${item}` as string} level={item} />)}
+      {levels?.map((item) => (
+        <HeadingItem key={item} {...(propsMap[`h${item}`] || {})} value={`${item}` as string} level={item} />
+      ))}
     </ToggleGroup>
   );
 }
@@ -491,7 +493,9 @@ function AlignGroup({ align = ["left", "center", "right", "justify"], left, righ
         editor.chain().focus().setTextAlign(value).run();
       }}
     >
-      {align?.map((item) => <Align key={item} {...(propsMap[item] || {})} alignType={item} />)}
+      {align?.map((item) => (
+        <Align key={item} {...(propsMap[item] || {})} alignType={item} />
+      ))}
     </ToggleGroup>
   );
 }
@@ -596,7 +600,7 @@ function LinkComp({ icon, ...props }: MenuProps<ToggleProps>) {
         <div className="grid grid-cols-[1fr_72px] gap-2">
           <div className="relative">
             <Input type="url" value={url} onKeyDown={handleInputKeydown} onChange={onChangeUrl} className="pe-13" />
-            <Toggle title="External" className="absolute p-2 right-2 h-7 w-7 top-1/2 -translate-y-1/2 cursor-pointer" pressed={external} onPressedChange={() => setExternal((prev) => !prev)}>
+            <Toggle title="External" className="absolute right-2 top-1/2 size-7 -translate-y-1/2 cursor-pointer p-2" pressed={external} onPressedChange={() => setExternal((prev) => !prev)}>
               <ExternalLinkIcon size={14} />
             </Toggle>
           </div>
@@ -676,7 +680,7 @@ function ColorComp({ icon, ...props }: MenuProps<ButtonProps>) {
                 </Button>
               ))}
             </div>
-            <Button asChild variant="outline" className="p-0 h-9 w-9">
+            <Button asChild variant="outline" className="size-9 p-0">
               <label htmlFor="color-picker">
                 <PipetteIcon size={14} />
                 <Input id="color-picker" className="hidden" type="color" value={color} onChange={onChangeColor} />
@@ -793,7 +797,7 @@ function BubbleMenuComp({ children, ...props }: Optional<BubbleMenuProps, "child
 
   return (
     <BubbleMenu tippyOptions={{ duration: 100 }} {...props} editor={editor}>
-      <Group className="bg-white z-50">
+      <Group className="z-50 bg-white">
         <Bold />
         <Italic />
         <Strike />
@@ -811,7 +815,7 @@ function FloatingMenuComp({ children, ...props }: Optional<FloatingMenuProps, "c
 
   return (
     <FloatingMenu tippyOptions={{ duration: 100 }} {...props} editor={editor}>
-      <Group className="bg-white z-50">
+      <Group className="z-50 bg-white">
         <Heading level={1} />
         <Heading level={2} />
         <LinkComp />

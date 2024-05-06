@@ -4,9 +4,9 @@ import { cn } from "@/lib/utils";
 
 function Page() {
   return (
-    <main className="overflow-hidden grid p-24 font-mono">
+    <main className="grid overflow-hidden p-24 font-mono">
       <div className={cn(["overflow-hidden"])}>
-        <div className="h-full grid grid-rows-[auto,minmax(0,1fr)] gap-2">
+        <div className="grid h-full grid-rows-[auto,minmax(0,1fr)] gap-2">
           <BaseEditor />
         </div>
       </div>
