@@ -29,9 +29,9 @@ function Badge({ className, variant, children, value, onClose, ...props }: Badge
     onClose?.(value);
   };
   return (
-    <div className={cn(badgeVariants({ variant }), !!onClose ? "pe-8 relative whitespace-nowrap" : "", className)} {...props}>
+    <div className={cn(badgeVariants({ variant }), !!onClose ? "relative whitespace-nowrap pe-8" : "", className)} {...props}>
       {children}
-      {!!onClose ? <X onClick={_onClose} className={cn(["w-4 h-4 absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"])} /> : null}
+      {!!onClose ? <X onClick={_onClose} className={cn(["absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 cursor-pointer"])} /> : null}
     </div>
   );
 }

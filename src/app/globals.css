@@ -126,11 +126,11 @@ code {
 }
 
 ul {
-  @apply my-6 ml-6 list-disc [&>li]:mt-2 [&>li]:flex [&>li>div]:pl-2 [&>li>div]:min-w-4 [&>li>div]:h-full [&>li>label]:mt-1;
+  @apply my-6 ml-6 list-disc [&>li>div]:h-full [&>li>div]:min-w-4 [&>li>div]:pl-2 [&>li>label]:mt-1 [&>li]:mt-2 [&>li]:flex;
 }
 
 ol {
-  @apply my-6 ml-8 list-decimal [&>li]:mt-2 [&>li]:flex [&>li>div]:pl-2 [&>li>div]:min-w-4 [&>li>div]:h-full [&>li>label]:mt-1;
+  @apply my-6 ml-8 list-decimal [&>li>div]:h-full [&>li>div]:min-w-4 [&>li>div]:pl-2 [&>li>label]:mt-1 [&>li]:mt-2 [&>li]:flex;
 }
 
 .tiptap > * + * {
@@ -188,5 +188,5 @@ ol {
 }
 
 a {
-  @apply font-medium text-primary cursor-pointer;
+  @apply cursor-pointer font-medium text-primary;
 }

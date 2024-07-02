@@ -32,7 +32,7 @@ TableFooter.displayName = "TableFooter";
 const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTMLTableRowElement>>(({ className, ...props }, ref) => (
   <tr
     ref={ref}
-    className={cn("border-b transition-colors data-[state=selected]:bg-muted ", "[&>td]:hover:bg-muted [&>td]:data-[state=selected]:bg-muted [&>td]:hover:data-[state=selected]:bg-muted", className)}
+    className={cn("border-b transition-colors data-[state=selected]:bg-muted", "[&>td]:hover:bg-muted [&>td]:data-[state=selected]:bg-muted [&>td]:hover:data-[state=selected]:bg-muted", className)}
     {...props}
   />
 ));
@@ -71,9 +71,9 @@ const TablePinnedHead = ({ pinned, className, children, header, lefts, rights, s
     <TableHead
       ref={ref}
       className={cn(
-        "sticky bg-white z-[1000]",
-        entry?.isIntersecting && pinned === "left" && 'left-0 after:content-[""] after:absolute after:top-0 after:-right-10 after:bottom-0 after:w-10 after:duration-300',
-        entry?.isIntersecting && pinned === "right" && 'right-0 before:content-[""] before:absolute before:top-0 before:-left-10 before:bottom-0 before:w-10 before:duration-300',
+        "sticky z-[1000] bg-white",
+        entry?.isIntersecting && pinned === "left" && 'left-0 after:absolute after:-right-10 after:bottom-0 after:top-0 after:w-10 after:duration-300 after:content-[""]',
+        entry?.isIntersecting && pinned === "right" && 'right-0 before:absolute before:-left-10 before:bottom-0 before:top-0 before:w-10 before:duration-300 before:content-[""]',
         entry?.isIntersecting && "data-[last=true]:sticky-col",
         className,
       )}
@@ -176,10 +176,10 @@ function TableSortableHead({ sortKey: key, title }: { sortKey: string; title: st
       <button
         className={cn([
           "select-none",
-          "grid grid-flow-col auto-cols-max items-center gap-1",
-          "focus-visible:outline-gray-600 focus-visible:outline-offset-2",
+          "grid auto-cols-max grid-flow-col items-center gap-1",
+          "focus-visible:outline-offset-2 focus-visible:outline-gray-600",
           "relative before:transition-colors",
-          "before:absolute before:-z-[1] before:-inset-x-1 before:-inset-y-0.5 before:rounded-lg hover:before:bg-gray-200 [&>span]:hover:text-black",
+          "before:absolute before:-inset-x-1 before:-inset-y-0.5 before:-z-[1] before:rounded-lg hover:before:bg-gray-200 [&>span]:hover:text-black",
           "after:absolute after:-inset-x-1 after:-inset-y-0.5",
         ])}
         onClick={handleSort}
@@ -228,9 +228,9 @@ const TablePinnedCell = ({ pinned, className, children, style, cell, lefts, righ
     <TableCell
       ref={ref}
       className={cn(
-        "sticky bg-white z-[999]",
-        entry?.isIntersecting && pinned === "left" && 'left-0 after:content-[""] after:absolute after:top-0 after:-right-10 after:bottom-0 after:w-10 after:duration-300',
-        entry?.isIntersecting && pinned === "right" && 'right-0 before:content-[""] before:absolute before:top-0 before:-left-10 before:bottom-0 before:w-10 before:duration-300',
+        "sticky z-[999] bg-white",
+        entry?.isIntersecting && pinned === "left" && 'left-0 after:absolute after:-right-10 after:bottom-0 after:top-0 after:w-10 after:duration-300 after:content-[""]',
+        entry?.isIntersecting && pinned === "right" && 'right-0 before:absolute before:-left-10 before:bottom-0 before:top-0 before:w-10 before:duration-300 before:content-[""]',
         entry?.isIntersecting && "data-[last=true]:sticky-col",
         className,
       )}

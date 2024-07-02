@@ -67,7 +67,7 @@ function BadgeEllipsis({
 
   return (
     <>
-      <div ref={showRef} className={cn("w-full grid grid-flow-col gap-1 justify-start items-center overflow-hidden", className)} {...props}>
+      <div ref={showRef} className={cn("grid w-full grid-flow-col items-center justify-start gap-1 overflow-hidden", className)} {...props}>
         {content.map((item) => (
           <Badge key={item.value} variant="secondary" onClose={item.value === EllipsisTag ? undefined : onClose} value={item.value} {...badgeProps}>
             {item.label}
@@ -77,7 +77,7 @@ function BadgeEllipsis({
 
       <div
         ref={hideRef}
-        className={cn("absolute top-0 left-0 -z-10 opacity-0 w-full grid grid-flow-col gap-1 justify-start items-center px-2 overflow-hidden", className)}
+        className={cn("absolute left-0 top-0 -z-10 grid w-full grid-flow-col items-center justify-start gap-1 overflow-hidden px-2 opacity-0", className)}
         {...props}
         style={{
           width: showRef.current?.clientWidth + "px",

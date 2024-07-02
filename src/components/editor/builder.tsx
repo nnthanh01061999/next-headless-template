@@ -67,14 +67,14 @@ export type MenuProps<T> = {
 } & T;
 
 const Menu = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>((props, ref) => {
-  return <div ref={ref} {...props} className={cn(["flex flex-wrap rounded-sm gap-2 border-none", props.className])} />;
+  return <div ref={ref} {...props} className={cn(["flex flex-wrap gap-2 rounded-sm border-none", props.className])} />;
 });
 
 Menu.displayName = "Menu";
 
 const Group = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>((props, ref) => {
   return (
-    <div ref={ref} {...props} className={cn(["flex flex-wrap rounded-sm border [&>button]:border-none [&>button]:rounded-none [&>button]:border-r last:[&>button]:border-r-0", props.className])} />
+    <div ref={ref} {...props} className={cn(["flex flex-wrap rounded-sm border [&>button]:rounded-none [&>button]:border-r [&>button]:border-none last:[&>button]:border-r-0", props.className])} />
   );
 });
 
@@ -270,9 +270,7 @@ function HeadingGroup({ levels = [1, 2, 3, 4, 5, 6], h1, h2, h3, h4, h5, h6 }: H
           .run();
       }}
     >
-      {levels?.map((item) => (
-        <HeadingItem key={item} {...(propsMap[`h${item}`] || {})} value={`${item}` as string} level={item} />
-      ))}
+      {levels?.map((item) => <HeadingItem key={item} {...(propsMap[`h${item}`] || {})} value={`${item}` as string} level={item} />)}
     </ToggleGroup>
   );
 }
@@ -493,9 +491,7 @@ function AlignGroup({ align = ["left", "center", "right", "justify"], left, righ
         editor.chain().focus().setTextAlign(value).run();
       }}
     >
-      {align?.map((item) => (
-        <Align key={item} {...(propsMap[item] || {})} alignType={item} />
-      ))}
+      {align?.map((item) => <Align key={item} {...(propsMap[item] || {})} alignType={item} />)}
     </ToggleGroup>
   );
 }

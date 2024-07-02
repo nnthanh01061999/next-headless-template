@@ -6,5 +6,6 @@
   "printWidth": 200,
   "jsxBracketSameLine": false,
   "trailingComma": "all",
-  "bracketSpacing": true
+  "bracketSpacing": true,
+  "plugins": ["prettier-plugin-tailwindcss"]
 }

@@ -48,13 +48,13 @@ function Page() {
     <main className="grid overflow-hidden p-24 font-mono">
       <div className={cn(["overflow-hidden"])}>
         <div className="grid h-full grid-rows-[auto,minmax(0,1fr)] gap-2">
-          <div className={cn(["grid gap-2 grid-flow-col "])}>
+          <div className={cn(["grid grid-flow-col gap-2"])}>
             <Button disabled={page === 1} onClick={() => setPage((prev) => prev - 1)}>
               Prev page
             </Button>
             <Button onClick={() => setPage((prev) => prev + 1)}>Next page</Button>
           </div>
-          <div className={cn(["grid "])}>
+          <div className={cn(["grid"])}>
             <DataTable
               columns={columns}
               data={fakeData}

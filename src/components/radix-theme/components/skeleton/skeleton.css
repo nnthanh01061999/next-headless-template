@@ -1,5 +1,5 @@
 .rt-Skeleton {
-  @apply animate-pulse rounded-md bg-muted text-transparent cursor-default select-none outline-none box-decoration-clone shadow-none border-none;
+  @apply animate-pulse cursor-default select-none rounded-md border-none bg-muted box-decoration-clone text-transparent shadow-none outline-none;
 }
 
 /*

@@ -82,7 +82,7 @@ export type CommandSeparatorRef = React.ElementRef<typeof CommandPrimitive.Separ
 export type CommandSeparatorProp = React.ComponentPropsWithoutRef<typeof CommandPrimitive.Separator>;
 
 const CommandSeparator = React.forwardRef<CommandSeparatorRef, CommandSeparatorProp>(({ className, ...props }, ref) => (
-  <CommandPrimitive.Separator ref={ref} className={cn("-mx-1 h-px bg-border", className)} {...props} />
+  <CommandPrimitive.Separator ref={ref} className={cn("h-px -mx-1 bg-border", className)} {...props} />
 ));
 CommandSeparator.displayName = CommandPrimitive.Separator.displayName;
 

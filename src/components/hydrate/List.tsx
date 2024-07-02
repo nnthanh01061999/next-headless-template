@@ -25,7 +25,7 @@ export default function List() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between space-y-2 font-mono text-sm">
-        <div className={cn(["grid gap-2 grid-flow-col"])}>
+        <div className={cn(["grid grid-flow-col gap-2"])}>
           <Button onClick={() => refetch()}>Refetch</Button>
           <Button disabled={page === 1} onClick={() => setPage((prev) => prev - 1)}>
             Prev page

@@ -2,5 +2,7 @@
   "cSpell.words": ["tiptap"],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
-  }
+  },
+  "i18n-ally.localesPaths": ["./messages"], // E.g. "./messages",
+  "i18n-ally.keystyle": "nested"
 }

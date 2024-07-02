@@ -18,15 +18,15 @@ function Page({ searchParams: { total } }: any) {
             "[&>div:last-child]:border-b-0",
             list.length % 2 === 0
               ? cn(["min-[640px]:[&>div:nth-last-child(2)]:border-b-0", "min-[768px]:[&>div:nth-last-child(2)]:border-b", "min-[640px]:[&>div:last-child]:border-b-0"])
-              : "min-[640px]:[&>div:last-child]:border-b-0 max-[767px]:[&>div:last-child]:border-b-0",
+              : "max-[767px]:[&>div:last-child]:border-b-0 min-[640px]:[&>div:last-child]:border-b-0",
             list.length % 3 === 2 ? cn(["min-[768px]:[&>div:nth-last-child(2)]:border-b-0"]) : "",
             list.length % 3 === 0 ? cn(["min-[768px]:[&>div:nth-last-child(2)]:border-b-0", "min-[768px]:[&>div:nth-last-child(3)]:border-b-0"]) : "",
           ])}
         >
           {list.map((_, index) => (
             <div key={index} className="flex items-center border-solid border-black py-2 first:last:justify-center">
-              <div className={cn([" w-full p-2 border-black border-solid"])}>
-                <div className={cn(["bg-blue-300 h-20 w-full border-black border-solid"])}>Card</div>
+              <div className={cn(["w-full border-solid border-black p-2"])}>
+                <div className={cn(["h-20 w-full border-solid border-black bg-blue-300"])}>Card</div>
               </div>
             </div>
           ))}
