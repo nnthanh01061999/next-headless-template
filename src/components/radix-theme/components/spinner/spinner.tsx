@@ -37,7 +37,7 @@ const Spinner = React.forwardRef<SpinnerElement, SpinnerProps>((props, forwarded
           aria-hidden
           style={{ display: "contents", visibility: "hidden" }}
           // Workaround to use `inert` until https://github.com/facebook/react/pull/24730 is merged.
-          {...{ inert: true ? "" : undefined }}
+          {...{ inert: true }}
         >
           {children}
         </span>

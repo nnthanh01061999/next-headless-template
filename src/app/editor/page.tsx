@@ -1,6 +1,7 @@
 "use client";
-import BaseEditor from "@/components/editor/base-editor";
 import { cn } from "@/lib/utils";
+import dynamic from "next/dynamic";
+const BaseEditor = dynamic(() => import("@/components/editor/base-editor"), { ssr: false });
 
 function Page() {
   return (

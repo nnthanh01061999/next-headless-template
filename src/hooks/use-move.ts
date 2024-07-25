@@ -119,6 +119,7 @@ export function useMove<T extends HTMLElement = HTMLDivElement>(onChange: (value
     return () => {
       if (ref.current) {
         ref.current.removeEventListener("mousedown", onMouseDown);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         ref.current.removeEventListener("touchstart", onTouchStart);
       }
     };

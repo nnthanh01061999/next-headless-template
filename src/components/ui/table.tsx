@@ -124,10 +124,10 @@ const TableDraggableHead = <T,>({ children, table, header, ...props }: TableDrag
   });
 
   return (
-    <TableHead ref={dropRef} colSpan={header.colSpan} style={{ opacity: isDragging ? 0.5 : 1 }} {...props}>
-      <div ref={previewRef} className="group relative">
+    <TableHead ref={dropRef as any} colSpan={header.colSpan} style={{ opacity: isDragging ? 0.5 : 1 }} {...props}>
+      <div ref={previewRef as any} className="group relative">
         {children}
-        <button ref={dragRef} className="absolute right-2 top-0 h-full w-fit cursor-pointer text-muted-foreground opacity-0 group-hover:opacity-100">
+        <button ref={dragRef as any} className="absolute right-2 top-0 h-full w-fit cursor-pointer text-muted-foreground opacity-0 group-hover:opacity-100">
           <Grip size={16} />
         </button>
       </div>

@@ -75,6 +75,7 @@ export function usePagination({ total, siblings = 1, boundaries = 1, page, initi
     }
 
     return [...range(1, boundaries), DOTS, ...range(leftSiblingIndex, rightSiblingIndex), DOTS, ...range(_total - boundaries + 1, _total)];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [_total, siblings, activePage]);
 
   return {

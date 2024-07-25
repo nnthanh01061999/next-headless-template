@@ -1,9 +1,11 @@
 import noteFetchApi from "@/apis/note-fetch";
-import List from "@/components/hydrate/List";
 import { AUTH } from "@/data";
 import getQueryClient from "@/lib/getQueryClient";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
+import dynamic from "next/dynamic";
 import { cookies } from "next/headers";
+
+const List = dynamic(() => import("@/components/hydrate/List"));
 
 export default async function Page() {
   const queryClient = getQueryClient();
