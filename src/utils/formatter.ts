@@ -17,7 +17,7 @@ export const phoneFormat = (phone: string, defaultValue = "--") => {
   return defaultValue;
 };
 
-export const isNumberic = (value: any) => {
+export const isNumeric = (value: any) => {
   return value && typeof value === "string" && !isNaN(parseFloat(value));
 };
 
@@ -30,7 +30,7 @@ export const getBoolean = (value: any) => {
 };
 
 export const getNumber = (value: any) => {
-  return isNumberic(value) && parseFloat(value);
+  return isNumeric(value) && parseFloat(value);
 };
 
 export const numberFormat = (value: number) => {

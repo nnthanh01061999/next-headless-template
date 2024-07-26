@@ -5,3 +5,4 @@ export * from "@/utils/share";
 export * from "@/utils/form";
 export * from "@/utils/clamp";
 export * from "@/utils/formatter";
+export * from "@/utils/history";

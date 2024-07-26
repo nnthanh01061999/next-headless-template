@@ -2,7 +2,7 @@ import { IOption, TParam } from "@/types";
 import { isBoolean } from "lodash";
 import { ReadonlyURLSearchParams } from "next/navigation";
 import qs, { StringifyOptions } from "query-string";
-import { getBoolean, getNumber, isNumberic } from "./formatter";
+import { getBoolean, getNumber, isNumeric } from "./formatter";
 
 export const qsParse = (searchParams: ReadonlyURLSearchParams) => {
   return qs.parse(searchParams.toString());
@@ -13,16 +13,16 @@ export const qsParseString = (param: TParam, defaultValue: string | undefined = 
 };
 
 export const qsParseNumber = (param: TParam, defaultValue: number | undefined = 0): number => {
-  return isNumberic(param) ? getNumber(param) : defaultValue;
+  return isNumeric(param) ? getNumber(param) : defaultValue;
 };
 
 export const qsParseBoolean = (param: TParam, defaultValue: boolean | undefined = true): boolean => {
   return isBoolean(param) ? getBoolean(param) : defaultValue;
 };
 
-export const qsParseObject = (valueParam: TParam, labelParam: TParam, defaultValue: any = undefined, numberic = false): IOption<number> | undefined => {
-  if (numberic) {
-    return valueParam && isNumberic(valueParam) && labelParam
+export const qsParseObject = (valueParam: TParam, labelParam: TParam, defaultValue: any = undefined, numeric = false): IOption<number> | undefined => {
+  if (numeric) {
+    return valueParam && isNumeric(valueParam) && labelParam
       ? {
           value: getNumber(valueParam),
           label: labelParam,
