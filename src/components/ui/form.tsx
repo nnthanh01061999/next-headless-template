@@ -1,10 +1,11 @@
-import * as React from "react";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
+import { parseErrorMessage } from "@/utils";
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
+import { useTranslations } from "next-intl";
+import * as React from "react";
 import { Controller, ControllerProps, FieldPath, FieldValues, FormProvider, useFormContext } from "react-hook-form";
-
-import { cn } from "@/lib/utils";
-import { Label } from "@/components/ui/label";
 
 const Form = FormProvider;
 
@@ -85,7 +86,14 @@ FormDescription.displayName = "FormDescription";
 
 const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(({ className, children, ...props }, ref) => {
   const { error, formMessageId } = useFormField();
-  const body = error ? String(error?.message) : children;
+  let body = error ? String(error?.message) : children;
+
+  const t = useTranslations();
+
+  if (error?.message?.includes("Common.form.validate")) {
+    const message = parseErrorMessage(error.message);
+    body = t(message.key, message.value);
+  }
 
   if (!body) {
     return null;
@@ -99,4 +107,4 @@ const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<
 });
 FormMessage.displayName = "FormMessage";
 
-export { useFormField, Form, FormItem, FormLabel, FormControl, FormDescription, FormMessage, FormField };
+export { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, useFormField };

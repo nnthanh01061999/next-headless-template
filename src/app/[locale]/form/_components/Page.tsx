@@ -14,13 +14,13 @@ import { getBeURL } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { z } from "zod";
 
+import { Skeleton } from "@/components/radix-theme/components/skeleton/skeleton";
 import { Spinner } from "@/components/radix-theme/components/spinner/spinner";
 import NumberMask from "@/components/ui/number-mask";
 import PatternMask from "@/components/ui/pattern-mask";
+import { formSchema } from "@/schemas/test";
 import Tree from "rc-tree";
-import { Skeleton } from "@/components/radix-theme/components/skeleton/skeleton";
 
 export default function Page() {
   const [maskString, setMaskString] = useState<string>();
@@ -45,36 +45,7 @@ export default function Page() {
         },
       ],
     },
-    resolver: zodResolver(
-      z.object({
-        test: z.string({ required_error: "Required" }).trim().min(1, "Required"),
-        password: z.string().optional(),
-        area: z.string().optional(),
-        search: z.string().optional(),
-        comboboxSingle: z.string().optional(),
-        combobox: z.array(z.string()).min(1).optional(),
-        asyncComboboxSingle: z
-          .object({
-            value: z.string().transform((v) => (!isNaN(Number(v)) ? Number(v) : undefined)),
-            label: z.string(),
-          })
-          .optional(),
-
-        asyncCombobox: z
-          .array(
-            z.object({
-              value: z.coerce.number().transform((v) => (!isNaN(Number(v)) ? Number(v) : undefined)),
-              label: z.string(),
-            }),
-          )
-          .min(1)
-          .optional(),
-        checkbox: z.boolean().optional(),
-        checkboxGroup: z.array(z.string()).optional(),
-        radio: z.string().optional(),
-        date: z.date().optional(),
-      }),
-    ),
+    resolver: zodResolver(formSchema),
   });
 
   return (
@@ -195,7 +166,7 @@ export default function Page() {
               </Button>
               {/* <BasePagination total={100} /> */}
             </div>
-            <Spinner loading={true}>
+            <Spinner loading={false}>
               <Button className="w-fit" type="submit">
                 Submit
               </Button>

@@ -1,5 +1,5 @@
 "use client";
-import { Note, columns } from "@/app/table/_components/columns";
+import { Note, columns } from "@/app/[locale]/table/_components/columns";
 import { DataTable } from "@/components/table/base-table";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";

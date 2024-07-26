@@ -10,6 +10,8 @@ import Notify from "@/components/ui/notify";
 import { Toaster } from "@/components/ui/toaster";
 import HydrationProvider from "@/contexts/HydrationProvider";
 import { headers } from "next/headers";
+import { notFound } from "next/navigation";
+import { NextIntlClientProvider } from "next-intl";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -61,21 +63,32 @@ export const viewport = {
   themeColor: "#FFFFFF",
 };
 
-export default function RootLayout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
+const timeZone = "Asia/Bangkok";
+
+export default async function RootLayout({ children, modal, params: { locale } }: { children: React.ReactNode; modal: React.ReactNode; params: { locale: string } }) {
   const { init } = getAuthActions();
 
   const headersList = headers();
   const userAgent = headersList.get("user-agent") || "";
 
+  let messages;
+  try {
+    messages = (await import(`../../../messages/${locale}.json`)).default;
+  } catch (error) {
+    notFound();
+  }
+
   init();
 
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={cn("grid h-screen bg-background font-sans antialiased", fontSans.variable)}>
         <HydrationProvider userAgent={userAgent}>
           <ClientProvider>
-            {children}
-            {modal}
+            <NextIntlClientProvider locale={locale} messages={messages} timeZone={timeZone}>
+              {children}
+              {modal}
+            </NextIntlClientProvider>
           </ClientProvider>
         </HydrationProvider>
         <Toaster />

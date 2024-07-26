@@ -1,4 +1,4 @@
-import Home from "@/app/form/page";
+import Home from "@/app/[locale]/form/page";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
