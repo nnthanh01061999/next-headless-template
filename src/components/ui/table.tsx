@@ -267,7 +267,7 @@ const TableResize = React.forwardRef<HTMLDivElement, TTableResizeProps<any>>(({ 
         {...{
           onMouseDown: header.getResizeHandler(),
           onTouchStart: header.getResizeHandler(),
-          className: "group-hover:bg-muted focus:bg-muted absolute top-0 right-0 w-1 h-full cursor-pointer",
+          className: "group-hover:bg-muted focus:bg-muted absolute top-0 right-0 w-1 h-full cursor-col-resize",
           style: {
             transform: header.column.getIsResizing() ? `translateX(${table.getState().columnSizingInfo.deltaOffset}px)` : "",
           },

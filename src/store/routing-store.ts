@@ -7,7 +7,7 @@ type RoutingStore = {
     setLoading: (loading: boolean) => void;
   };
 };
-const routingStore = createStore<RoutingStore>()((set, get) => ({
+const routingStore = createStore<RoutingStore>()((set) => ({
   loading: false,
   actions: {
     setLoading: (loading: boolean) => {

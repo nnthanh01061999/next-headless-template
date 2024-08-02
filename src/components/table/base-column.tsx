@@ -44,15 +44,17 @@ export const getExpandColumn = <T,>(props?: ColumnDef<T>): ColumnDef<T> => {
     enableHiding: false,
     size: 50,
     header: ({ table }) => (
-      <Button variant="ghost" size="icon" onClick={table.getToggleAllRowsExpandedHandler()}>
+      <Button variant="ghost" className="w-fit" size="icon" onClick={table.getToggleAllRowsExpandedHandler()}>
         {table.getIsAllRowsExpanded() ? <Minus size={16} /> : <Plus size={16} />}
       </Button>
     ),
     cell: ({ row }) =>
       row.getCanExpand() ? (
-        <Button variant="ghost" size="icon" onClick={row.getToggleExpandedHandler()}>
+        <Button variant="ghost" className="w-fit items-start" size="icon" onClick={row.getToggleExpandedHandler()}>
           {row.getIsExpanded() ? <Minus size={16} /> : <Plus size={16} />}
         </Button>
       ) : null,
   };
 };
+
+export const checkDraggableColumn = (headerId: string) => ["selection", "expand"].includes(headerId);
