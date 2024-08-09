@@ -1,3 +1,5 @@
+import { PathWithOptionalColon } from "@/data/api-key";
+
 const baseUrl = "/note";
 
 export const noteApiKey = {
@@ -6,4 +8,4 @@ export const noteApiKey = {
   noteCreate: `${baseUrl}`,
   noteUpdate: `${baseUrl}/:id`,
   noteDelete: `${baseUrl}/:id`,
-};
+} satisfies Record<string, PathWithOptionalColon>;

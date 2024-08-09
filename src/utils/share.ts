@@ -1,5 +1,5 @@
 import { ReadonlyURLSearchParams } from "next/navigation";
-import { API_KEY } from "@/data";
+import { API_KEY, ApiKey, Params } from "@/data";
 
 export const getPathNameWithoutLocale = (url: string = "", locale?: string) => {
   return typeof url === "string" && url?.startsWith(`/${locale}`) ? "/" + url.split("/")?.slice(2).join("/") : url;
@@ -14,9 +14,9 @@ export const formatUrl = (originalPath: string, params: Record<string, any>) => 
   return url;
 };
 
-export const getBeURL = (path: keyof typeof API_KEY, paramUrl?: Record<string, any>) => {
+export const getBeURL = <Key extends ApiKey>(path: Key, params?: Params<Key>) => {
   const basePath = process.env.NEXT_PUBLIC_API_URL + API_KEY[path];
-  return paramUrl ? formatUrl(basePath, paramUrl) : basePath;
+  return params ? formatUrl(basePath, params) : basePath;
 };
 
 export const getPaginationFromSearchParams = (query: ReadonlyURLSearchParams) => {
