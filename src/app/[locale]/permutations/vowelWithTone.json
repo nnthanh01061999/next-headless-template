@@ -1,0 +1,690 @@
+{
+  "a": {
+    "ngang": ["a"],
+    "sac": ["á"],
+    "huyen": ["à"],
+    "hoi": ["ả"],
+    "nga": ["ã"],
+    "nang": ["ạ"]
+  },
+  "ă": {
+    "ngang": ["ă"],
+    "sac": ["ắ"],
+    "huyen": ["ằ"],
+    "hoi": ["ẳ"],
+    "nga": ["ẵ"],
+    "nang": ["ặ"]
+  },
+  "â": {
+    "ngang": ["â"],
+    "sac": ["ấ"],
+    "huyen": ["ầ"],
+    "hoi": ["ẩ"],
+    "nga": ["ẫ"],
+    "nang": ["ậ"]
+  },
+  "e": {
+    "ngang": ["e"],
+    "sac": ["é"],
+    "huyen": ["è"],
+    "hoi": ["ẻ"],
+    "nga": ["ẽ"],
+    "nang": ["ẹ"]
+  },
+  "ê": {
+    "ngang": ["ê"],
+    "sac": ["ế"],
+    "huyen": ["ề"],
+    "hoi": ["ể"],
+    "nga": ["ễ"],
+    "nang": ["ệ"]
+  },
+  "i": {
+    "ngang": ["i"],
+    "sac": ["í"],
+    "huyen": ["ì"],
+    "hoi": ["ỉ"],
+    "nga": ["ĩ"],
+    "nang": ["ị"]
+  },
+  "o": {
+    "ngang": ["o"],
+    "sac": ["ó"],
+    "huyen": ["ò"],
+    "hoi": ["ỏ"],
+    "nga": ["õ"],
+    "nang": ["ọ"]
+  },
+  "ô": {
+    "ngang": ["ô"],
+    "sac": ["ố"],
+    "huyen": ["ồ"],
+    "hoi": ["ổ"],
+    "nga": ["ỗ"],
+    "nang": ["ộ"]
+  },
+  "ơ": {
+    "ngang": ["ơ"],
+    "sac": ["ớ"],
+    "huyen": ["ờ"],
+    "hoi": ["ở"],
+    "nga": ["ỡ"],
+    "nang": ["ợ"]
+  },
+  "u": {
+    "ngang": ["u"],
+    "sac": ["ú"],
+    "huyen": ["ù"],
+    "hoi": ["ủ"],
+    "nga": ["ũ"],
+    "nang": ["ụ"]
+  },
+  "ư": {
+    "ngang": ["ư"],
+    "sac": ["ứ"],
+    "huyen": ["ừ"],
+    "hoi": ["ử"],
+    "nga": ["ữ"],
+    "nang": ["ự"]
+  },
+  "y": {
+    "ngang": ["y"],
+    "sac": ["ý"],
+    "huyen": ["ỳ"],
+    "hoi": ["ỷ"],
+    "nga": ["ỹ"],
+    "nang": ["ỵ"]
+  },
+  "ai": {
+    "ngang": ["ai"],
+    "sac": ["ái"],
+    "huyen": ["ài"],
+    "hoi": ["ải"],
+    "nga": ["ãi"],
+    "nang": ["ại"]
+  },
+  "ao": {
+    "ngang": ["ao"],
+    "sac": ["áo"],
+    "huyen": ["ào"],
+    "hoi": ["ảo"],
+    "nga": ["ão"],
+    "nang": ["ạo"]
+  },
+  "au": {
+    "ngang": ["au"],
+    "sac": ["áu"],
+    "huyen": ["àu"],
+    "hoi": ["ảu"],
+    "nga": ["ãu"],
+    "nang": ["ạu"]
+  },
+  "ay": {
+    "ngang": ["ay"],
+    "sac": ["áy"],
+    "huyen": ["ày"],
+    "hoi": ["ảy"],
+    "nga": ["ãy"],
+    "nang": ["ạy"]
+  },
+  "âu": {
+    "ngang": ["âu"],
+    "sac": ["ấu"],
+    "huyen": ["ầu"],
+    "hoi": ["ẩu"],
+    "nga": ["ẫu"],
+    "nang": ["ậu"]
+  },
+  "ây": {
+    "ngang": ["ây"],
+    "sac": ["ấy"],
+    "huyen": ["ầy"],
+    "hoi": ["ẩy"],
+    "nga": ["ẫy"],
+    "nang": ["ậy"]
+  },
+  "eo": {
+    "ngang": ["eo"],
+    "sac": ["éo"],
+    "huyen": ["èo"],
+    "hoi": ["ẻo"],
+    "nga": ["ẽo"],
+    "nang": ["ẹo"]
+  },
+  "êu": {
+    "ngang": ["êu"],
+    "sac": ["ếu"],
+    "huyen": ["ều"],
+    "hoi": ["ểu"],
+    "nga": ["ễu"],
+    "nang": ["ệu"]
+  },
+  "ia": {
+    "ngang": ["ia", "ia"],
+    "sac": ["ía", "iá"],
+    "huyen": ["ìa", "ià"],
+    "hoi": ["ỉa", "iả"],
+    "nga": ["ĩa", "iã"],
+    "nang": ["ịa", "iạ"]
+  },
+  "iâ": {
+    "ngang": ["iâ", "iâ"],
+    "sac": ["iấ", "iấ"],
+    "huyen": ["iầ", "iầ"],
+    "hoi": ["iẩ", "iẩ"],
+    "nga": ["iẫ", "iẫ"],
+    "nang": ["iậ", "iậ"]
+  },
+  "iă": {
+    "ngang": ["iă", "iă"],
+    "sac": ["iắ", "iắ"],
+    "huyen": ["iằ", "iằ"],
+    "hoi": ["iẳ", "iẳ"],
+    "nga": ["iẵ", "iẵ"],
+    "nang": ["iặ", "iặ"]
+  },
+  "ie": {
+    "ngang": ["ie", "ie"],
+    "sac": ["ié", "ié"],
+    "huyen": ["iè", "iè"],
+    "hoi": ["iẻ", "iẻ"],
+    "nga": ["iẽ", "iẽ"],
+    "nang": ["iẹ", "iẹ"]
+  },
+  "iê": {
+    "ngang": ["iê", "iê"],
+    "sac": ["iế", "iế"],
+    "huyen": ["iề", "iề"],
+    "hoi": ["iể", "iể"],
+    "nga": ["iễ", "iễ"],
+    "nang": ["iệ", "iệ"]
+  },
+  "iu": {
+    "ngang": ["iu", "iu"],
+    "sac": ["íu", "iú"],
+    "huyen": ["ìu", "iù"],
+    "hoi": ["ỉu", "iủ"],
+    "nga": ["ĩu", "iũ"],
+    "nang": ["ịu", "iụ"]
+  },
+  "iư": {
+    "ngang": ["iư", "iư"],
+    "sac": ["iứ", "iứ"],
+    "huyen": ["iừ", "iừ"],
+    "hoi": ["iử", "iử"],
+    "nga": ["iữ", "iữ"],
+    "nang": ["iự", "iự"]
+  },
+  "io": {
+    "ngang": ["io", "io"],
+    "sac": ["ió", "ió"],
+    "huyen": ["iò", "iò"],
+    "hoi": ["iỏ", "iỏ"],
+    "nga": ["iõ", "iõ"],
+    "nang": ["iọ", "iọ"]
+  },
+  "iô": {
+    "ngang": ["iô", "iô"],
+    "sac": ["iố", "iố"],
+    "huyen": ["iồ", "iồ"],
+    "hoi": ["iổ", "iổ"],
+    "nga": ["iỗ", "iỗ"],
+    "nang": ["iộ", "iộ"]
+  },
+  "iơ": {
+    "ngang": ["iơ", "iơ"],
+    "sac": ["ió", "ió"],
+    "huyen": ["iờ", "iờ"],
+    "hoi": ["iở", "iở"],
+    "nga": ["iỡ", "iỡ"],
+    "nang": ["iợ", "iợ "]
+  },
+  "oa": {
+    "ngang": ["oa", "oa"],
+    "sac": ["oá", "oá"],
+    "huyen": ["oà", "oà"],
+    "hoi": ["oả", "oả"],
+    "nga": ["oã", "oã"],
+    "nang": ["oạ", "oạ"]
+  },
+  "oă": {
+    "ngang": ["oă", "oă"],
+    "sac": ["oắ", "oắ"],
+    "huyen": ["oằ", "oằ"],
+    "hoi": ["oẳ", "oẳ"],
+    "nga": ["oẵ", "oẵ"],
+    "nang": ["oặ", "oặ"]
+  },
+  "oi": {
+    "ngang": ["oi"],
+    "sac": ["ói"],
+    "huyen": ["òi"],
+    "hoi": ["ỏi"],
+    "nga": ["õi"],
+    "nang": ["ọi"]
+  },
+  "oo": {
+    "ngang": ["oo", "oo"],
+    "sac": ["oó", "oó"],
+    "huyen": ["oò", "oò"],
+    "hoi": ["oỏ", "oỏ"],
+    "nga": ["oõ", "oõ"],
+    "nang": ["oọ", "oọ"]
+  },
+  "oe": {
+    "ngang": ["oe", "oe"],
+    "sac": ["oé", "oé"],
+    "huyen": ["oè", "oè"],
+    "hoi": ["oẻ", "oẻ"],
+    "nga": ["oẽ", "oẽ"],
+    "nang": ["oẹ", "oẹ"]
+  },
+  "ơi": {
+    "ngang": ["ơi"],
+    "sac": ["ới"],
+    "huyen": ["ời"],
+    "hoi": ["ởi"],
+    "nga": ["ỡi"],
+    "nang": ["ợi"]
+  },
+  "ôi": {
+    "ngang": ["ôi"],
+    "sac": ["ối"],
+    "huyen": ["ồi"],
+    "hoi": ["ổi"],
+    "nga": ["ỗi"],
+    "nang": ["ội"]
+  },
+  "ua": {
+    "ngang": ["ua", "ua"],
+    "sac": ["úa", "uá"],
+    "huyen": ["ùa", "uà"],
+    "hoi": ["ủa", "uả"],
+    "nga": ["ũa", "uã"],
+    "nang": ["ụa", "uạ"]
+  },
+  "uă": {
+    "ngang": ["uă", "uă"],
+    "sac": ["uắ", "uắ"],
+    "huyen": ["uằ", "uằ"],
+    "hoi": ["uẳ", "uẳ"],
+    "nga": ["uẵ", "uẵ"],
+    "nang": ["uặ", "uặ"]
+  },
+  "uâ": {
+    "ngang": ["uâ", "uâ"],
+    "sac": ["uấ", "uấ"],
+    "huyen": ["uầ", "uầ"],
+    "hoi": ["uẩ", "uẩ"],
+    "nga": ["uẫ", "uẫ"],
+    "nang": ["uậ", "uậ"]
+  },
+  "uy": {
+    "ngang": ["uy", "uy"],
+    "sac": ["uý", "uý"],
+    "huyen": ["uỳ", "uỳ"],
+    "hoi": ["uỷ", "uỷ"],
+    "nga": ["uỹ", "uỹ"],
+    "nang": ["uỵ", "uỵ"]
+  },
+  "uô": {
+    "ngang": ["uô", "uô"],
+    "sac": ["uố", "uố"],
+    "huyen": ["uồ", "uồ"],
+    "hoi": ["uổ", "uổ"],
+    "nga": ["uỗ", "uỗ"],
+    "nang": ["uộ", "uộ"]
+  },
+  "ue": {
+    "ngang": ["ue", "ue"],
+    "sac": ["ué", "ué"],
+    "huyen": ["uè", "uè"],
+    "hoi": ["uẻ", "uẻ"],
+    "nga": ["uẽ", "uẽ"],
+    "nang": ["uẹ", "uẹ"]
+  },
+  "uê": {
+    "ngang": ["uê", "uê"],
+    "sac": ["uế", "uế"],
+    "huyen": ["uề", "uề"],
+    "hoi": ["uể", "uể"],
+    "nga": ["uễ", "uễ"],
+    "nang": ["uệ", "uệ"]
+  },
+  "ui": {
+    "ngang": ["ui", "ui"],
+    "sac": ["úi", "uí"],
+    "huyen": ["ùi", "uì"],
+    "hoi": ["ủi", "uỉ"],
+    "nga": ["ũi", "uĩ"],
+    "nang": ["ụi", "uị"]
+  },
+  "uơ": {
+    "ngang": ["uơ", "uơ"],
+    "sac": ["uớ", "uớ"],
+    "huyen": ["uờ", "uờ"],
+    "hoi": ["uở", "uở"],
+    "nga": ["uỡ", "uỡ"],
+    "nang": ["uợ", "uợ"]
+  },
+  "ưa": {
+    "ngang": ["ưa"],
+    "sac": ["ứa"],
+    "huyen": ["ừa"],
+    "hoi": ["ửa"],
+    "nga": ["ữa"],
+    "nang": ["ựa"]
+  },
+  "ưu": {
+    "ngang": ["ưu"],
+    "sac": ["ứu"],
+    "huyen": ["ừu"],
+    "hoi": ["ửu"],
+    "nga": ["ữu"],
+    "nang": ["ựu"]
+  },
+  "ưi": {
+    "ngang": ["ưi"],
+    "sac": ["ứi"],
+    "huyen": ["ừi"],
+    "hoi": ["ửi"],
+    "nga": ["ữi"],
+    "nang": ["ựi"]
+  },
+  "oeo": {
+    "ngang": ["oeo", "oeo"],
+    "sac": ["oéo", "oéo"],
+    "huyen": ["oèo", "oèo"],
+    "hoi": ["oẻo", "oẻo"],
+    "nga": ["oẽo", "oẽo"],
+    "nang": ["oẹo", "oẹo"]
+  },
+  "ươ": {
+    "ngang": ["ươ", "ươ"],
+    "sac": ["ướ", "ướ"],
+    "huyen": ["ườ", "ườ"],
+    "hoi": ["ưở", "ưở"],
+    "nga": ["ưỡ", "ưỡ"],
+    "nang": ["ượ", "ượ"]
+  },
+  "uai": {
+    "ngang": ["uai"],
+    "sac": ["uái"],
+    "huyen": ["uài"],
+    "hoi": ["uải"],
+    "nga": ["uãi"],
+    "nang": ["uại"]
+  },
+  "uao": {
+    "ngang": ["uao"],
+    "sac": ["uáo"],
+    "huyen": ["uào"],
+    "hoi": ["uảo"],
+    "nga": ["uão"],
+    "nang": ["uạo"]
+  },
+  "uau": {
+    "ngang": ["uau"],
+    "sac": ["uáu"],
+    "huyen": ["uàu"],
+    "hoi": ["uảu"],
+    "nga": ["uãu"],
+    "nang": ["uạu"]
+  },
+  "uay": {
+    "ngang": ["uay"],
+    "sac": ["uáy"],
+    "huyen": ["uày"],
+    "hoi": ["uảy"],
+    "nga": ["uãy"],
+    "nang": ["uạy"]
+  },
+  "ueo": {
+    "ngang": ["ueo"],
+    "sac": ["uéo"],
+    "huyen": ["uèo"],
+    "hoi": ["uẻo"],
+    "nga": ["uẽo"],
+    "nang": ["uẹo"]
+  },
+  "uôi": {
+    "ngang": ["uôi"],
+    "sac": ["uối"],
+    "huyen": ["uồi"],
+    "hoi": ["uổi"],
+    "nga": ["uỗi"],
+    "nang": ["uội"]
+  },
+  "ươi": {
+    "ngang": ["ươi"],
+    "sac": ["ưới"],
+    "huyen": ["ười"],
+    "hoi": ["ưởi"],
+    "nga": ["ưỡi"],
+    "nang": ["ượi"]
+  },
+  "uêu": {
+    "ngang": ["uêu"],
+    "sac": ["uếu"],
+    "huyen": ["uều"],
+    "hoi": ["uểu"],
+    "nga": ["uễu"],
+    "nang": ["uệu"]
+  },
+  "yê": {
+    "ngang": ["yê", "yê"],
+    "sac": ["yế", "yế"],
+    "huyen": ["yề", "yề"],
+    "hoi": ["yể", "yể"],
+    "nga": ["yễ", "yễ"],
+    "nang": ["yệ", "yệ"]
+  },
+  "yêu": {
+    "ngang": ["yêu"],
+    "sac": ["yếu"],
+    "huyen": ["yều"],
+    "hoi": ["yểu"],
+    "nga": ["yễu"],
+    "nang": ["yệu"]
+  },
+  "oai": {
+    "ngang": ["oai"],
+    "sac": ["oái"],
+    "huyen": ["oài"],
+    "hoi": ["oải"],
+    "nga": ["oãi"],
+    "nang": ["oại"]
+  },
+  "oay": {
+    "ngang": ["oay"],
+    "sac": ["oáy"],
+    "huyen": ["oày"],
+    "hoi": ["oảy"],
+    "nga": ["oãy"],
+    "nang": ["oạy"]
+  },
+  "oao": {
+    "ngang": ["oao"],
+    "sac": ["oáo"],
+    "huyen": ["oào"],
+    "hoi": ["oảo"],
+    "nga": ["oão"],
+    "nang": ["oạo"]
+  },
+  "ươu": {
+    "ngang": ["ươu"],
+    "sac": ["ướu"],
+    "huyen": ["ườu"],
+    "hoi": ["ưởu"],
+    "nga": ["ưỡu"],
+    "nang": ["ượu"]
+  },
+  "uyê": {
+    "ngang": ["uyê"],
+    "sac": ["uyế"],
+    "huyen": ["uyề"],
+    "hoi": ["uyể"],
+    "nga": ["uyễ"],
+    "nang": ["uyệ"]
+  },
+  "uây": {
+    "ngang": ["uây"],
+    "sac": ["uấy"],
+    "huyen": ["uầy"],
+    "hoi": ["uẩy"],
+    "nga": ["uẫy"],
+    "nang": ["uậy"]
+  },
+  "uyu": {
+    "ngang": ["uyu"],
+    "sac": ["uýu"],
+    "huyen": ["uỳu"],
+    "hoi": ["uỷu"],
+    "nga": ["uỹu"],
+    "nang": ["uỵu"]
+  },
+  "uoa": {
+    "ngang": ["uoa"],
+    "sac": ["uoá"],
+    "huyen": ["uoà"],
+    "hoi": ["uoả"],
+    "nga": ["uoã"],
+    "nang": ["uoạ"]
+  },
+  "uoă": {
+    "ngang": ["uoă"],
+    "sac": ["uoắ"],
+    "huyen": ["uoằ"],
+    "hoi": ["uoẳ"],
+    "nga": ["uoẵ"],
+    "nang": ["uoặ"]
+  },
+  "iêu": {
+    "ngang": ["iêu"],
+    "sac": ["iếu"],
+    "huyen": ["iều"],
+    "hoi": ["iểu"],
+    "nga": ["iễu"],
+    "nang": ["iệu"]
+  },
+  "iuô": {
+    "ngang": ["iuô"],
+    "sac": ["iuố"],
+    "huyen": ["iuồ "],
+    "hoi": ["iuổ"],
+    "nga": ["iuỗ"],
+    "nang": ["iuộ"]
+  },
+  "iao": {
+    "ngang": ["iao"],
+    "sac": ["iáo"],
+    "huyen": ["iào"],
+    "hoi": ["iảo"],
+    "nga": ["ião"],
+    "nang": ["iạo"]
+  },
+  "iau": {
+    "ngang": ["iau"],
+    "sac": ["iáu"],
+    "huyen": ["iàu"],
+    "hoi": ["iảu"],
+    "nga": ["iãu"],
+    "nang": ["iạu"]
+  },
+  "iay": {
+    "ngang": ["iay"],
+    "sac": ["iáy"],
+    "huyen": ["iày"],
+    "hoi": ["iảy"],
+    "nga": ["iãy"],
+    "nang": ["iạy"]
+  },
+  "iai": {
+    "ngang": ["iai"],
+    "sac": ["iái"],
+    "huyen": ["iài"],
+    "hoi": ["iải"],
+    "nga": ["iãi"],
+    "nang": ["iại"]
+  },
+  "ieo": {
+    "ngang": ["ieo"],
+    "sac": ["iéo"],
+    "huyen": ["ièo"],
+    "hoi": ["iẻo"],
+    "nga": ["iẽo"],
+    "nang": ["iẹo"]
+  },
+  "ioi": {
+    "ngang": ["ioi"],
+    "sac": ["iói"],
+    "huyen": ["iòi"],
+    "hoi": ["iỏi"],
+    "nga": ["iõi"],
+    "nang": ["iọi"]
+  },
+  "iôi": {
+    "ngang": ["iôi"],
+    "sac": ["iối"],
+    "huyen": ["iồi"],
+    "hoi": ["iổi"],
+    "nga": ["iỗi"],
+    "nang": ["iội"]
+  },
+  "iơi": {
+    "ngang": ["iơi"],
+    "sac": ["iới"],
+    "huyen": ["iời"],
+    "hoi": ["iởi"],
+    "nga": ["iỡi"],
+    "nang": ["iợi"]
+  },
+  "iui": {
+    "ngang": ["iui"],
+    "sac": ["iúi"],
+    "huyen": ["iùi"],
+    "hoi": ["iủi"],
+    "nga": ["iũi"],
+    "nang": ["iụi"]
+  },
+  "iua": {
+    "ngang": ["iua"],
+    "sac": ["iúa"],
+    "huyen": ["iùa"],
+    "hoi": ["iủa"],
+    "nga": ["iũa"],
+    "nang": ["iụa"]
+  },
+  "iươ": {
+    "ngang": ["iươ"],
+    "sac": ["iướ"],
+    "huyen": ["iườ"],
+    "hoi": ["iưở"],
+    "nga": ["iưỡ"],
+    "nang": ["iượ"]
+  },
+  "iưa": {
+    "ngang": ["iưa"],
+    "sac": ["iứa"],
+    "huyen": ["iừa"],
+    "hoi": ["iửa"],
+    "nga": ["iữa"],
+    "nang": ["iựa"]
+  },
+  "iây": {
+    "ngang": ["iây", "iây"],
+    "sac": ["iấy", "iấy"],
+    "huyen": ["iầy", "iầy"],
+    "hoi": ["iẩy", "iẩy"],
+    "nga": ["iẫy", "iẫy"],
+    "nang": ["iậy", "iậy"]
+  },
+  "iâu": {
+    "ngang": ["iâu", "iâu"],
+    "sac": ["iấu", "iấu"],
+    "huyen": ["iầu", "iầu"],
+    "hoi": ["iẩu", "iẩu"],
+    "nga": ["iẫu", "iẫu"],
+    "nang": ["iậu", "iậu"]
+  }
+}
